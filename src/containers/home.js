@@ -1,16 +1,19 @@
 import React from "react";
-import { Row, Center } from "react-bootstrap";
-import MainNavigation from "../components/navigation";
+import { Row } from "react-bootstrap";
+import MainNavigation from "../common/navigation";
 import Search from "../components/search";
-import UserDetails from "../components/profile/userDetails";
+import Welcome from "../components/welcome";
 class Home extends React.Component {
   render() {
     return (
       <React.Fragment>
-        {/* <MainNavigation /> */}
-        {/* <Row className="d-flex justify-content-center">
+        <MainNavigation />
+        <Row>
+          <Welcome />
+        </Row>
+        <Row className="d-flex justify-content-center">
           <Search />
-        </Row> */}
+        </Row>
       </React.Fragment>
     );
   }

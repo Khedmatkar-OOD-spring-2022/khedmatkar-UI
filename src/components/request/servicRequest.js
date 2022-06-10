@@ -1,8 +1,8 @@
 import React from "react";
-import { Form, Button, Row, Col, FormControl } from "react-bootstrap";
+import { Form, Button, Row, Col, FormControl, Container } from "react-bootstrap";
 const ServiceRequest = ({}) => {
   return (
-    <>
+    <Container>
       <Form dir="rtl">
         <Form.Group className="mb-3" controlId="description">
           <Form.Label>توضیحات</Form.Label>
@@ -38,7 +38,7 @@ const ServiceRequest = ({}) => {
           ثبت درخواست
         </Button>
       </Form>
-    </>
+    </Container>
   );
 };
 

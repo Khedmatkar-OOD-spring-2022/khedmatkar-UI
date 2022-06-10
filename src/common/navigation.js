@@ -41,7 +41,7 @@ const MainNavigation = ({ activePane }) => {
               <Nav className="justify-content-start flex-grow-1 pe-3">
                 <Nav.Link href="/">خانه</Nav.Link>
                 <Nav.Link href="/aboutus">درباره ما</Nav.Link>
-                <Nav.Link href="/login">ورود</Nav.Link>
+                <Nav.Link href="/register">ساخت حساب  </Nav.Link>
                 <Nav.Item>
                   <Form className="d-flex">
                     <FormControl

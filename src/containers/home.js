@@ -13,6 +13,7 @@ class Home extends React.Component {
         </Row>
         <Row className="d-flex justify-content-center">
           <Search />
+          
         </Row>
       </React.Fragment>
     );

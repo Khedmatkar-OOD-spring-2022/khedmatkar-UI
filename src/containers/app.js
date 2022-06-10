@@ -4,7 +4,9 @@ import { IconContext } from "react-icons";
 
 import Home from "./home.js";
 import AboutUs from "./about";
-import Login from "./login";
+import SignUp from "./signup";
+import Service from "./service.js";
+import Dashboard from "./dashboard.js";
 
 class App extends React.Component {
   render() {
@@ -16,7 +18,9 @@ class App extends React.Component {
           <Routes>
             <Route exact path="/" element={<Home />} />
             <Route exact path="/aboutus" element={<AboutUs />} />
-            <Route path="login" element={<Login />} />
+            <Route path="/register" element={<SignUp />} />
+            <Route path="/service/make" element={<Service />} />
+            <Route path="/dashboard" element={<Dashboard />} />
           </Routes>
         </IconContext.Provider>
       </main>

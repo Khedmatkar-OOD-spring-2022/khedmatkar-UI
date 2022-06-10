@@ -7,37 +7,29 @@ import AboutUs from "./about";
 import SignUp from "./signup";
 import Service from "./service.js";
 import Dashboard from "./dashboard.js";
+import { React_Base_URL } from "../common/urls.js";
 
 class App extends React.Component {
-  
   render() {
-    const apiUrl = process.env.NODE_ENV === 'production' ? 'khedmatkar' : "";
     return (
       <main>
         <IconContext.Provider
           value={{ style: { verticalAlign: "middle", fill: "none" } }}
         >
           <Routes>
+            <Route exact path={`${React_Base_URL}/`} element={<Home />} />
             <Route
               exact
-              path={`${apiUrl}/`}
-              element={<Home />}
-            />
-            <Route
-              exact
-              path={`${apiUrl}/aboutus`}
+              path={`${React_Base_URL}/aboutus`}
               element={<AboutUs />}
             />
+            <Route path={`${React_Base_URL}/register`} element={<SignUp />} />
             <Route
-              path={`${apiUrl}/register`}
-              element={<SignUp />}
-            />
-            <Route
-              path={`${apiUrl}/service/make`}
+              path={`${React_Base_URL}/service/make`}
               element={<Service />}
             />
             <Route
-              path={`${apiUrl}/dashboard`}
+              path={`${React_Base_URL}/dashboard`}
               element={<Dashboard />}
             />
           </Routes>

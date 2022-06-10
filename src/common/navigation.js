@@ -14,7 +14,7 @@ import {
   FormControl,
   Button,
 } from "react-bootstrap";
-
+import { React_Base_URL } from "./urls";
 const MainNavigation = ({ activePane }) => {
   const expand = "md";
   return (
@@ -39,9 +39,13 @@ const MainNavigation = ({ activePane }) => {
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav className="justify-content-start flex-grow-1 pe-3">
-                <Nav.Link href="/">خانه</Nav.Link>
-                <Nav.Link href="/aboutus">درباره ما</Nav.Link>
-                <Nav.Link href="/register">ساخت حساب  </Nav.Link>
+                <Nav.Link href={`${React_Base_URL}/`}>خانه</Nav.Link>
+                <Nav.Link href={`${React_Base_URL}/aboutus`}>
+                  درباره ما
+                </Nav.Link>
+                <Nav.Link href={`${React_Base_URL}/register`}>
+                  ساخت حساب
+                </Nav.Link>
                 <Nav.Item>
                   <Form className="d-flex">
                     <FormControl

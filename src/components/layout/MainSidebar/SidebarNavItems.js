@@ -10,6 +10,7 @@ const SidebarNavItems = ({ items }) => {
     <div className="nav-wrapper">
       <CommentModal show={showCommentModal} setShow={setShowCommentModal} />
       <Nav className="col-md-2 d-none d-md-block bg-light sidebar">
+        <br></br>
         <div className="sidebar-sticky flex-column">
           {items.map((item, idx) => (
             <SidebarNavItem key={idx} item={item} />

@@ -1,38 +1,30 @@
 import React from "react";
 import {
-    FiEdit,
-    FiTablet,
-    FiAlertCircle,
-    FiPenTool,
-    FiUser,
-    FiArchive,
-  } from "react-icons/fi";
+  FiEdit,
+  FiTablet,
+  FiAlertCircle,
+  FiPenTool,
+  FiUser,
+  FiArchive,
+  FiMessageCircle,
+} from "react-icons/fi";
 
 export const CustomerSidebar = [
   {
-    title: "Dashboard",
-    to: "/blog-overview",
+    title: "ثبت درخواست خدمت",
+    to: "/service/request",
     htmlBefore: <FiEdit />,
   },
   {
-    title: "Add New Post",
-    htmlBefore: <FiArchive />,
-    to: "/add-new-post",
-  },
-  {
-    title: "Forms & Components",
-    htmlBefore: <FiPenTool />,
-    to: "/components-overview",
-  },
-  {
-    title: "Tables",
+    title: "فهرست درخواست خدمت ها",
     htmlBefore: <FiTablet />,
     to: "/tables",
   },
+
   {
-    title: "User Profile",
-    htmlBefore: <FiUser />,
-    to: "/user-profile-lite",
+    title: "پیام ها",
+    htmlBefore: <FiMessageCircle />,
+    to: "/chat",
   },
   {
     title: "اعلانات",
@@ -74,29 +66,24 @@ export const AdminSidebar = [
 ];
 export const SuperAdminSidebar = [
   {
-    title: "Dashboard",
-    to: "/blog-overview",
-    htmlBefore: <FiEdit />,
-  },
-  {
-    title: "Add New Post",
-    htmlBefore: <FiArchive />,
-    to: "/add-new-post",
-  },
-  {
-    title: "Forms & Components",
+    title: "فهرست مدیران سامانه",
     htmlBefore: <FiPenTool />,
     to: "/components-overview",
   },
   {
-    title: "Tables",
+    title: "فهرست درخواست خدمت ها",
     htmlBefore: <FiTablet />,
     to: "/tables",
   },
   {
-    title: "User Profile",
-    htmlBefore: <FiUser />,
-    to: "/user-profile-lite",
+    title: "بررسی مدارک",
+    htmlBefore: <FiArchive />,
+    to: "/add-new-post",
+  },
+  {
+    title: "پیام ها",
+    htmlBefore: <FiMessageCircle />,
+    to: "/chat",
   },
   {
     title: "اعلانات",
@@ -106,29 +93,24 @@ export const SuperAdminSidebar = [
 ];
 export const SpecialistSidebar = [
   {
-    title: "Dashboard",
-    to: "/blog-overview",
-    htmlBefore: <FiEdit />,
-  },
-  {
-    title: "Add New Post",
-    htmlBefore: <FiArchive />,
-    to: "/add-new-post",
-  },
-  {
-    title: "Forms & Components",
+    title: "فهرست خدمت های قبول شده",
     htmlBefore: <FiPenTool />,
     to: "/components-overview",
   },
   {
-    title: "Tables",
+    title: "فهرست درخواست خدمت ها",
     htmlBefore: <FiTablet />,
     to: "/tables",
   },
   {
-    title: "User Profile",
-    htmlBefore: <FiUser />,
-    to: "/user-profile-lite",
+    title: "بارگذاری مدارک",
+    htmlBefore: <FiArchive />,
+    to: "/add-new-post",
+  },
+  {
+    title: "پیام ها",
+    htmlBefore: <FiMessageCircle />,
+    to: "/chat",
   },
   {
     title: "اعلانات",

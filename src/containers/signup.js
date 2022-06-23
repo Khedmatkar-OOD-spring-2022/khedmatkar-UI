@@ -27,7 +27,13 @@ class SignUp extends React.Component {
               <Form.Control type="email" placeholder="ایمیل خود را وارد کنید" />
               <Form.Text className="text-muted"></Form.Text>
             </Form.Group>
-
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>نوع همکاری: </Form.Label>
+              <Form.Select>
+                <option>متخصص</option>
+                <option>مشتری</option>
+              </Form.Select>
+            </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>رمز عبور</Form.Label>
               <Form.Control

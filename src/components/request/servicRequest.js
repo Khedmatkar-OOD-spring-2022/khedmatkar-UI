@@ -1,5 +1,13 @@
 import React from "react";
-import { Form, Button, Row, Col, FormControl, Container } from "react-bootstrap";
+import {
+  Form,
+  Button,
+  Row,
+  Col,
+  FormControl,
+  Container,
+} from "react-bootstrap";
+import Transportation from "./serviceTypes/Transportation";
 const ServiceRequest = ({}) => {
   return (
     <Container>
@@ -24,7 +32,6 @@ const ServiceRequest = ({}) => {
             <Form.Label>استان</Form.Label>
             <Form.Select defaultValue="انتخاب کنید...">
               <option>تهران</option>
-              <option>مشهد</option>
             </Form.Select>
           </Form.Group>
 
@@ -33,8 +40,16 @@ const ServiceRequest = ({}) => {
             <Form.Control />
           </Form.Group>
         </Row>
-
-        <Button variant="primary" type="submit">
+        <Form.Group className="mb-3" controlId="serviceType">
+          <Form.Select>
+            <option value="1">باربری</option>
+            <option value="2">نظافت</option>
+            <option value="3">فنی</option>
+          </Form.Select>
+        </Form.Group>
+        
+        <Transportation />
+        <Button variant="success" type="submit">
           ثبت درخواست
         </Button>
       </Form>

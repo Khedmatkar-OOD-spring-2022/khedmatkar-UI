@@ -1,0 +1,14 @@
+.all-chats {
+    background-color: #c7c5cc;
+    border-radius: 2rem;
+    width: 90%;
+    margin: 0 auto;
+    padding: 15px;
+    padding-bottom: 60px;
+    height: 100vh;
+    overflow-y: scroll;
+}
+
+.all-chats::-webkit-scrollbar {
+    display: none;
+}

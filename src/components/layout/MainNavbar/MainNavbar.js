@@ -16,11 +16,10 @@ import {
   FiPackage,
 } from "react-icons/fi";
 import { React_Base_URL } from "../../../common/urls"
-import NavbarSearch from "./NavbarSearch";
-import NavbarNav from "./NavbarNav/NavbarNav";
-import NavbarToggle from "./NavbarToggle";
+import UserActions from "./NavbarNav/UserActions";
 
-const MainNavbar = ({ layout, stickyTop }) => {
+
+const MainNavbar = ({ }) => {
   const expand = "md";
 
   return (
@@ -35,7 +34,7 @@ const MainNavbar = ({ layout, stickyTop }) => {
           <Navbar.Offcanvas
             id={`offcanvasNavbar-expand-${expand}`}
             aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
-            placement="end"
+            placement="start"
             dir={"rtl"}
           >
             <Offcanvas.Header closeButton>
@@ -44,9 +43,9 @@ const MainNavbar = ({ layout, stickyTop }) => {
               </Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
-              <Nav className="justify-content-end flex-grow-1 pe-3">
+              <Nav className="justify-content-between flex-grow-1 pe-3">
               <Nav.Item>
-                  <Form className="d-flex">
+                  <Form className="d-flex pe-5">
                     <FormControl
                       type="search"
                       placeholder="به چه خدمتی نیاز دارید؟"
@@ -56,14 +55,7 @@ const MainNavbar = ({ layout, stickyTop }) => {
                     <Button variant="outline-success">جست‌وجو</Button>
                   </Form>
                 </Nav.Item>
-                <Nav.Link href={`${React_Base_URL}/`}>خانه</Nav.Link>
-                <Nav.Link href={`${React_Base_URL}/aboutus`}>
-                  درباره ما
-                </Nav.Link>
-                <Nav.Link href={`${React_Base_URL}/register`}>
-                  ساخت حساب
-                </Nav.Link>
-
+              <UserActions />
               </Nav>
             </Offcanvas.Body>
           </Navbar.Offcanvas>

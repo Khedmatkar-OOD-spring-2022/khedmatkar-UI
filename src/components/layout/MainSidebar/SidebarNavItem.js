@@ -5,11 +5,13 @@ import { Button, Nav } from "react-bootstrap";
 const SidebarNavItem = ({ item }) => (
   <Nav.Item>
     <Nav.Link tag={Navigate} to={item.to}>
+      <h6>
         <div className="d-inline-block item-icon-wrapper">
           {item.htmlBefore}
+          {"  "}
+          {item.title}
         </div>
-
-        {item.title && <span>{"  " + item.title}</span>}
+      </h6>
     </Nav.Link>
   </Nav.Item>
 );

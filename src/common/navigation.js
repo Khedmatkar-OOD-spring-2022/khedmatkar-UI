@@ -1,8 +1,5 @@
 import React from "react";
 import {
-  FiShoppingCart,
-  FiMessageSquare,
-  FiUser,
   FiPackage,
 } from "react-icons/fi";
 import {

@@ -26,7 +26,7 @@ const Dashboard = ({}) => {
       <Container fluid>
         <MainNavbar />
         <Row>
-          <MainSidebar sidebarItems={SuperAdminSidebar} />
+          <MainSidebar sidebarItems={CustomerSidebar} />
           <div className="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
             {/* <NotificationPanel /> */}
             {/* <Service /> */}

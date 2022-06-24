@@ -7,8 +7,8 @@ class Service extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <ServiceRequest />
-        {/* <ServicePanel /> */}
+        {/* <ServiceRequest /> */}
+        <ServicePanel />
       </React.Fragment>
     );
   }

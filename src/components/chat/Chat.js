@@ -30,7 +30,7 @@ export default function Chat({ data, user, loggedIn }) {
             <div className='msg-block'>
                 <div className='chat-flex'>
                     <div className='dp-container'>
-                        <img className='dp' src={data.dp} />
+                        <img className='dp' src={data.dp} alt="" />
                     </div>
                     <div className='msg-container'>
                         <p className='message'>

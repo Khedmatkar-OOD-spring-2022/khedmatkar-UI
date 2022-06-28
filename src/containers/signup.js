@@ -1,11 +1,13 @@
 import React from "react";
 import { Form, Button, Container } from "react-bootstrap";
+import RegisterForm from "../components/profile/Forms/RegisterForm/RegisterForm";
 
 class SignUp extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <Container>
+        <RegisterForm />
+        {/* <Container>
           <Form dir="rtl">
             <Form.Group className="mb-3" controlId="formBasicName">
               <Form.Label>نام</Form.Label>
@@ -45,7 +47,7 @@ class SignUp extends React.Component {
               ثبت نام
             </Button>
           </Form>
-        </Container>
+        </Container> */}
       </React.Fragment>
     );
   }

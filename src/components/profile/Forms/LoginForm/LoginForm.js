@@ -32,22 +32,42 @@ const LoginForm = ({ onRegister, onLogin }) => {
           "invalid password"
         ),
     }),
-    onSubmit: (values, { setFieldError }) => {
+    onSubmit: ({ email, password }, { setFieldError }) => {
+      const details = {
+        email: email,
+        password: password,
+      };
+      var formBody = [];
+      for (var property in details) {
+        var encodedKey = encodeURIComponent(property);
+        var encodedValue = encodeURIComponent(details[property]);
+        formBody.push(encodedKey + "=" + encodedValue);
+      }
+      formBody = formBody.join("&");
+
       const requestOptions = {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+          "Access-Control-Allow-Origin": "*",
+          Accept: "*/*",
+          Connection: "keep-alive",
         },
-        body: JSON.stringify(values),
+        body: formBody,
       };
       console.log(requestOptions.body);
-      fetch("http://localhost:8080/login", requestOptions).then((response) => {
+      fetch(
+        // "https://webhook.site/cd68fdf0-da75-464e-a388-4019157897a7",
+        "http://localhost:8080/login",
+        requestOptions
+      ).then((response) => {
+        console.log(response.headers.get("set-cookie")); // undefined
+        console.log(document.cookie);
         console.log(response);
         return response.json();
       });
     },
   });
-
 
   return (
     <Container

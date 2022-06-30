@@ -35,7 +35,7 @@ const Dashboard = ({}) => {
             {/* <UserTable /> */}
             {/* <SpecialistList /> */}
             {/* <SpecialityList /> */}
-            <AdminList />
+            {/* <AdminList /> */}
           </div>
         </Row>
       </Container>

@@ -1,12 +1,32 @@
-import React from "react";
-import {
-  ListGroup,
-  Badge,
-} from "react-bootstrap";
+import React, { useState } from "react";
+import { ListGroup, Badge } from "react-bootstrap";
 
 import { StyleSheet, css } from "aphrodite";
 
 const NotificationPanel = ({ layout, stickyTop }) => {
+  const [notifs, setNotifs] = useState([
+    {
+      topic: "ثبت درخواست خدمت",
+      describtion:
+        "شما درخواست خود را برای تعمیر کولر خود ثبت کردید به محض پیدا شدن متخصص به شما اعلام خواهیم کرد",
+      date: "۱۴۰۱/۱/۱",
+      isNew: true,
+    },
+    {
+      topic: "ثبت درخواست خدمت",
+      describtion:
+        "شما درخواست خود را برای تعمیر کولر خود ثبت کردید به محض پیدا شدن متخصص به شما اعلام خواهیم کرد",
+      date: "۱۴۰۱/۱/۱",
+      isNew: true,
+    },
+    {
+      topic: "ثبت درخواست خدمت",
+      describtion:
+        "شما درخواست خود را برای تعمیر کولر خود ثبت کردید به محض پیدا شدن متخصص به شما اعلام خواهیم کرد",
+      date: "۱۴۰۱/۱/۱",
+      isNew: false,
+    },
+  ]);
   return (
     <div className={css(styles.notificationList)}>
       <ListGroup>
@@ -19,49 +39,26 @@ const NotificationPanel = ({ layout, stickyTop }) => {
         </ListGroup.Item>
         <br />
 
-        <ListGroup.Item>
-          <ListGroup horizontal className={css(styles.notificationItem)}>
-            <ListGroup.Item style={{ border: "0px" }}>
-              ثبت درخواست خدمت
-              <Badge bg="primary" pill>
-                جدید
-              </Badge>
-            </ListGroup.Item>
-            <ListGroup.Item style={{ border: "0px" }}>
-              شما درخواست خود را برای تعمیر کولر خود ثبت کردید به محض پیدا شدن
-              متخصص به شما اعلام خواهیم کرد
-            </ListGroup.Item>
-            <ListGroup.Item style={{ border: "0px" }}>۱۴۰۱/۱/۱</ListGroup.Item>
-          </ListGroup>
-        </ListGroup.Item>
-        <ListGroup.Item>
-          <ListGroup horizontal className={css(styles.notificationItem)}>
-            <ListGroup.Item style={{ border: "0px" }}>
-              ثبت درخواست خدمت
-              <Badge bg="primary" pill>
-                جدید
-              </Badge>
-            </ListGroup.Item>
-            <ListGroup.Item style={{ border: "0px" }}>
-              شما درخواست خود را برای تعمیر کولر خود ثبت کردید به محض پیدا شدن
-              متخصص به شما اعلام خواهیم کرد
-            </ListGroup.Item>
-            <ListGroup.Item style={{ border: "0px" }}>۱۴۰۱/۱/۱</ListGroup.Item>
-          </ListGroup>
-        </ListGroup.Item>
-
-        <ListGroup.Item>
-          <ListGroup horizontal className={css(styles.notificationItem)}>
-            <ListGroup.Item style={{border:'0px'}}>
-              ثبت درخواست خدمت
-              <Badge bg="primary" pill>
-                جدید
-              </Badge>
-            </ListGroup.Item>
-            <ListGroup.Item style={{border:'0px'}}>شما درخواست خود را برای تعمیر کولر خود ثبت کردید به محض پیدا شدن متخصص به شما اعلام خواهیم کرد</ListGroup.Item>
-            <ListGroup.Item style={{border:'0px'}}>۱۴۰۱/۱/۱</ListGroup.Item>
-          </ListGroup>
-        </ListGroup.Item>
+        {notifs.map((notif) => (
+          <ListGroup.Item>
+            <ListGroup horizontal className={css(styles.notificationItem)}>
+              <ListGroup.Item style={{ border: "0px" }}>
+                {notif.topic}
+                {notif.isNew ? (
+                  <Badge bg="primary" pill>
+                    جدید
+                  </Badge>
+                ) : null}
+              </ListGroup.Item>
+              <ListGroup.Item style={{ border: "0px" }}>
+                {notif.describtion}
+              </ListGroup.Item>
+              <ListGroup.Item style={{ border: "0px" }}>
+                {notif.date}
+              </ListGroup.Item>
+            </ListGroup>
+          </ListGroup.Item>
+        ))}
       </ListGroup>
     </div>
   );

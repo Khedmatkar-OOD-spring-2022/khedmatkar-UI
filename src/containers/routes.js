@@ -8,6 +8,7 @@ import Home from "./home.js";
 import AboutUs from "./about";
 import SignUp from "./signup";
 import Dashboard from "./dashboard/dashboard.js";
+import LoginForm from "../components/profile/Forms/LoginForm/LoginForm";
 
 export default [
   {
@@ -30,5 +31,10 @@ export default [
     path: "/register",
     layout: DefaultLayout,
     component: SignUp,
+  },
+  {
+    path: "/login",
+    layout: DefaultLayout,
+    component: LoginForm,
   },
 ];

@@ -26,19 +26,19 @@ const RegisterForm = ({ onRegister, onLogin }) => {
 
   const formik = useFormik({
     initialValues: {
-      firstname: "",
-      lastname: "",
+      firstName: "",
+      lastName: "",
       type: "customer",
       email: "",
       password: "",
       confirmPassword: "",
     },
     validationSchema: object({
-      firstname: string()
+      firstName: string()
         .required("please enter your username")
         .max(15, "your username must be 15 characters or less")
         .min(4, "your username must be 4 characters or more"),
-      lastname: string()
+      lastName: string()
         .required("please enter your username")
         .max(15, "your username must be 15 characters or less")
         .min(4, "your username must be 4 characters or more"),
@@ -57,8 +57,6 @@ const RegisterForm = ({ onRegister, onLogin }) => {
         .oneOf([ref("password")], "your confirm password must match"),
     }),
     onSubmit: (values, { setFieldError }) => {
-
-        
       console.log(values);
       //   const { data, error, loading } = useFetch("localhost:8080",);
       const requestOptions = {
@@ -69,35 +67,9 @@ const RegisterForm = ({ onRegister, onLogin }) => {
         body: JSON.stringify(values),
       };
       console.log(requestOptions.body);
-      fetch("localhost:8080/register", requestOptions)
+      fetch("http://localhost:8080/register", requestOptions)
         .then((response) => response.json())
         .then(console.log);
-
-      //     if (getStorage('users')) {
-      //         const [isIterateUsername, isIterateEmail] = checkUser(values.username, values.email)
-
-      //         if (isIterateUsername)
-      //             setFieldError('username', 'please change your username')
-      //         else if (isIterateEmail)
-      //             setFieldError('email', 'please change your email')
-      //         else {
-      //             const userId = uniqid()
-      //             const users = getStorage('users')
-      //             const user = { id: userId, ...values, isLogin: true, }
-      //             users.push(user)
-
-      //             setUserId(userId)
-      //             setUserInStorage('users', users)
-      //             onRegister()
-      //         }
-      //     } else {
-      //         const userId = uniqid()
-      //         const users = [{ id: userId, ...values, isLogin: true, }]
-
-      //         setUserId(userId)
-      //         setUserInStorage('users', users)
-      //         onRegister()
-      //     }
     },
   });
 
@@ -112,28 +84,28 @@ const RegisterForm = ({ onRegister, onLogin }) => {
 
         <FormInput
           className="mt-5 mb-4"
-          controlId="firstnameInp"
-          name="firstname"
+          controlId="firstNameInp"
+          name="firstName"
           text="نام "
           placeholder="نام خود را وارد کنید..."
-          invalid={submit && formik.errors.firstname ? true : false}
-          errMsg={formik.errors.firstname || ""}
-          valid={submit && !formik.errors.firstname ? true : false}
+          invalid={submit && formik.errors.firstName ? true : false}
+          errMsg={formik.errors.firstName || ""}
+          valid={submit && !formik.errors.firstName ? true : false}
           successMsg="انجام شد"
-          {...formik.getFieldProps("firstname")}
+          {...formik.getFieldProps("firstName")}
         />
 
         <FormInput
           className="mt-5 mb-4"
-          controlId="lastnameInp"
-          name="lastname"
+          controlId="lastNameInp"
+          name="lastName"
           text="نام خانوادگی"
           placeholder="نام خانوادگی خود را وارد کنید..."
-          invalid={submit && formik.errors.lastname ? true : false}
-          errMsg={formik.errors.lastname || ""}
-          valid={submit && !formik.errors.lastname ? true : false}
+          invalid={submit && formik.errors.lastName ? true : false}
+          errMsg={formik.errors.lastName || ""}
+          valid={submit && !formik.errors.lastName ? true : false}
           successMsg="انجام شد"
-          {...formik.getFieldProps("lastname")}
+          {...formik.getFieldProps("lastName")}
         />
 
         <FormInput

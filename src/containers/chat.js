@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Row } from "react-bootstrap";
 import ChatRoom from "../components/chat/ChatRoom";
-const Chat = () => {
+const   Chat = () => {
   const [user, setUser] = useState({ uid: "1" });
 
   return (

@@ -1,7 +1,7 @@
 {
   "name": "khedmatkar",
   "version": "0.1.0",
-  "homepage": "https://erfanfi79.github.io/",
+  "homepage": "https://erfanfi79.github.io/khedmatkar",
   "private": false,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",

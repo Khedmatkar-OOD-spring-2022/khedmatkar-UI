@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/static/css/main.fc84c759.css",
-    "main.js": "/static/js/main.ad71a8d9.js",
-    "static/media/welcome1.png": "/static/media/welcome1.144c1466e07602e99d64.png",
-    "static/media/welcome3.jpg": "/static/media/welcome3.3c0c22705cb2ac69137d.jpg",
-    "static/media/welcome2.jpg": "/static/media/welcome2.c985fce66f79a1e85bba.jpg",
-    "static/media/avatar.png": "/static/media/avatar.c2a95cb343586af93006.png",
-    "index.html": "/index.html",
-    "main.fc84c759.css.map": "/static/css/main.fc84c759.css.map",
-    "main.ad71a8d9.js.map": "/static/js/main.ad71a8d9.js.map"
+    "main.css": "/khedmatkar/static/css/main.fc84c759.css",
+    "main.js": "/khedmatkar/static/js/main.1c9951ef.js",
+    "static/media/welcome1.png": "/khedmatkar/static/media/welcome1.144c1466e07602e99d64.png",
+    "static/media/welcome3.jpg": "/khedmatkar/static/media/welcome3.3c0c22705cb2ac69137d.jpg",
+    "static/media/welcome2.jpg": "/khedmatkar/static/media/welcome2.c985fce66f79a1e85bba.jpg",
+    "static/media/avatar.png": "/khedmatkar/static/media/avatar.c2a95cb343586af93006.png",
+    "index.html": "/khedmatkar/index.html",
+    "main.fc84c759.css.map": "/khedmatkar/static/css/main.fc84c759.css.map",
+    "main.1c9951ef.js.map": "/khedmatkar/static/js/main.1c9951ef.js.map"
   },
   "entrypoints": [
     "static/css/main.fc84c759.css",
-    "static/js/main.ad71a8d9.js"
+    "static/js/main.1c9951ef.js"
   ]
 }

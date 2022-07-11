@@ -49,8 +49,6 @@ const LoginForm = ({ onRegister, onLogin }) => {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
-           "Access-Control-Allow-Origin": "*",
-          mode: "cors",
           Accept: "*/*",
           Connection: "keep-alive",
         },

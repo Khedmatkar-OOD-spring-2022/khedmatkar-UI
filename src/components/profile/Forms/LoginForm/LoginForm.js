@@ -49,23 +49,30 @@ const LoginForm = ({ onRegister, onLogin }) => {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
-          "Access-Control-Allow-Origin": "*",
+           "Access-Control-Allow-Origin": "*",
+          mode: "cors",
           Accept: "*/*",
           Connection: "keep-alive",
         },
         body: formBody,
       };
       console.log(requestOptions.body);
-      fetch(
-        // "https://webhook.site/cd68fdf0-da75-464e-a388-4019157897a7",
-        "http://localhost:8080/login",
-        requestOptions
-      ).then((response) => {
-        console.log(response.headers.get("set-cookie")); // undefined
-        console.log(document.cookie);
-        console.log(response);
-        return response.json();
-      });
+      try {
+        fetch("http://localhost:8080/login", requestOptions).then(
+          (response) => {
+            console.log("done");
+            if (response.status === 200) {
+              console.log("done");
+            }
+            console.log(response.headers.get("set-cookie")); // undefined
+            console.log(document.cookie);
+            console.log(response);
+            return response.json();
+          }
+        );
+      } catch(e) {
+        console.log('error :   ',e)
+      }
     },
   });
 

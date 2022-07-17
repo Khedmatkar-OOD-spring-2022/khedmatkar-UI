@@ -20,7 +20,7 @@ export default class UserActions extends React.Component {
 
   render() {
     return (
-      <Nav.Item as={Dropdown} style={{ "text-align": "end", width: "30%" }}>
+      <Nav.Item as={Dropdown} style={{ textAlign: "end", width: "30%" }}>
         <Dropdown.Toggle variant="outline" id="dropdown-basic">
           <span className="d-none d-md-inline-block">عرفان فراوانی</span>
           {"  "}
@@ -33,7 +33,7 @@ export default class UserActions extends React.Component {
         </Dropdown.Toggle>
 
         <Dropdown.Menu dir="rtl">
-          <Dropdown.Item href="#/action-1">نمایه کاربر</Dropdown.Item>
+          <Dropdown.Item href="/dashboard/profile">نمایه کاربر</Dropdown.Item>
           <Dropdown.Item href="#/action-3" style={{ color: "red" }}>
             خروج
           </Dropdown.Item>

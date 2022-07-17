@@ -1,25 +1,18 @@
 import { useState } from "react";
 
 // import styles of this component
-import styles from "../Forms.module.css";
+import styles from "./Forms.module.css";
 
 // import other component to use
-import FormInput from "../FormInput/FormInput";
+import FormInput from "./FormInput";
 
 // import other pkg to use
 import { useFormik } from "formik";
-import { object, string, date, ref } from "yup";
 import PropTypes from "prop-types";
-import { v4 as uniqid } from "uuid";
-import { Container, Button, Form } from "react-bootstrap";
+import { Button, Container, Form } from "react-bootstrap";
+import { object, ref, string } from "yup";
 
 // import utils
-import {
-  getStorage,
-  setUserId,
-  setUserInStorage,
-} from "../../../../utils/storage";
-import { useFetch } from "../../../../utils/useFetch";
 
 const RegisterForm = ({ onRegister, onLogin }) => {
   const [submit, setSubmit] = useState(false);

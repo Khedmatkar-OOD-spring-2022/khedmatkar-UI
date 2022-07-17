@@ -40,8 +40,8 @@ const MainNavigation = ({ activePane }) => {
                 <Nav.Link href={`${React_Base_URL}/aboutus`}>
                   درباره ما
                 </Nav.Link>
-                <Nav.Link href={`${React_Base_URL}/register`}>
-                  ساخت حساب
+                <Nav.Link href={`${React_Base_URL}/login`}>
+                   {'ورود'}
                 </Nav.Link>
                 <Nav.Item>
                   <Form className="d-flex">

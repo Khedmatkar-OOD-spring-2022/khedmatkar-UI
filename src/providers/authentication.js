@@ -5,6 +5,7 @@ export const useAuth = () => {
   return [
     {
       username: "Erfanfi79",
+      uid:'1',
       serviceType: "",
       role:"customer"
     },

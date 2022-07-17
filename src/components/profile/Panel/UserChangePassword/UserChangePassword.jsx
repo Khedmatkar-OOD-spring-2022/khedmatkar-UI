@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 // import other component
-import FormInput from '../../Forms/FormInput/FormInput'
+import FormInput from '../../Forms/FormInput'
 
 // import other pkg
 import { Form, Button } from 'react-bootstrap'

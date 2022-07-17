@@ -1,25 +1,15 @@
 import React from "react";
-import PropTypes from "prop-types";
 import {
-  Container,
-  Navbar,
-  Nav,
-  Offcanvas,
-  Form,
-  FormControl,
-  Button,
+  Button, Container, Form,
+  FormControl, Nav, Navbar, Offcanvas
 } from "react-bootstrap";
 import {
-  FiShoppingCart,
-  FiMessageSquare,
-  FiUser,
-  FiPackage,
+  FiPackage
 } from "react-icons/fi";
-import { React_Base_URL } from "../../../common/urls"
 import UserActions from "./NavbarNav/UserActions";
 
 
-const MainNavbar = ({ }) => {
+const MainNavbar = () => {
   const expand = "md";
 
   return (

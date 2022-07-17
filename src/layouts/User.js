@@ -1,23 +1,26 @@
 import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
 
 import MainNavbar from "../components/layout/MainNavbar/MainNavbar";
 import MainSidebar from "../components/layout/MainSidebar/MainSidebar";
+import { CustomerSidebar } from "../containers/dashboard/options";
 import { useAuth } from "../providers/authentication";
 
-const DefaultLayout = ({ children, noNavbar = false }) => {
+const UserLayout = ({ children, noNavbar = false }) => {
   const [user, isLoggedIn] = useAuth();
-  if (isLoggedIn) {
-    // return <Navigate to="/dashboard" />;
+  if (!isLoggedIn) {
+    return <Navigate to="/" />;
   }
   return (
     <Container fluid>
+      <MainNavbar />
       <Row>
-        <Col>{children}</Col>
+        <MainSidebar sidebarItems={CustomerSidebar} />
+        {children}
       </Row>
     </Container>
   );
 };
 
-export default DefaultLayout;
+export default UserLayout;

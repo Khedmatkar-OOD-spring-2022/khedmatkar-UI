@@ -1,20 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react';
 import ChatList from './ChatList';
-import './css/ChatRoom.css'
-import { useEffect, useState } from 'react';
-import { Button } from 'react-bootstrap';
+import './css/ChatRoom.css';
 export default function ChatRoom({ database, user }) {
     const [input, setInput] = useState("");
 
     function writeUserData() {
         const elem = document.getElementById("allChats")
-        if (input == "") {
+        if (input === "") {
             elem.scrollTop = elem.scrollHeight;
         }
 
     }
     function enterUserData(e) {
-        if (e.keyCode == 13) {
+        if (e.keyCode === 13) {
             writeUserData();
         }
     }

@@ -1,10 +1,9 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
-import { Button, Nav } from "react-bootstrap";
+import { Nav } from "react-bootstrap";
 
-const SidebarNavItem = ({ item }) => (
+const SidebarNavItem = ({ item ,onClick}) => (
   <Nav.Item>
-    <Nav.Link tag={Navigate} to={item.to}>
+    <Nav.Link onClick={()=>onClick(item.to)}>
       <h6>
         <div className="d-inline-block item-icon-wrapper">
           {item.htmlBefore}

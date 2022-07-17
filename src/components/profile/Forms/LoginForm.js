@@ -1,19 +1,22 @@
 import { useState } from "react";
 
 // import styles of this component
-import styles from "../Forms.module.css";
+import styles from "./Forms.module.css";
 
 // import other component
-import FormInput from "../FormInput/FormInput";
+import FormInput from "./FormInput";
 
 // import other pkgs
 import { Container, Form, Button } from "react-bootstrap";
 import { useFormik } from "formik";
 import { object, string } from "yup";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const LoginForm = ({ onRegister, onLogin }) => {
   const [submit, setSubmit] = useState(false);
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -49,28 +52,17 @@ const LoginForm = ({ onRegister, onLogin }) => {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
-          Accept: "*/*",
-          Connection: "keep-alive",
         },
-        body: formBody,
+        data: formBody,
+        url: "http://localhost:8080/login",
+        withCredentials: true,
       };
-      console.log(requestOptions.body);
-      try {
-        fetch("http://localhost:8080/login", requestOptions).then(
-          (response) => {
-            console.log("done");
-            if (response.status === 200) {
-              console.log("done");
-            }
-            console.log(response.headers.get("set-cookie")); // undefined
-            console.log(document.cookie);
-            console.log(response);
-            return response.json();
-          }
-        );
-      } catch(e) {
-        console.log('error :   ',e)
-      }
+      axios(requestOptions).then((response) => {
+        if (response.status === 200) {
+          navigate("/dashboard");
+        }
+        return response.json();
+      });
     },
   });
 
@@ -111,12 +103,11 @@ const LoginForm = ({ onRegister, onLogin }) => {
         />
 
         <Button
-          onClick={() => onRegister("register")}
+          onClick={() => onRegister()}
           className="shadow-none mt-4 p-0"
-          type="button"
           variant=""
         >
-          ساخت حساب جدید ?
+          ساخت حساب جدید
         </Button>
 
         <Button
@@ -133,7 +124,6 @@ const LoginForm = ({ onRegister, onLogin }) => {
   );
 };
 
-// validate the component
 LoginForm.propTypes = {
   onRegister: PropTypes.func.isRequired,
   onLogin: PropTypes.func.isRequired,

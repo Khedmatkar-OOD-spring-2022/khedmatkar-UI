@@ -1,16 +1,16 @@
-import React from "react";
-
 // Layout Types
-import { DefaultLayout } from "../layouts";
+import { DefaultLayout, UserLayout } from "../layouts";
 
 // Route Views
-import Home from "./home.js";
+import LoginForm from "../components/profile/Forms/LoginForm";
+import ProfilePanel from "../components/profile/Panel/Panel";
 import AboutUs from "./about";
-import SignUp from "./signup";
 import Dashboard from "./dashboard/dashboard.js";
-import LoginForm from "../components/profile/Forms/LoginForm/LoginForm";
+import Home from "./home.js";
+import Authenticate from "./authenticate";
+import { User } from "iconsax-react";
 
-export default [
+const routes = [
   {
     path: "/",
     exact: true,
@@ -23,18 +23,34 @@ export default [
     component: AboutUs,
   },
   {
+    path: "/profile",
+    layout: UserLayout,
+    component: ProfilePanel,
+  },
+  {
     path: "/dashboard",
-    layout: DefaultLayout,
+    layout: UserLayout,
+    component: Dashboard,
+  },
+  {
+    path: "/dashboard/:section",
+    layout: UserLayout,
     component: Dashboard,
   },
   {
     path: "/register",
     layout: DefaultLayout,
-    component: SignUp,
+    component: Authenticate,
   },
   {
     path: "/login",
     layout: DefaultLayout,
     component: LoginForm,
   },
+  {
+    path: "*",
+    layout: DefaultLayout,
+    component: Home,
+  },
 ];
+export default routes;

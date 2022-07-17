@@ -12,24 +12,24 @@ import {
 export const CustomerSidebar = [
   {
     title: "ثبت درخواست خدمت",
-    to: "/service/request",
+    to: "/dashboard/make-request",
     htmlBefore: <FiEdit />,
   },
   {
     title: "فهرست درخواست خدمت ها",
     htmlBefore: <FiTablet />,
-    to: "/tables",
+    to: "/dashboard/request-list",
   },
 
   {
     title: "پیام ها",
     htmlBefore: <FiMessageCircle />,
-    to: "/chat",
+    to: "/dashboard/chat",
   },
   {
     title: "اعلانات",
     htmlBefore: <FiAlertCircle />,
-    to: "/notification",
+    to: "/dashboard/notification",
   },
 ];
 export const AdminSidebar = [

@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import routes from "./routes";
 
 import { React_Base_URL } from "../common/urls.js";
+import 'react-toastify/dist/ReactToastify.css';
 
 class App extends React.Component {
   render() {
@@ -24,7 +25,6 @@ class App extends React.Component {
           );
         })}
       </Routes>
-
     );
   }
 }

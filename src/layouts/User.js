@@ -4,7 +4,7 @@ import { Navigate } from "react-router-dom";
 
 import MainNavbar from "../components/layout/MainNavbar/MainNavbar";
 import MainSidebar from "../components/layout/MainSidebar/MainSidebar";
-import { CustomerSidebar } from "../containers/dashboard/options";
+import { AdminSidebar, CustomerSidebar, SuperAdminSidebar } from "../containers/dashboard/options";
 import { useAuth } from "../providers/authentication";
 
 const UserLayout = ({ children, noNavbar = false }) => {
@@ -16,7 +16,7 @@ const UserLayout = ({ children, noNavbar = false }) => {
     <Container fluid>
       <MainNavbar />
       <Row>
-        <MainSidebar sidebarItems={CustomerSidebar} />
+        <MainSidebar sidebarItems={SuperAdminSidebar} />
         {children}
       </Row>
     </Container>

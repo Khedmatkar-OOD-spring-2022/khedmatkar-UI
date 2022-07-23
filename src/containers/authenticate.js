@@ -1,8 +1,8 @@
 import React from "react";
-import { Form, Button, Container } from "react-bootstrap";
-import RegisterForm from "../components/profile/Forms/RegisterForm";
-import {IoArrowBack} from 'react-icons/io5'
+import { Button } from "react-bootstrap";
+import { IoArrowBack } from 'react-icons/io5';
 import { useNavigate } from "react-router-dom";
+import RegisterForm from "../components/profile/Forms/RegisterForm";
 const Authenticate =()=> {
   const navigate = useNavigate()
     return (

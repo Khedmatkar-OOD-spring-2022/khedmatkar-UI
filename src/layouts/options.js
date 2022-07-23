@@ -79,11 +79,13 @@ export const SuperAdminSidebar = [
     title: "مدیریت تخصص های سامانه",
     htmlBefore: <FiArchive />,
     to: "/admin/speciality-managment",
-  },  {
+  },
+  {
     title: "بررسی مدارک متخصصان",
     htmlBefore: <FiArchive />,
     to: "/admin/speciality-approve",
-  },  {
+  },
+  {
     title: "پیشنهادات و انتقادات",
     htmlBefore: <FiArchive />,
     to: "/admin/feedbacks",
@@ -96,28 +98,29 @@ export const SuperAdminSidebar = [
 ];
 export const SpecialistSidebar = [
   {
-    title: "فهرست خدمت های قبول شده",
-    htmlBefore: <FiPenTool />,
-    to: "/components-overview",
-  },
-  {
     title: "فهرست درخواست خدمت ها",
     htmlBefore: <FiTablet />,
-    to: "/tables",
+    to: "/dashboard/request-list",
   },
   {
     title: "بارگذاری مدارک",
     htmlBefore: <FiArchive />,
-    to: "/add-new-post",
+    to: "/dashboard/addSpecialty",
   },
+  // {
+  //   title: "فهرست درخواست خدمت ها",
+  //   htmlBefore: <FiTablet />,
+  //   to: "/dashboard/request-list",
+  // },
+
   {
     title: "پیام ها",
     htmlBefore: <FiMessageCircle />,
-    to: "/chat",
+    to: "/dashboard/chat",
   },
   {
     title: "اعلانات",
     htmlBefore: <FiAlertCircle />,
-    to: "/notification",
+    to: "/dashboard/notification",
   },
 ];

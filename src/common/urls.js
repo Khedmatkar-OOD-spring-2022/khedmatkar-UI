@@ -10,6 +10,8 @@ const urls = {
   },
   common: {
     sendFeedback: () => `${API_BASE_URL}/api/feedback`,
+    updatePassword: () => `${API_BASE_URL}/api/profile/changePassword`,
+    updateUserInfo: () => `${API_BASE_URL}/api/profile`,
   },
   servic: {
     servicRequest: () => `${API_BASE_URL}/api/serviceRequest`,
@@ -22,6 +24,11 @@ const urls = {
     search: (value) => `${API_BASE_URL}/api/specialties/search?name=${value}`,
     getChildren: (id) =>
       `${API_BASE_URL}/api/specialties/${id}/sub-specialties`,
+  },
+  certificate: {
+    add: () => `${API_BASE_URL}/api/certificates`,
+    get: () => `${API_BASE_URL}/api/certificates`,
+    remove: (value) => `${API_BASE_URL}/api/certificates/${value}`,
   },
   admin: {
     new: () => `${API_BASE_URL}/api/admin/register`,

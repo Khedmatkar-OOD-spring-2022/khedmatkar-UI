@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 // import styles of this component
 import styles from "./Forms.module.css";
@@ -11,12 +11,14 @@ import { useFormik } from "formik";
 import PropTypes from "prop-types";
 import { Button, Container, Form } from "react-bootstrap";
 import { object, ref, string } from "yup";
+import { useNavigate } from "react-router-dom";
 
 // import utils
 
 const RegisterForm = ({ onRegister, onLogin }) => {
+  const typeOfUser = useRef("");
   const [submit, setSubmit] = useState(false);
-
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       firstName: "",
@@ -40,18 +42,14 @@ const RegisterForm = ({ onRegister, onLogin }) => {
         .required("Please enter your email"),
       password: string()
         .required("please enter your password")
-        .min(8, "your password must be 8 characters or more")
-        .matches(
-          /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/,
-          "invalid password"
-        ),
+        .min(4, "your password must be 8 characters or more"),
+
       confirmPassword: string()
         .required("please enter your confirm password")
         .oneOf([ref("password")], "your confirm password must match"),
     }),
     onSubmit: (values, { setFieldError }) => {
-      console.log(values);
-      //   const { data, error, loading } = useFetch("localhost:8080",);
+      values.type = typeOfUser.current.checked ? "specialist" : "customer";
       const requestOptions = {
         method: "POST",
         headers: {
@@ -60,9 +58,10 @@ const RegisterForm = ({ onRegister, onLogin }) => {
         body: JSON.stringify(values),
       };
       console.log(requestOptions.body);
-      fetch("http://localhost:8080/register", requestOptions)
-        .then((response) => response.json())
-        .then(console.log);
+      fetch("http://localhost:8080/register", requestOptions).then((response) =>
+        response.json()
+      );
+      navigate("/login");
     },
   });
 
@@ -117,6 +116,7 @@ const RegisterForm = ({ onRegister, onLogin }) => {
         <Form.Group>
           <Form.Label>نوع کاربری:</Form.Label>
           <Form.Check
+            ref={typeOfUser}
             inline
             label="متخصص"
             name="type"
@@ -160,7 +160,9 @@ const RegisterForm = ({ onRegister, onLogin }) => {
         />
 
         <Button
-          onClick={() => onLogin("login")}
+          onClick={() => {
+            navigate("login");
+          }}
           className="shadow-none mt-4 p-0"
           type="button"
           variant=""
@@ -184,8 +186,8 @@ const RegisterForm = ({ onRegister, onLogin }) => {
 
 // validate component
 RegisterForm.propTypes = {
-  onRegister: PropTypes.func.isRequired,
-  onLogin: PropTypes.func.isRequired,
+  // onRegister: PropTypes.func.isRequired,
+  // onLogin: PropTypes.func.isRequired,
 };
 
 export default RegisterForm;

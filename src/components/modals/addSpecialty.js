@@ -1,8 +1,24 @@
-import React, { useRef } from "react";
+import React, { useRef,useState,useEffect } from "react";
 import { Modal, Form, Button, Row, Col } from "react-bootstrap";
+import { toast } from "react-toastify";
+import urls from "../../common/urls";
+import { useFetch } from "../../utils/useFetch";
 
 const AddSpecialty = ({ show, setShow, action }) => {
-  const message = useRef("");
+  const [specialtyList, setSpecialityList] = useState(null);
+  const nameRef = useRef("");
+  const selectRef = useRef("");
+  const { data, error, loading } = useFetch(
+    urls.speciality.getAll(true),
+    "GET"
+  );
+  useEffect(() => {
+    if (error) {
+      toast.error(error && error.messsage, { position: toast.POSITION.BOTTOM_RIGHT });
+    }
+    setSpecialityList(data);
+  }, [error, data]);
+
   return (
     <>
       <Modal
@@ -22,15 +38,17 @@ const AddSpecialty = ({ show, setShow, action }) => {
               <Form.Group as={Col}>
                 <Form.Label>{"نام تخصص:"}</Form.Label>
                 <Form.Control
+                  ref={nameRef}
                   placeholder="لطفا نام تخصص را بنویسید"
                 />
               </Form.Group>
               <Form.Group as={Col}>
-              <Form.Label>{"بخش اصلی:"}</Form.Label>
-                <Form.Select>
-                  <option>باربری</option>
-                  <option>فنی</option>
-                  <option>نظافت</option>
+                <Form.Label>{"بخش اصلی:"}</Form.Label>
+                <Form.Select ref={selectRef}>
+                  {specialtyList &&
+                    specialtyList.map((s) => (
+                      <option id={s.id}>{s.name}</option>
+                    ))}
                 </Form.Select>
               </Form.Group>
             </Row>
@@ -53,6 +71,7 @@ const AddSpecialty = ({ show, setShow, action }) => {
           <Button
             variant="success"
             onClick={() => {
+              action(selectRef.current.options[selectRef.current.selectedIndex].id)
               setShow(false);
             }}
           >

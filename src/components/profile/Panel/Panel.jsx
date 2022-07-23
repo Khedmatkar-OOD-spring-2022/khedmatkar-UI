@@ -2,7 +2,7 @@ import React from "react";
 
 // import styles of this component
 import styles from "./Panel.module.css";
-import LoadingScreen from 'react-loading-screen';
+import LoadingScreen from "react-loading-screen";
 
 // import other component
 import UserCard from "./UserCard/UserCard";
@@ -18,21 +18,27 @@ import { Col, Row } from "react-bootstrap";
 import urls from "../../../common/urls";
 import { useFetch } from "../../../utils/useFetch";
 import { useState } from "react";
+import { useAuth } from "../../../providers/authentication";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const ProfilePanel = () => {
-  const [toggle,setToggle]= useState("information")
+  const [toggle, setToggle] = useState("information");
+  const [user, _] = useAuth();
   const sidebarLinks = [
     {
       id: 1,
       border: true,
       text: "اطلاعات شخصی",
       icon: <UserEdit size="20" color="black" />,
+      name: "information",
       active: true,
     },
     {
       id: 2,
       border: true,
       text: "کلمه عبور",
+      name: "password",
       icon: <Lock size="20" color="black" />,
       active: false,
     },
@@ -44,14 +50,6 @@ const ProfilePanel = () => {
       active: false,
     },
   ];
-  const { data, error, loading } = useFetch(urls.auth.profile(),"GET");
-
-  if(loading){
-    return (<LoadingScreen />);
-  }else{
-    console.log(data)
-    console.log(error)
-  }
 
   return (
     <div
@@ -71,11 +69,11 @@ const ProfilePanel = () => {
             className="d-flex flex-column justify-content-center p-0"
           >
             <UserCard
-              username={data.username}
-              userBirthday={data.birthday}
-              // userEmail={data.user.email}
+              username={user.email}
+              userBirthday={""}
+              userEmail={user.email}
               sidebarLinks={sidebarLinks}
-              // onChangeToggle={this.changeToggle}
+              onChangeToggle={setToggle}
             />
           </Col>
 
@@ -87,18 +85,19 @@ const ProfilePanel = () => {
           >
             {toggle === "information" && (
               <UserInformation
-                username={data.username}
-                firstName={data.firstName}
-                lastName={data.lastName}
-                email={data.email}
-                birthday={data.birthday}
-                // onChangeInfo={this.changeUserInformation}
+                firstName={user.firstName}
+                lastName={user.lastName}
+                username={user.email}
+                userBirthday={""}
+                userEmail={user.email}
+                sidebarLinks={sidebarLinks}
+                onChangeInfo={updateUserInfo}
               />
             )}
             {toggle === "password" && (
               <UserChangePassword
-                password={data.password}
-                // onChangeInfo={this.changeUserInformation}
+                password={user.password}
+                onChangeInfo={updatePassword}
               />
             )}
           </Col>
@@ -107,7 +106,53 @@ const ProfilePanel = () => {
     </div>
   );
 };
-
+function updatePassword(password) {
+  console.log(password)
+  axios
+    .post(
+      urls.common.updatePassword(),
+      {
+        password: password,
+      },
+      { withCredentials: true }
+    )
+    .then((res) => {
+      if (res.status === 200) {
+        toast.success("بروزرسانی با موفقیت انجام شد.", {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
+      }
+    })
+    .catch((error) => {
+      toast.error(error && error.message, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+    });
+}
+function updateUserInfo(firstName, lastName, email) {
+  axios
+    .post(
+      urls.common.updateUserInfo(),
+      {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+      },
+      { withCredentials: true }
+    )
+    .then((res) => {
+      if (res.status === 200) {
+        toast.success("بروزرسانی با موفقیت انجام شد.", {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
+      }
+    })
+    .catch((error) => {
+      toast.error(error && error.message, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+    });
+}
 ProfilePanel.propTypes = {
   // onLogOut: PropTypes.func.isRequired,
 };

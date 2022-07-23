@@ -51,7 +51,7 @@ const MainSpeciality = ({ id, name }) => {
   );
   useEffect(() => {
     if (error) {
-      toast.error(error, { position: toast.POSITION.BOTTOM_RIGHT });
+      toast.error(error && error.message, { position: toast.POSITION.BOTTOM_RIGHT });
     }
     setSpecialityList(data);
   }, [error, data]);

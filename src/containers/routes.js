@@ -49,7 +49,7 @@ const routes = [
     component: Admin,
   },
   {
-    path: "/register",
+    path: "/auth/:section",
     layout: DefaultLayout,
     component: Authenticate,
   },

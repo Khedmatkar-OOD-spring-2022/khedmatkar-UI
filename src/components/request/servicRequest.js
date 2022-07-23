@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import axios from "axios";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Form,
   Button,
@@ -14,9 +15,12 @@ import { useFetch } from "../../utils/useFetch";
 
 import Transportation from "./serviceTypes/Transportation";
 const ServiceRequest = ({}) => {
-
   const [mainSpecialty, setMainSpecialty] = useState(null);
   const [specialtyList, setSpecialityList] = useState(null);
+
+  const address = useRef("");
+  const description = useRef("");
+  const receptionDate = useRef("");
   const { data, error, loading } = useFetch(
     urls.speciality.getAll(true),
     "GET"
@@ -38,12 +42,12 @@ const ServiceRequest = ({}) => {
       <Form dir="rtl" onSubmit={makeRequest}>
         <Form.Group className="mb-3" controlId="description">
           <Form.Label>توضیحات</Form.Label>
-          <Form.Control as="textarea" rows={3} />{" "}
+          <Form.Control ref={description} as="textarea" rows={3} />{" "}
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formGridAddress">
           <Form.Label>آدرس</Form.Label>
-          <Form.Control placeholder="ادرس خود را وارد کنید." />
+          <Form.Control ref={address} placeholder="ادرس خود را وارد کنید." />
         </Form.Group>
 
         <Row className="mb-3">
@@ -61,19 +65,33 @@ const ServiceRequest = ({}) => {
 
           <Form.Group as={Col} controlId="formGridZip">
             <Form.Label>تاریخ</Form.Label>
-            <Form.Control />
+            <Form.Control ref={receptionDate} />
           </Form.Group>
         </Row>
         <Form.Group className="mb-3" controlId="serviceType">
           <Form.Label>نوع خدمت</Form.Label>
-          <Form.Select onChange={(e)=>setMainSpecialty(e.target.options[e.target.selectedIndex].id)}>
+          <Form.Select
+            onChange={(e) =>
+              setMainSpecialty(e.target.options[e.target.selectedIndex].id)
+            }
+          >
             {specialtyList &&
               specialtyList.map((s) => <option id={s.id}>{s.name}</option>)}
           </Form.Select>
-          {mainSpecialty && <SubSpecialties id={mainSpecialty} /> }
+          {mainSpecialty && <SubSpecialties id={mainSpecialty} />}
         </Form.Group>
         {/* <Transportation /> */}
-        <Button variant="success" type="submit">
+        <Button
+          variant="success"
+          onClick={() => {
+            submitRequest(
+              description.current.value,
+              address.current.value,
+              receptionDate.current.value,
+              mainSpecialty
+            );
+          }}
+        >
           ثبت درخواست
         </Button>
       </Form>
@@ -104,4 +122,35 @@ const SubSpecialties = ({ id }) => {
     </>
   );
 };
+
+function submitRequest(description, address, date, mainSpecialty) {
+  axios
+    .post(
+      urls.servic.servicRequest(),
+      {
+        specialtyId: mainSpecialty,
+        description: description,
+        address: address,
+        receptionDate: date,
+      },
+      {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
+    .then((res) => {
+      if (res.status === 200) {
+        toast.success("ثبت درخواست خدمت با موفقیت انجام شد.", {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
+      }
+    })
+    .catch((error) => {
+      toast.error(error && error.message, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+    });
+}
 export default ServiceRequest;

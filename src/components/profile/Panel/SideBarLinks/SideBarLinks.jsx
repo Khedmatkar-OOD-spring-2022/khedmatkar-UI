@@ -29,7 +29,7 @@ const SideBarLinks = ({ sidebarLinks, onChangeToggle }) => {
                 }
             })
 
-            onChangeToggle(link.text.toLowerCase())
+            onChangeToggle(link.name.toLowerCase())
         }
     }
 

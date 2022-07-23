@@ -98,7 +98,7 @@ const LoginForm = ({ onRegister, onLogin }) => {
         />
 
         <Button
-          onClick={() => onRegister()}
+          onClick={() => navigate('/auth/register')}
           className="shadow-none mt-4 p-0"
           variant=""
         >

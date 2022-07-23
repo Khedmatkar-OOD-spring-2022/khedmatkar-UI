@@ -1,24 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Row, Table } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import urls from "../../common/urls";
+import { useFetch } from "../../utils/useFetch";
 
 const UserTable = ({}) => {
-  const [userList, setUserList] = useState([
-    {
-      id: "123456",
-      topic: "باربری-وانت حمل",
-      description: "تقاضا دارم وانتی برای حمل  بار به مرکز شهر به مدت ۲ ساعت خدمت دهد",
-      date: "۱۴۰۱ / ۲/ ۲۸",
-    },
-  ]);
+  const navigate = useNavigate();
+  const [userList, setUserList] = useState();
+  const { data, error, loading } = useFetch(urls.servic.servicRequest(), "GET");
+  useEffect(() => {
+    if (error) {
+      toast.error(error, { position: toast.POSITION.BOTTOM_RIGHT });
+    }
+    setUserList(data);
+  }, [error, data]);
 
   return (
     <>
       <div dir="rtl">
         <h2 className="text-center" style={{ padding: "1em" }}>
-         فهرست درخواست خدمت ها
+          فهرست درخواست خدمت ها
         </h2>
         <div style={{ textAlign: "left" }}>
-          <Button color="primary" onClick={() => {}}>
+          <Button
+            color="primary"
+            onClick={() => navigate("/dashboard/make-request")}
+          >
             درخواست خدمت جدید
           </Button>
         </div>
@@ -26,25 +34,22 @@ const UserTable = ({}) => {
           <Table striped bordered responsive hover>
             <thead>
               <tr>
-                <th>شماره درخواست</th>
                 <th>خدمت مورد نظر</th>
-                <th>توضیحات</th>
+                <th>ادرس</th>
                 <th>تاریخ ثبت</th>
                 <th>عملیات</th>
               </tr>
             </thead>
             <tbody>
-              {userList.map((req) => (
-                <tr key={req.id} >
+              {userList && userList.map((req) => (
+                <tr key={req.id}>
                   <td> {req.id} </td>
-                  <td> {req.topic} </td>
-                  <td> {req.description} </td>
-                  <td dir='ltr'> {req.date} </td>
+                  <td> {req.address} </td>
+                  <td dir="ltr"> {req.creation} </td>
                   <td>
                     <Button onClick={() => {}} variant="outline-warning">
                       بررسی وضعیت
-                    </Button>
-                    {' '}
+                    </Button>{" "}
                     <Button
                       style={{ marginLeft: "1em" }}
                       onClick={() => {}}

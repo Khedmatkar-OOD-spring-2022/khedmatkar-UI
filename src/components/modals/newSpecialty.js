@@ -1,8 +1,11 @@
-import React, { useRef } from "react";
+import axios from "axios";
+import React, { useState } from "react";
 import { Modal, Form, Button, Row, Col } from "react-bootstrap";
+import { toast } from "react-toastify";
+import urls from "../../common/urls";
 
-const AddSpecialty = ({ show, setShow, action }) => {
-  const message = useRef("");
+const NewSpecialty = ({ show, setShow, id = null, name = "" }) => {
+  const [inputText,setInput] = useState("");
   return (
     <>
       <Modal
@@ -21,23 +24,17 @@ const AddSpecialty = ({ show, setShow, action }) => {
             <Row>
               <Form.Group as={Col}>
                 <Form.Label>{"نام تخصص:"}</Form.Label>
-                <Form.Control
-                  placeholder="لطفا نام تخصص را بنویسید"
-                />
+                <Form.Control onChange={(e)=>setInput(e.target.value)} placeholder="لطفا نام تخصص را بنویسید" />
               </Form.Group>
-              <Form.Group as={Col}>
-              <Form.Label>{"بخش اصلی:"}</Form.Label>
-                <Form.Select>
-                  <option>باربری</option>
-                  <option>فنی</option>
-                  <option>نظافت</option>
-                </Form.Select>
-              </Form.Group>
+              {id && (
+                <Form.Group as={Col}>
+                  <Form.Label>{"بخش اصلی:"}</Form.Label>
+                  <Form.Select>
+                    <option>{name}</option>
+                  </Form.Select>
+                </Form.Group>
+              )}
             </Row>
-            <Form.Group controlId="formFile" className="mb-3">
-              <Form.Label>بارگذاری مدارک:</Form.Label>
-              <Form.Control type="file" />
-            </Form.Group>
           </Form>
         </Modal.Body>
 
@@ -53,6 +50,7 @@ const AddSpecialty = ({ show, setShow, action }) => {
           <Button
             variant="success"
             onClick={() => {
+              makeNewSpecialty(inputText, id);
               setShow(false);
             }}
           >
@@ -63,5 +61,20 @@ const AddSpecialty = ({ show, setShow, action }) => {
     </>
   );
 };
-
-export default AddSpecialty;
+function makeNewSpecialty(name, id = null) {
+ axios 
+    .post(urls.speciality.new(), { name: name, parentId: id })
+    .then((res) => {
+      if (res.status === 200) {
+        toast.success("ثبت تخصص با موفقیت انجام شد.", {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
+      }else{
+        console.log(res)
+      }
+    })
+    .catch((error) => {
+      toast.error(error, { position: toast.POSITION.BOTTOM_RIGHT });
+    });
+}
+export default NewSpecialty;

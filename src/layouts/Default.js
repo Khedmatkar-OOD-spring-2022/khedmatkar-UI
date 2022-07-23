@@ -7,9 +7,9 @@ import MainSidebar from "../components/layout/MainSidebar/MainSidebar";
 import { useAuth } from "../providers/authentication";
 
 const DefaultLayout = ({ children, noNavbar = false }) => {
-  const [user, isLoggedIn] = useAuth();
+  const [_, isLoggedIn] = useAuth();
   if (isLoggedIn) {
-    // return <Navigate to="/dashboard" />;
+    return <Navigate to="/dashboard" />;
   }
   return (
     <Container fluid>

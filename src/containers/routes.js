@@ -1,5 +1,5 @@
 // Layout Types
-import { DefaultLayout, UserLayout } from "../layouts";
+import { DefaultLayout, UserLayout, AdminLayout } from "../layouts";
 
 // Route Views
 import LoginForm from "../components/profile/Forms/LoginForm";
@@ -9,6 +9,7 @@ import Dashboard from "./dashboard/dashboard.js";
 import Home from "./home.js";
 import Authenticate from "./authenticate";
 import { User } from "iconsax-react";
+import Admin from "./admin";
 
 const routes = [
   {
@@ -36,6 +37,16 @@ const routes = [
     path: "/dashboard/:section",
     layout: UserLayout,
     component: Dashboard,
+  },
+  {
+    path: "/admin",
+    layout: AdminLayout,
+    component: Admin,
+  },
+  {
+    path: "/admin/:section",
+    layout: AdminLayout,
+    component: Admin,
   },
   {
     path: "/register",

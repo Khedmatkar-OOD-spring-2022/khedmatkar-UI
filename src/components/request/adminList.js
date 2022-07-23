@@ -1,26 +1,22 @@
 import React, { useState } from "react";
 import { Badge, Button, Row, Table } from "react-bootstrap";
 import AddAdmin from "../modals/newAdmin";
-import AddSpecialty from "../modals/newSpecialty";
+import AddSpecialty from "../modals/addSpecialty";
 
 const AdminList = ({}) => {
   const [specialtyList, setSpecialtyList] = useState([
     {
-      id: "123456",
+      id: "1222",
       email: "erfan@gmail.com",
       name: " عرفان",
-      date: "۱۴۰۱ / ۲/ ۲۸",
-      permission:"گزارش گیری",
-    },      {
-        id: "123456",
-        email: "erfan@gmail.com",
-        name: " عرفان",
-        date: "۱۴۰۱ / ۲/ ۲۸",
-        permission:"گزارش گیری",
-      },    
-    
-
-
+      permission: "همه",
+    },
+    {
+      id: "123456",
+      email: "erfan1@gmail.com",
+      name: " عرفان",
+      permission: "همه",
+    },
   ]);
   const [showNewAdminModal, setShowNewAdminModal] = useState(false);
 
@@ -43,7 +39,6 @@ const AdminList = ({}) => {
                 <th> ایمیل </th>
                 <th> سطح دسترسی</th>
                 <th>نام مدیر</th>
-                <th>تاریخ ثبت</th>
                 <th>عملیات</th>
               </tr>
             </thead>
@@ -53,12 +48,11 @@ const AdminList = ({}) => {
                   <td> {req.email} </td>
                   <td> {req.permission} </td>
                   <td> {req.name} </td>
-                  <td dir="ltr"> {req.date} </td>
                   <td>
                     <div>
                       <h5>
                         <Button
-                          style={{ marginLeft: "1em" }}
+                          style={{ marginLeft: "1em" }} 
                           onClick={() => {}}
                           variant="outline-primary"
                         >

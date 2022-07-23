@@ -1,20 +1,28 @@
 import React from "react";
 import {
-  Button, Container, Form,
-  FormControl, Nav, Navbar, Offcanvas
+  Button,
+  Container,
+  Form,
+  FormControl,
+  Nav,
+  Navbar,
+  Offcanvas,
 } from "react-bootstrap";
-import {
-  FiPackage
-} from "react-icons/fi";
+import { FiPackage } from "react-icons/fi";
 import UserActions from "./NavbarNav/UserActions";
 
-
-const MainNavbar = () => {
+const MainNavbar = ({ user }) => {
   const expand = "md";
 
   return (
-    <div className="sticky-top" >
-      <Navbar key={expand} bg="light" expand={expand} className="mb-3" dir="rtl">
+    <div className="sticky-top">
+      <Navbar
+        key={expand}
+        bg="light"
+        expand={expand}
+        className="mb-3"
+        dir="rtl"
+      >
         <Container fluid>
           <Navbar.Brand href="/">
             <FiPackage />
@@ -34,18 +42,21 @@ const MainNavbar = () => {
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav className="justify-content-between flex-grow-1 pe-3">
-              <Nav.Item>
-                  <Form className="d-flex pe-5">
-                    <FormControl
-                      type="search"
-                      placeholder="به چه خدمتی نیاز دارید؟"
-                      className="me-2"
-                      aria-label="Search"
-                    />
-                    <Button variant="outline-success">جست‌وجو</Button>
-                  </Form>
+                <Nav.Item>
+                  {user && user.type !== "ADMIN" ? (
+                    <Form className="d-flex pe-5">
+                      <FormControl
+                        type="search"
+                        placeholder="به چه خدمتی نیاز دارید؟"
+                        className="me-2"
+                        aria-label="Search"
+                      />
+                      <Button variant="outline-success">جست‌وجو</Button>
+                    </Form>
+                  ) : null}{" "}
                 </Nav.Item>
-              <UserActions />
+
+                <UserActions user={user} />
               </Nav>
             </Offcanvas.Body>
           </Navbar.Offcanvas>

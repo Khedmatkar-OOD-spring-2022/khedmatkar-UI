@@ -2,10 +2,10 @@ import React from "react";
 
 import SidebarNavItems from "./SidebarNavItems";
 
-const MainSidebar = ({ sidebarItems,hideLogoText = false }) => {
+const MainSidebar = ({ sidebarItems,hideFeedback = false }) => {
   return (
     <>
-      <SidebarNavItems items={sidebarItems}/>
+      <SidebarNavItems items={sidebarItems} hideFeedback={hideFeedback} />
     </>
   );
 };

@@ -5,25 +5,21 @@ import { ToastContainer } from "react-toastify";
 
 import MainNavbar from "../components/layout/MainNavbar/MainNavbar";
 import MainSidebar from "../components/layout/MainSidebar/MainSidebar";
+import { AdminSidebar, CustomerSidebar, SuperAdminSidebar } from "./options";
 import { useAuth } from "../providers/authentication";
-import { CustomerSidebar, SpecialistSidebar } from "./options";
 
-const UserLayout = ({ children, noNavbar = false }) => {
+const AdminLayout = ({ children, noNavbar = false }) => {
   const [user, isLoggedIn] = useAuth();
   if (!isLoggedIn) {
     return <Navigate to="/" />;
-  } else if (user.type === "ADMIN") {
-    return <Navigate to="/admin" />;
+  } else if (user.type !== "ADMIN") {
+    return <Navigate to="/dashboard" />
   }
   return (
     <Container fluid>
       <MainNavbar user={user} />
       <Row>
-        <MainSidebar
-          sidebarItems={
-            user.type === "CUSTOMER" ? CustomerSidebar : SpecialistSidebar
-          }
-        />
+        <MainSidebar sidebarItems={SuperAdminSidebar} hideFeedback={true} />
         {children}
       </Row>
       <ToastContainer />
@@ -31,4 +27,4 @@ const UserLayout = ({ children, noNavbar = false }) => {
   );
 };
 
-export default UserLayout;
+export default AdminLayout;

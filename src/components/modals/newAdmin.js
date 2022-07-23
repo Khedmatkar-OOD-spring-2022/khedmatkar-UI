@@ -1,8 +1,13 @@
+import axios from "axios";
 import React, { useRef } from "react";
 import { Modal, Form, Button, Row, Col } from "react-bootstrap";
+import { toast } from "react-toastify";
+import urls from "../../common/urls";
 
 const AddAdmin = ({ show, setShow, action }) => {
-  const message = useRef("");
+  const firstNameRef = useRef("");
+  const lastNameRef = useRef("");
+  const emailRef = useRef("");
   return (
     <>
       <Modal
@@ -21,26 +26,35 @@ const AddAdmin = ({ show, setShow, action }) => {
             <Row>
               <Form.Group as={Col}>
                 <Form.Label>{"نام مدیر:"}</Form.Label>
-                <Form.Control placeholder="لطفا نام تخصص را بنویسید" />
+                <Form.Control
+                  ref={firstNameRef}
+                  placeholder="لطفا نام را بنویسید"
+                />{" "}
+                <Form.Label>{"نام خانوادگی مدیر:"}</Form.Label>
+                <Form.Control
+                  ref={lastNameRef}
+                  placeholder="لطفا نام خانوادگی را بنویسید"
+                />
               </Form.Group>
               <Form.Group as={Col}>
                 <Form.Label>{"سطح دسترسی:"}</Form.Label>
                 <Form.Select>
-                  <option>گزارش گیری</option>
-                  <option>گزارش گیری،اضافه</option>
-                  <option>گزارش گیری،اضافه ، تغییر</option>
+                  <option>همه</option>
                 </Form.Select>
               </Form.Group>
             </Row>
             <Row>
               <Form.Group as={Col}>
                 <Form.Label>{"ایمیل:"}</Form.Label>
-                <Form.Control placeholder="لطفا نام تخصص را بنویسید" />
+                <Form.Control
+                  ref={emailRef}
+                  placeholder="لطفا ایمیل را بنویسید"
+                />
               </Form.Group>{" "}
-              <Form.Group as={Col}>
+              {/* <Form.Group as={Col}>
                 <Form.Label>{"رمز عبور:"}</Form.Label>
                 <Form.Control placeholder="لطفا نام تخصص را بنویسید" />
-              </Form.Group>
+              </Form.Group> */}
             </Row>
           </Form>
         </Modal.Body>
@@ -57,6 +71,11 @@ const AddAdmin = ({ show, setShow, action }) => {
           <Button
             variant="success"
             onClick={() => {
+              makeNewAdmin(
+                firstNameRef.current.value,
+                lastNameRef.current.value,
+                emailRef.current.value
+              );
               setShow(false);
             }}
           >
@@ -67,5 +86,30 @@ const AddAdmin = ({ show, setShow, action }) => {
     </>
   );
 };
-
+function makeNewAdmin(firstName, lastName, email) {
+  axios
+    .post(
+      urls.admin.new(),
+      {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        password: null,
+        permissions: ["USER_LIST_RW", "QUESTIONNAIRE_RW", "FEEDBACK_RW"],
+      },
+      { withCredentials: true }
+    )
+    .then((res) => {
+      if (res.status === 200) {
+        toast.success("ثبت مدیر با موفقیت انجام شد.", {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
+      } else {
+        console.log(res);
+      }
+    })
+    .catch((error) => {
+      toast.error(error, { position: toast.POSITION.BOTTOM_RIGHT });
+    });
+}
 export default AddAdmin;

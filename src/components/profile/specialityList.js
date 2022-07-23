@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Badge, Button, Row, Table } from "react-bootstrap";
-import AddSpecialty from "../modals/newSpecialty";
+import AddSpecialty from "../modals/addSpecialty";
 
 const SpecialityList = ({}) => {
   const [specialtyList, setSpecialtyList] = useState([

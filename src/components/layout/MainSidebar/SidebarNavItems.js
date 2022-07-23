@@ -5,7 +5,7 @@ import SidebarNavItem from "./SidebarNavItem";
 import CommentModal from "../../modals/comment";
 import { useNavigate } from "react-router-dom";
 
-const SidebarNavItems = ({ items }) => {
+const SidebarNavItems = ({ items,hideFeedback }) => {
   const [showCommentModal, setShowCommentModal] = useState(false);
   const navigate = useNavigate()
   return (
@@ -18,12 +18,12 @@ const SidebarNavItems = ({ items }) => {
             <SidebarNavItem key={idx} item={item} onClick={navigate} />
           ))}
 
-          <Button
+          {!hideFeedback?<Button
             className={css(styles.commentButton)}
             onClick={() => setShowCommentModal(true)}
           >
             {"ثبت انتقادات و پیشنهادات"}
-          </Button>
+          </Button>:null}
         </div>
       </Nav>
     </div>

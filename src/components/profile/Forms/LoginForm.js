@@ -29,11 +29,7 @@ const LoginForm = ({ onRegister, onLogin }) => {
         .required("please enter your email"),
       password: string()
         .required("please enter your password")
-        .min(8, "your password must be 8 characters or more")
-        .matches(
-          /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/,
-          "invalid password"
-        ),
+        .min(4, "your password must be 4 characters or more"),
     }),
     onSubmit: ({ email, password }, { setFieldError }) => {
       const details = {
@@ -61,7 +57,6 @@ const LoginForm = ({ onRegister, onLogin }) => {
         if (response.status === 200) {
           navigate("/dashboard");
         }
-        return response.json();
       });
     },
   });
@@ -125,8 +120,8 @@ const LoginForm = ({ onRegister, onLogin }) => {
 };
 
 LoginForm.propTypes = {
-  onRegister: PropTypes.func.isRequired,
-  onLogin: PropTypes.func.isRequired,
+  // onRegister: PropTypes.func.isRequired,
+  // onLogin: PropTypes.func.isRequired,
 };
 
 export default LoginForm;

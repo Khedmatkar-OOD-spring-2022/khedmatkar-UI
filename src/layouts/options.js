@@ -68,27 +68,30 @@ export const SuperAdminSidebar = [
   {
     title: "فهرست مدیران سامانه",
     htmlBefore: <FiPenTool />,
-    to: "/components-overview",
+    to: "/admin/list",
   },
   {
     title: "فهرست درخواست خدمت ها",
     htmlBefore: <FiTablet />,
-    to: "/tables",
+    to: "/admin/request-list",
   },
   {
-    title: "بررسی مدارک",
+    title: "مدیریت تخصص های سامانه",
     htmlBefore: <FiArchive />,
-    to: "/add-new-post",
-  },
-  {
-    title: "پیام ها",
-    htmlBefore: <FiMessageCircle />,
-    to: "/chat",
+    to: "/admin/speciality-managment",
+  },  {
+    title: "بررسی مدارک متخصصان",
+    htmlBefore: <FiArchive />,
+    to: "/admin/speciality-approve",
+  },  {
+    title: "پیشنهادات و انتقادات",
+    htmlBefore: <FiArchive />,
+    to: "/admin/feedbacks",
   },
   {
     title: "اعلانات",
     htmlBefore: <FiAlertCircle />,
-    to: "/notification",
+    to: "/admin/notification",
   },
 ];
 export const SpecialistSidebar = [

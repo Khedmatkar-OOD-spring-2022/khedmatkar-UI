@@ -109,7 +109,7 @@ const ProfilePanel = () => {
 };
 
 ProfilePanel.propTypes = {
-  onLogOut: PropTypes.func.isRequired,
+  // onLogOut: PropTypes.func.isRequired,
 };
 
 export default ProfilePanel;

@@ -8,15 +8,14 @@ import { useFetch } from "../utils/useFetch";
 
 const FeedbackPanel = ({}) => {
   const [notifs, setNotifs] = useState();
-  const { data, error, loading } = useFetch({
-    url: urls.admin.getFeedbacks(),
-    method: "GET",
-  });
+  const { data, error, loading } = useFetch(urls.admin.getFeedbacks(), "GET");
   useEffect(() => {
     if (error) {
-      toast.error(error, { position: toast.POSITION.BOTTOM_RIGHT });
+      toast.error(error && error.message, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
     }
-    console.log(data)
+    console.log(data);
     setNotifs(data);
   }, [error, data]);
 

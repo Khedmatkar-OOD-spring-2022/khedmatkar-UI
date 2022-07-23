@@ -44,7 +44,7 @@ const ProfilePanel = () => {
       active: false,
     },
   ];
-  const { data, error, loading } = useFetch({url:urls.auth.profile(),method:"GET"});
+  const { data, error, loading } = useFetch(urls.auth.profile(),"GET");
 
   if(loading){
     return (<LoadingScreen />);

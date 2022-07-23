@@ -1,5 +1,8 @@
+import axios from "axios";
 import React, { useRef } from "react";
 import { Modal, Form, Button } from "react-bootstrap";
+import { toast } from "react-toastify";
+import urls from "../../common/urls";
 
 const CommentModal = ({ show, setShow, action }) => {
   const message = useRef("");
@@ -20,12 +23,12 @@ const CommentModal = ({ show, setShow, action }) => {
         <Modal.Body>
           <Form>
             <Form.Group>
-              <Form.Label>{"موضوع:"}</Form.Label>
+              {/* <Form.Label>{"موضوع:"}</Form.Label>
               <Form.Control
                 placeholder="لطفا موضوع پیشنهاد را بنویسید"
                 rows="4"
                 dir="rtl"
-              />
+              /> */}
               <Form.Label>{"جزئیات:"}</Form.Label>
               <Form.Control
                 as="textarea"
@@ -50,6 +53,7 @@ const CommentModal = ({ show, setShow, action }) => {
           <Button
             variant="success"
             onClick={() => {
+              sendFeedback(message.current.value)
               setShow(false);
             }}
           >
@@ -60,5 +64,26 @@ const CommentModal = ({ show, setShow, action }) => {
     </>
   );
 };
-
+function sendFeedback(content) {
+  axios
+    .post(
+      urls.common.sendFeedback(),
+      {
+        content: content,
+      },
+      { withCredentials: true }
+    )
+    .then((res) => {
+      if (res.status === 200) {
+        toast.success("ثبت مدیر با موفقیت انجام شد.", {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
+      }
+    })
+    .catch((error) => {
+      toast.error(error && error.message, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+    });
+}
 export default CommentModal;

@@ -109,7 +109,7 @@ function makeNewAdmin(firstName, lastName, email) {
       }
     })
     .catch((error) => {
-      toast.error(error, { position: toast.POSITION.BOTTOM_RIGHT });
+      toast.error(error && error.message, { position: toast.POSITION.BOTTOM_RIGHT });
     });
 }
 export default AddAdmin;

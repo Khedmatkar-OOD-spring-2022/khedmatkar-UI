@@ -1,23 +1,22 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Badge, Button, Row, Table } from "react-bootstrap";
 import AddAdmin from "../modals/newAdmin";
 import AddSpecialty from "../modals/addSpecialty";
+import urls from "../../common/urls";
+import { useFetch } from "../../utils/useFetch";
+import { toast } from "react-toastify";
 
 const AdminList = ({}) => {
-  const [specialtyList, setSpecialtyList] = useState([
-    {
-      id: "1222",
-      email: "erfan@gmail.com",
-      name: " عرفان",
-      permission: "همه",
-    },
-    {
-      id: "123456",
-      email: "erfan1@gmail.com",
-      name: " عرفان",
-      permission: "همه",
-    },
-  ]);
+  const [adminList, setAdminList] = useState();
+  const { data, error, loading } = useFetch(urls.admin.get(), "GET");
+  useEffect(() => {
+    if (error) {
+      toast.error(error && error.message, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+    }
+    setAdminList(data);
+  }, [error, data]);
   const [showNewAdminModal, setShowNewAdminModal] = useState(false);
 
   return (
@@ -39,15 +38,17 @@ const AdminList = ({}) => {
                 <th> ایمیل </th>
                 <th> سطح دسترسی</th>
                 <th>نام مدیر</th>
+                <th>نام خانوادگی مدیر</th>
                 <th>عملیات</th>
               </tr>
             </thead>
             <tbody>
-              {specialtyList.map((req) => (
+              {adminList && adminList.map((req) => (
                 <tr key={req.id}>
                   <td> {req.email} </td>
-                  <td> {req.permission} </td>
-                  <td> {req.name} </td>
+                  <td> {'همه'} </td>
+                  <td> {req.firstName} </td>
+                  <td> {req.lastName} </td>
                   <td>
                     <div>
                       <h5>
@@ -62,6 +63,7 @@ const AdminList = ({}) => {
                           style={{ marginLeft: "1em" }}
                           onClick={() => {}}
                           variant="danger"
+                          disabled
                         >
                           حذف مدیر
                         </Button>{" "}

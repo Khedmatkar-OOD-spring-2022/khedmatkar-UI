@@ -23,7 +23,7 @@ export const useAuth = () => {
 
 export function logout() {
   localStorage.removeItem("user");
-  axios.post(urls.auth.logout()).then((res) => {
+  axios.post(urls.auth.logout(), {}, { withCredentials: true }).then((res) => {
     if (res.status === 200) {
       if (res.headers["content-type"] === "text/html;charset=UTF-8") {
         return res;

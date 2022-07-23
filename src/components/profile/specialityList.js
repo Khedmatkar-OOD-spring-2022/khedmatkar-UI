@@ -9,15 +9,15 @@ import AddSpecialty from "../modals/addSpecialty";
 const SpecialityList = ({}) => {
   const [specialtyList, setSpecialtyList] = useState();
   const [showNewSpecialtyModal, setShowNewSpecialtyModal] = useState(false);
-  const { data, error, loading } = useFetch(urls.certificate.get(), "GET");
-  useEffect(() => {
-    if (error) {
-      toast.error(error && error.message, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
-    }
-    setSpecialtyList(data);
-  }, [error, data]);
+    const { data, error, loading } = useFetch(urls.certificate.get(), "GET");
+    useEffect(() => {
+      if (error) {
+        toast.error(error && error.message, {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
+      }
+      setSpecialtyList(data);
+    }, [error, data]);
 
   return (
     <>
@@ -78,6 +78,7 @@ const SpecialityList = ({}) => {
                               style={{ marginLeft: "1em" }}
                               onClick={() => removeSpecialty(req.specialtyId)}
                               variant="danger"
+                              disabled
                             >
                               لغو
                             </Button>{" "}

@@ -107,7 +107,7 @@ const ProfilePanel = () => {
   );
 };
 function updatePassword(password) {
-  console.log(password)
+  console.log(password);
   axios
     .post(
       urls.common.updatePassword(),
@@ -145,6 +145,7 @@ function updateUserInfo(firstName, lastName, email) {
         toast.success("بروزرسانی با موفقیت انجام شد.", {
           position: toast.POSITION.BOTTOM_RIGHT,
         });
+        localStorage.removeItem("user");
       }
     })
     .catch((error) => {

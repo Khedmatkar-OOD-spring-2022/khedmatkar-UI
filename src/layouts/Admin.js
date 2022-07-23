@@ -17,7 +17,7 @@ const AdminLayout = ({ children, noNavbar = false }) => {
   }
   return (
     <Container fluid>
-      <MainNavbar user={user} />
+      <MainNavbar user={user} isAdmin/>
       <Row>
         <MainSidebar sidebarItems={SuperAdminSidebar} hideFeedback={true} />
         {children}

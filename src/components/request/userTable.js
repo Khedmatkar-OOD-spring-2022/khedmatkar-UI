@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Button, Row, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
@@ -5,7 +6,7 @@ import { toast } from "react-toastify";
 import urls from "../../common/urls";
 import { useFetch } from "../../utils/useFetch";
 
-const UserTable = ({}) => {
+const UserTable = ({ isAdmin ,setDetailsId}) => {
   const navigate = useNavigate();
   const [userList, setUserList] = useState();
   const { data, error, loading } = useFetch(urls.servic.servicRequest(), "GET");
@@ -23,12 +24,14 @@ const UserTable = ({}) => {
           فهرست درخواست خدمت ها
         </h2>
         <div style={{ textAlign: "left" }}>
-          <Button
-            color="primary"
-            onClick={() => navigate("/dashboard/make-request")}
-          >
-            درخواست خدمت جدید
-          </Button>
+          {isAdmin ? null : (
+            <Button
+              color="primary"
+              onClick={() => navigate("/dashboard/make-request")}
+            >
+              درخواست خدمت جدید
+            </Button>
+          )}
         </div>
         <Row>
           <Table striped bordered responsive hover>
@@ -41,25 +44,34 @@ const UserTable = ({}) => {
               </tr>
             </thead>
             <tbody>
-              {userList && userList.map((req) => (
-                <tr key={req.id}>
-                  <td> {req.id} </td>
-                  <td> {req.address} </td>
-                  <td dir="ltr"> {req.creation} </td>
-                  <td>
-                    <Button onClick={() => {}} variant="outline-warning">
-                      بررسی وضعیت
-                    </Button>{" "}
-                    <Button
-                      style={{ marginLeft: "1em" }}
-                      onClick={() => {}}
-                      variant="danger"
-                    >
-                      لغو
-                    </Button>
-                  </td>
-                </tr>
-              ))}
+              {userList &&
+                userList.map((req) => (
+                  <tr key={req.id}>
+                    <td> {req.specialty.name} </td>
+                    <td> {req.address} </td>
+                    <td dir="ltr"> {req.creation.slice(0, 10)} </td>
+                    <td>
+                      {isAdmin ? null : (
+                        <Button
+                          onClick={() => {
+                            setDetailsId(req.id)
+                            navigate("/dashboard/request-details");
+                          }}
+                          variant="outline-warning"
+                        >
+                          بررسی وضعیت
+                        </Button>
+                      )}{" "}
+                      <Button
+                        style={{ marginLeft: "1em" }}
+                        onClick={() => cancelRequest(req.id)}
+                        variant="danger"
+                      >
+                        لغو
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </Table>
         </Row>
@@ -67,5 +79,26 @@ const UserTable = ({}) => {
     </>
   );
 };
-
+function cancelRequest(id) {
+  axios
+    .post(
+      urls.servic.cancel(id),
+      {},
+      {
+        withCredentials: true,
+      }
+    )
+    .then((res) => {
+      if (res.status === 200) {
+        toast.success("لغو درخواست خدمت با موفقیت انجام شد.", {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
+      }
+    })
+    .catch((error) => {
+      toast.error(error && error.message, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+    });
+}
 export default UserTable;

@@ -6,6 +6,7 @@ import urls from "../../common/urls";
 
 const CommentModal = ({ show, setShow, action }) => {
   const message = useRef("");
+  const title = useRef("");
   return (
     <>
       <Modal
@@ -23,12 +24,13 @@ const CommentModal = ({ show, setShow, action }) => {
         <Modal.Body>
           <Form>
             <Form.Group>
-              {/* <Form.Label>{"موضوع:"}</Form.Label>
+              <Form.Label>{"موضوع:"}</Form.Label>
               <Form.Control
+                ref={title}
                 placeholder="لطفا موضوع پیشنهاد را بنویسید"
                 rows="4"
                 dir="rtl"
-              /> */}
+              />
               <Form.Label>{"جزئیات:"}</Form.Label>
               <Form.Control
                 as="textarea"
@@ -53,7 +55,7 @@ const CommentModal = ({ show, setShow, action }) => {
           <Button
             variant="success"
             onClick={() => {
-              sendFeedback(message.current.value)
+              sendFeedback(title.current.value,message.current.value);
               setShow(false);
             }}
           >
@@ -64,18 +66,19 @@ const CommentModal = ({ show, setShow, action }) => {
     </>
   );
 };
-function sendFeedback(content) {
+function sendFeedback(title, content) {
   axios
     .post(
       urls.common.sendFeedback(),
       {
         content: content,
+        title: title,
       },
       { withCredentials: true }
     )
     .then((res) => {
       if (res.status === 200) {
-        toast.success("ثبت مدیر با موفقیت انجام شد.", {
+        toast.success("ثبت پیشنهاد با موفقیت انجام شد.", {
           position: toast.POSITION.BOTTOM_RIGHT,
         });
       }

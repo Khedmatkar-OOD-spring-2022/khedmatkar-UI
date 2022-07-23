@@ -1,4 +1,5 @@
-import React, { useRef,useState,useEffect } from "react";
+import axios from "axios";
+import React, { useRef, useState, useEffect } from "react";
 import { Modal, Form, Button, Row, Col } from "react-bootstrap";
 import { toast } from "react-toastify";
 import urls from "../../common/urls";
@@ -6,6 +7,8 @@ import { useFetch } from "../../utils/useFetch";
 
 const AddSpecialty = ({ show, setShow, action }) => {
   const [specialtyList, setSpecialityList] = useState(null);
+  const [choosedSpecialty, setChoosedSpecialty] = useState()
+  const [subSpecialties, setSubSpecialties] = useState();
   const nameRef = useRef("");
   const selectRef = useRef("");
   const { data, error, loading } = useFetch(
@@ -14,11 +17,27 @@ const AddSpecialty = ({ show, setShow, action }) => {
   );
   useEffect(() => {
     if (error) {
-      toast.error(error && error.messsage, { position: toast.POSITION.BOTTOM_RIGHT });
+      toast.error(error && error.messsage, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
     }
     setSpecialityList(data);
   }, [error, data]);
 
+  useEffect(() => {    
+    if (selectRef && selectRef.current) {
+      const id = selectRef.current.options[selectRef.current.selectedIndex].id;
+      axios
+        .get(urls.speciality.getChildren(id), {
+          withCredentials: true,
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            setSubSpecialties(res.data);
+          }
+        });
+    }
+  }, [choosedSpecialty]);
   return (
     <>
       <Modal
@@ -37,14 +56,18 @@ const AddSpecialty = ({ show, setShow, action }) => {
             <Row>
               <Form.Group as={Col}>
                 <Form.Label>{"نام تخصص:"}</Form.Label>
-                <Form.Control
-                  ref={nameRef}
-                  placeholder="لطفا نام تخصص را بنویسید"
-                />
+                <Form.Select ref={nameRef}>
+                  {subSpecialties &&
+                    subSpecialties.map((s) => (
+                      <option id={s.id}>{s.name}</option>
+                    ))}
+                </Form.Select>
               </Form.Group>
               <Form.Group as={Col}>
                 <Form.Label>{"بخش اصلی:"}</Form.Label>
-                <Form.Select ref={selectRef}>
+                <Form.Select ref={selectRef} onChange={(e)=>{
+                  setChoosedSpecialty(e.target.options[e.target.selectedIndex].id)
+                }}>
                   {specialtyList &&
                     specialtyList.map((s) => (
                       <option id={s.id}>{s.name}</option>
@@ -71,7 +94,9 @@ const AddSpecialty = ({ show, setShow, action }) => {
           <Button
             variant="success"
             onClick={() => {
-              action(selectRef.current.options[selectRef.current.selectedIndex].id)
+              action(
+                nameRef.current.options[nameRef.current.selectedIndex].id
+              );
               setShow(false);
             }}
           >

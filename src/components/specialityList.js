@@ -1,34 +1,28 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useState, useEffect } from "react";
 import { Badge, Button, Row, Table } from "react-bootstrap";
 import { FiDownload, FiUploadCloud } from "react-icons/fi";
+import { toast } from "react-toastify";
+import urls from "../common/urls";
+import { useFetch } from "../utils/useFetch";
 
 const SpecialityApproveList = ({}) => {
-  const [specialtyList, setSpecialtyList] = useState([
-    {
-      id: "123456",
-      topic: "باربری",
-      description: "وانت حمل",
-      date: "۱۴۰۱ / ۲/ ۲۸",
-      documentLink: '',
-      status: "در حال بررسی",
-      isDone: false,
-    },
-    {
-      id: "234567",
-      topic: "باربری",
-      description: "موتور",
-      date: "۱۴۰۱ / ۲/ ۲۸",
-      status: "تایید شده",
-      documentLink: '',
-      isDone: true,
-    },
-  ]);
+  const [specialtyList, setSpecialtyList] = useState();
+  const { data, error, loading } = useFetch(urls.admin.getCertificate(), "GET");
+  useEffect(() => {
+    if (error) {
+      toast.error(error && error.message, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+    }
+    setSpecialtyList(data);
+  }, [error, data]);
 
   return (
     <>
       <div dir="rtl">
         <h2 className="text-center" style={{ padding: "1em" }}>
-          {'بررسی وضعیت مدارک متخصصان'}
+          {"بررسی وضعیت مدارک متخصصان"}
         </h2>
 
         <Row>
@@ -36,49 +30,56 @@ const SpecialityApproveList = ({}) => {
             <thead>
               <tr>
                 <th>شماره درخواست</th>
-                <th>بخش اصلی</th>
                 <th>نام تخصص</th>
-                <th>تاریخ ثبت</th>
+                <th>وضعیت</th>
                 <th>مدرک بارگذاری شده</th>
                 <th>وضعیت</th>
               </tr>
             </thead>
             <tbody>
-              {specialtyList.map((req) => (
-                <tr key={req.id}>
-                  <td> {req.id} </td>
-                  <td> {req.topic} </td>
-                  <td> {req.description} </td>
-                  <td dir="ltr"> {req.date} </td>
-                  <td><Button variant="secondary"><FiDownload /></Button>  </td>
-                  <td>
-                    {req.isDone ? (
-                      <h5>
-                        <Badge bg="success">{req.status}</Badge>
-                      </h5>
-                    ) : (
-                      <div>
+              {specialtyList &&
+                specialtyList.map((req) => (
+                  <tr key={req.id}>
+                    <td> {req.id} </td>
+                    <td> {req.specialtyDTO.name} </td>
+                    <td> {req.status} </td>
+                    <td>
+                      <Button variant="secondary">
+                        <FiDownload />
+                      </Button>{" "}
+                    </td>
+                    <td>
+                      {req.isDone ? (
                         <h5>
-                          <Button
-                            style={{ marginLeft: "1em" }}
-                            onClick={() => {}}
-                            variant="primary"
-                          >
-                          تایید درخواست
-                          </Button>{" "}    
-                                                <Button
-                            style={{ marginLeft: "1em" }}
-                            onClick={() => {}}
-                            variant="danger"
-                          >
-                            رد درخواست
-                          </Button>{" "}
+                          <Badge bg="success">{req.status}</Badge>
                         </h5>
-                      </div>
-                    )}
-                  </td>
-                </tr>
-              ))}
+                      ) : (
+                        <div>
+                          <h5>
+                            {req.status === "INVALID" ? (
+                              <Button
+                                style={{ marginLeft: "1em" }}
+                                onClick={() => approveSpecialty(req.id)}
+                                variant="primary"
+                              >
+                                تایید درخواست
+                              </Button>
+                            ) : null}{" "}
+                            {req.status === "VALID" ? (
+                              <Button
+                                style={{ marginLeft: "1em" }}
+                                onClick={() => declineSpecialty(req.id)}
+                                variant="danger"
+                              >
+                                رد درخواست
+                              </Button>
+                            ) : null}{" "}
+                          </h5>
+                        </div>
+                      )}
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </Table>
         </Row>
@@ -87,4 +88,36 @@ const SpecialityApproveList = ({}) => {
   );
 };
 
+function approveSpecialty(id) {
+  axios
+    .post(urls.admin.validateCertificate(id), {}, { withCredentials: true })
+    .then((res) => {
+      if (res.status === 200) {
+        toast.success("قبول تخصص با موفقیت انجام شد.", {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
+      }
+    })
+    .catch((error) => {
+      toast.error(error && error.message, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+    });
+}
+function declineSpecialty(id) {
+  axios
+    .post(urls.admin.invalidateCertificate(id), {}, { withCredentials: true })
+    .then((res) => {
+      if (res.status === 200) {
+        toast.success("رد تخصص با موفقیت انجام شد.", {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
+      }
+    })
+    .catch((error) => {
+      toast.error(error && error.message, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+    });
+}
 export default SpecialityApproveList;

@@ -11,7 +11,7 @@ import {
 import { FiPackage } from "react-icons/fi";
 import UserActions from "./NavbarNav/UserActions";
 
-const MainNavbar = ({ user }) => {
+const MainNavbar = ({ user, isAdmin = false }) => {
   const expand = "md";
 
   return (
@@ -56,7 +56,7 @@ const MainNavbar = ({ user }) => {
                   ) : null}{" "}
                 </Nav.Item>
 
-                <UserActions user={user} />
+                <UserActions user={user} isAdmin={isAdmin} />
               </Nav>
             </Offcanvas.Body>
           </Navbar.Offcanvas>

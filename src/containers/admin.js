@@ -5,6 +5,7 @@ import NotificationPanel from "../common/notification";
 import FeedbackPanel from "../components/feedbacks";
 import ProfilePanel from "../components/profile/Panel/Panel";
 import AdminList from "../components/request/adminList";
+import UserTable from "../components/request/userTable";
 import ServicePanel from "../components/servicePanel";
 import SpecialityApproveList from "../components/specialityList";
 import SpecialityManagmentPanel from "../components/specialityManagment";
@@ -20,7 +21,7 @@ const Admin = () => {
       case "list":
         return <AdminList />;
       case "request-list":
-        return <ServicePanel />;
+        return <UserTable isAdmin />;
       case "profile":
         return <ProfilePanel />;
       case "speciality-approve":

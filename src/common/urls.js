@@ -19,6 +19,10 @@ const urls = {
     cancel: (id) => `${API_BASE_URL}/api/serviceRequests/${id}/customer/cancel`,
     specialistAccept: (id) => `${API_BASE_URL}/api/serviceRequests/${id}/specialist/accept`,
     specialistReject: (id) => `${API_BASE_URL}/api/serviceRequests/${id}/specialist/reject`,
+  },chat: {
+    getByServicRequest: (id) => `${API_BASE_URL}/api/chats/serviceRequest/${id}`,
+    sendMessage: (id) => `${API_BASE_URL}/api/chats/`,
+    getById: (id) => `${API_BASE_URL}/api/chats/${id}`,
   },
   speciality: {
     new: () => `${API_BASE_URL}/api/specialties`,

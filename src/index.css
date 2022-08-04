@@ -1,0 +1,8 @@
+@font-face {
+  font-family: "B-Nazanin";
+  src: local("B-Nazanin"), url(./assets/fonts/B-Nazanin.ttf) format("truetype");
+}
+.font-link {
+  font-family: 'B-Nazanin';
+  font-weight: bold;
+}

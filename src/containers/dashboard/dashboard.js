@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Container } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 
 import NotificationPanel from "../../common/notification";
 import ChatRoom from "../../components/chat/ChatRoom";
@@ -28,8 +28,6 @@ const Dashboard = () => {
         return <UserTable setDetailsId={setDetailsId} />;
       case "request-details":
         return <RequestDetails id={detailsId} />;
-      case "chat":
-        return <ChatRoom user={user} />;
       case "profile":
         return <ProfilePanel />;
 
@@ -45,8 +43,6 @@ const Dashboard = () => {
         return <SpecialityList />;
       case "request-list":
         return <SuggestedRequests />;
-      case "chat":
-        return <ChatRoom user={user} />;
       case "profile":
         return <ProfilePanel />;
       default:

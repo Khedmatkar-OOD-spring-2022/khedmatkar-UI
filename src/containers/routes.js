@@ -10,6 +10,7 @@ import Home from "./home.js";
 import Authenticate from "./authenticate";
 import { User } from "iconsax-react";
 import Admin from "./admin";
+import ChatApp from "./chat";
 
 const routes = [
   {
@@ -37,6 +38,10 @@ const routes = [
     path: "/dashboard/:section",
     layout: UserLayout,
     component: Dashboard,
+  }, {
+    path: "/chat/:id",
+    layout: UserLayout,
+    component:ChatApp ,
   },
   {
     path: "/admin",

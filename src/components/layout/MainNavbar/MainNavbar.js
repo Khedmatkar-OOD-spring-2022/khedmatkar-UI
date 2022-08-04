@@ -42,9 +42,9 @@ const MainNavbar = ({ user, isAdmin = false }) => {
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav className="justify-content-between flex-grow-1 pe-3">
-                <Nav.Item>
+                <Nav.Item  style={{paddingRight:'8%'}}>
                   {user && user.type !== "ADMIN" ? (
-                    <Form className="d-flex pe-5">
+                    <Form className="d-flex">
                       <FormControl
                         type="search"
                         placeholder="به چه خدمتی نیاز دارید؟"

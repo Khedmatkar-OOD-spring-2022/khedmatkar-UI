@@ -4,13 +4,13 @@ import { Nav } from "react-bootstrap";
 const SidebarNavItem = ({ item ,onClick}) => (
   <Nav.Item>
     <Nav.Link onClick={()=>onClick(item.to)}>
-      <h6>
+      <h5>
         <div className="d-inline-block item-icon-wrapper">
           {item.htmlBefore}
           {"  "}
           {item.title}
         </div>
-      </h6>
+      </h5>
     </Nav.Link>
   </Nav.Item>
 );

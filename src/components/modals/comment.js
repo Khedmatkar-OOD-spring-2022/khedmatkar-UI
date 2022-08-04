@@ -8,13 +8,14 @@ const CommentModal = ({ show, setShow, action }) => {
   const message = useRef("");
   const title = useRef("");
   return (
-    <>
       <Modal
         show={show}
         onHide={() => setShow(false)}
         size="lg"
         dir="rtl"
-        aria-labelledby="contained-modal-title-vcenter"
+        style={{
+          fontFamily:'B-Nazanin',
+        }}
         centered
       >
         <Modal.Header>
@@ -63,7 +64,6 @@ const CommentModal = ({ show, setShow, action }) => {
           </Button>
         </Modal.Footer>
       </Modal>
-    </>
   );
 };
 function sendFeedback(title, content) {

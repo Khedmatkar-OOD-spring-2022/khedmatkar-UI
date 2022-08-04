@@ -4,8 +4,10 @@ import { StyleSheet, css } from "aphrodite";
 import { useFetch } from "../../utils/useFetch";
 import { toast } from "react-toastify";
 import urls from "../../common/urls";
+import { useNavigate } from "react-router-dom";
 
 export default function RequestDetails({ id }) {
+  const navigate = useNavigate();
   const [details, setDetails] = useState();
   const { data, error, loading } = useFetch(
     urls.servic.servicRequestById(id),
@@ -20,6 +22,10 @@ export default function RequestDetails({ id }) {
     console.log(data);
     setDetails(data);
   }, [error, data]);
+
+  function sendMessageAction() {
+    navigate("/chat/" + id);
+  }
   return (
     <>
       {details ? (
@@ -50,6 +56,7 @@ export default function RequestDetails({ id }) {
                 description={details.candidateSpecialist.email}
                 isCandidate
                 isCanceled={details.status === "CANCELED"}
+                sendMessageAction={sendMessageAction}
               />
             </Row>
           ) : null}
@@ -62,6 +69,7 @@ export default function RequestDetails({ id }) {
                   details.acceptedSpecialist.lastName
                 }
                 description={details.acceptedSpecialist.email}
+                sendMessageAction={sendMessageAction}
               />
             </Row>
           ) : null}
@@ -92,7 +100,13 @@ const styles = StyleSheet.create({
     border: "2px",
   },
 });
-function SpecialistInfoCard({ Img, description, isCanceled, name }) {
+function SpecialistInfoCard({
+  Img,
+  description,
+  isCanceled,
+  name,
+  sendMessageAction,
+}) {
   return (
     <Card style={{ width: "45%", "flex-direction": "row" }}>
       <Card.Img variant="top" src={Img} style={{ width: "30%" }} />
@@ -106,10 +120,15 @@ function SpecialistInfoCard({ Img, description, isCanceled, name }) {
         <p className="card_description">
           <Card.Text>{description}</Card.Text>
         </p>
-        <Button className="card_btn" variant="primary" disabled={isCanceled} >
+        <Button className="card_btn" variant="primary" disabled={isCanceled}>
           قبول پیشنهاد
         </Button>{" "}
-        <Button className="card_btn" variant="outline-warning" disabled={isCanceled}>
+        <Button
+          className="card_btn"
+          variant="outline-warning"
+          disabled={isCanceled}
+          onClick={() => sendMessageAction()}
+        >
           {"ارسال پیام"}
         </Button>
       </Card.Body>

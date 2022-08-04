@@ -9,9 +9,9 @@ const SidebarNavItems = ({ items,hideFeedback }) => {
   const [showCommentModal, setShowCommentModal] = useState(false);
   const navigate = useNavigate()
   return (
-    <div className="nav-wrapper">
+    <div >
       <CommentModal show={showCommentModal} setShow={setShowCommentModal} />
-      <Nav className="col-md-2 d-none d-md-block bg-light sidebar">
+      <Nav className="col-md-2 d-md-block bg-light sidebar">
         <br></br>
         <div className="sidebar-sticky flex-column">
           {items.map((item, idx) => (

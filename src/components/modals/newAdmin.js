@@ -14,7 +14,7 @@ const AddAdmin = ({ show, setShow, action }) => {
         show={show}
         onHide={() => setShow(false)}
         dir="rtl"
-        aria-labelledby="contained-modal-title-vcenter"
+        style={{ fontFamily: "B-Nazanin" }}
         centered
       >
         <Modal.Header>
@@ -109,7 +109,9 @@ function makeNewAdmin(firstName, lastName, email) {
       }
     })
     .catch((error) => {
-      toast.error(error && error.message, { position: toast.POSITION.BOTTOM_RIGHT });
+      toast.error(error && error.message, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
     });
 }
 export default AddAdmin;

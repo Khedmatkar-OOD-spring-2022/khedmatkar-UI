@@ -30,22 +30,22 @@ const RegisterForm = ({ onRegister, onLogin }) => {
     },
     validationSchema: object({
       firstName: string()
-        .required("please enter your username")
+        .required("نام واردنشده است")
         .max(15, "your username must be 15 characters or less")
         .min(4, "your username must be 4 characters or more"),
       lastName: string()
-        .required("please enter your username")
+        .required("نام خانوادگی واردنشده است")
         .max(15, "your username must be 15 characters or less")
         .min(4, "your username must be 4 characters or more"),
       email: string()
         .email("invalid email")
-        .required("Please enter your email"),
+        .required("ایمیل واردنشده است"),
       password: string()
-        .required("please enter your password")
+        .required("رمزعبور واردنشده است")
         .min(4, "your password must be 8 characters or more"),
 
       confirmPassword: string()
-        .required("please enter your confirm password")
+        .required("تایید رمزعبور واردنشده است")
         .oneOf([ref("password")], "your confirm password must match"),
     }),
     onSubmit: (values, { setFieldError }) => {

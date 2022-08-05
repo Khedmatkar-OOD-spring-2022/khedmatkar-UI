@@ -1,4 +1,5 @@
 import axios from "axios";
+import { StatusUp } from "iconsax-react";
 import React, { useState, useEffect } from "react";
 import { Badge, Button, Row, Table } from "react-bootstrap";
 import { FiDownload, FiUploadCloud } from "react-icons/fi";
@@ -42,41 +43,37 @@ const SpecialityApproveList = ({}) => {
                   <tr key={req.id}>
                     <td> {req.id} </td>
                     <td> {req.specialtyDTO.name} </td>
-                    <td> {req.status} </td>
+                    <td> {getStatusMessage(req.status)} </td>
                     <td>
-                      <Button variant="secondary">
+                      <Button variant="secondary" disabled>
                         <FiDownload />
                       </Button>{" "}
                     </td>
                     <td>
-                      {req.isDone ? (
+                      <div>
                         <h5>
-                          <Badge bg="success">{req.status}</Badge>
+                          {req.status === "PENDING" ||
+                          req.status === "INVALID" ? (
+                            <Button
+                              style={{ marginLeft: "1em", width: "30%" }}
+                              onClick={() => approveSpecialty(req.id)}
+                              variant="primary"
+                            >
+                              تایید درخواست
+                            </Button>
+                          ) : null}{" "}
+                          {req.status === "PENDING" ||
+                          req.status === "VALID" ? (
+                            <Button
+                              style={{ marginLeft: "1em", width: "30%" }}
+                              onClick={() => declineSpecialty(req.id)}
+                              variant="outline-danger"
+                            >
+                              رد درخواست
+                            </Button>
+                          ) : null}{" "}
                         </h5>
-                      ) : (
-                        <div>
-                          <h5>
-                            {req.status === "INVALID" ? (
-                              <Button
-                                style={{ marginLeft: "1em" }}
-                                onClick={() => approveSpecialty(req.id)}
-                                variant="primary"
-                              >
-                                تایید درخواست
-                              </Button>
-                            ) : null}{" "}
-                            {req.status === "VALID" ? (
-                              <Button
-                                style={{ marginLeft: "1em" }}
-                                onClick={() => declineSpecialty(req.id)}
-                                variant="outline-danger"
-                              >
-                                رد درخواست
-                              </Button>
-                            ) : null}{" "}
-                          </h5>
-                        </div>
-                      )}
+                      </div>
                     </td>
                   </tr>
                 ))}
@@ -87,7 +84,18 @@ const SpecialityApproveList = ({}) => {
     </>
   );
 };
-
+function getStatusMessage(status) {
+  switch (status) {
+    case "PENDING":
+      return "درحال بررسی";
+    case "INVALID":
+      return "رد شده";
+    case "VALID":
+      return "قبول شده";
+    default:
+      return "نامشخص: " + status;
+  }
+}
 function approveSpecialty(id) {
   axios
     .post(urls.admin.validateCertificate(id), {}, { withCredentials: true })

@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { Badge, Button, Row, Table } from "react-bootstrap";
-import AddAdmin from "../modals/newAdmin";
-import AddSpecialty from "../modals/addSpecialty";
+import React, { useEffect, useState } from "react";
+import { Button, Row, Table } from "react-bootstrap";
+import { toast } from "react-toastify";
 import urls from "../../common/urls";
 import { useFetch } from "../../utils/useFetch";
-import { toast } from "react-toastify";
+import AddAdmin from "../modals/newAdmin";
 
 const AdminList = ({}) => {
   const [adminList, setAdminList] = useState();
@@ -82,7 +81,7 @@ const AdminList = ({}) => {
 };
 
 const permissions = [
-  { permission: "VALIDATE_CERTIFICATE_W", label: "تعیین وضعیت مدرک متخصص" },
+  { permission: "VALIDATE_CERTIFICATE_W", label: "تعیین وضعیت مدارک متخصص" },
   { permission: "SPECIALTY_W", label: "ایجاد تخصص" },
   { permission: "USER_PROFILE_RW", label: "تغییر و مشاهده پروفایل کاربران" },
   { permission: "TECHNICAL_ISSUE_RW", label: "دسترسی به مشکلات سامانه" },

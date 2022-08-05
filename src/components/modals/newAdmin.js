@@ -1,10 +1,11 @@
 import axios from "axios";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Modal, Form, Button, Row, Col } from "react-bootstrap";
 import { toast } from "react-toastify";
 import urls from "../../common/urls";
 
-const AddAdmin = ({ show, setShow, action }) => {
+const AddAdmin = ({ show, setShow, permissions }) => {
+  const [checkedPermissions, setCheckedPermissions] = useState([]);
   const firstNameRef = useRef("");
   const lastNameRef = useRef("");
   const emailRef = useRef("");
@@ -38,9 +39,25 @@ const AddAdmin = ({ show, setShow, action }) => {
               </Form.Group>
               <Form.Group as={Col}>
                 <Form.Label>{"سطح دسترسی:"}</Form.Label>
-                <Form.Select>
-                  <option>همه</option>
-                </Form.Select>
+                {permissions.map((e, i) => (
+                  <Form.Check
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        setCheckedPermissions([
+                          ...checkedPermissions,
+                          e.target.id,
+                        ]);
+                      } else {
+                        setCheckedPermissions(
+                          checkedPermissions.filter((c) => c !== c.target.id)
+                        );
+                      }
+                    }}
+                    type="switch"
+                    label={e.label}
+                    id={e.permission}
+                  />
+                ))}
               </Form.Group>
             </Row>
             <Row>
@@ -50,11 +67,7 @@ const AddAdmin = ({ show, setShow, action }) => {
                   ref={emailRef}
                   placeholder="لطفا ایمیل را بنویسید"
                 />
-              </Form.Group>{" "}
-              {/* <Form.Group as={Col}>
-                <Form.Label>{"رمز عبور:"}</Form.Label>
-                <Form.Control placeholder="لطفا نام تخصص را بنویسید" />
-              </Form.Group> */}
+              </Form.Group>
             </Row>
           </Form>
         </Modal.Body>
@@ -74,9 +87,11 @@ const AddAdmin = ({ show, setShow, action }) => {
               makeNewAdmin(
                 firstNameRef.current.value,
                 lastNameRef.current.value,
-                emailRef.current.value
+                emailRef.current.value,
+                checkedPermissions
               );
               setShow(false);
+              setCheckedPermissions([]);
             }}
           >
             {"ثبت"}
@@ -86,7 +101,7 @@ const AddAdmin = ({ show, setShow, action }) => {
     </>
   );
 };
-function makeNewAdmin(firstName, lastName, email) {
+function makeNewAdmin(firstName, lastName, email, permissions) {
   axios
     .post(
       urls.admin.new(),
@@ -95,7 +110,7 @@ function makeNewAdmin(firstName, lastName, email) {
         lastName: lastName,
         email: email,
         password: null,
-        permissions: ["USER_LIST_RW", "QUESTIONNAIRE_RW", "FEEDBACK_RW"],
+        permissions: permissions,
       },
       { withCredentials: true }
     )

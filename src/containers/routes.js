@@ -11,6 +11,7 @@ import Authenticate from "./authenticate";
 import { User } from "iconsax-react";
 import Admin from "./admin";
 import ChatApp from "./chat";
+import Search from "./search";
 
 const routes = [
   {
@@ -30,6 +31,11 @@ const routes = [
     component: ProfilePanel,
   },
   {
+    path: "/search/:searchInput",
+    layout: DefaultLayout,
+    component: Search,
+  },
+  {
     path: "/dashboard",
     layout: UserLayout,
     component: Dashboard,
@@ -38,10 +44,11 @@ const routes = [
     path: "/dashboard/:section",
     layout: UserLayout,
     component: Dashboard,
-  }, {
+  },
+  {
     path: "/chat/:id",
     layout: UserLayout,
-    component:ChatApp ,
+    component: ChatApp,
   },
   {
     path: "/admin",

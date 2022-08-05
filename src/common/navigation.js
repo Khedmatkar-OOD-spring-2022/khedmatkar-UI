@@ -12,6 +12,7 @@ import {
   Button,
 } from "react-bootstrap";
 import { React_Base_URL } from "./urls";
+import { SearchButton } from "../components/SearchPanel";
 const MainNavigation = ({ activePane }) => {
   const expand = "md";
   return (
@@ -44,15 +45,7 @@ const MainNavigation = ({ activePane }) => {
                    {'ورود'}
                 </Nav.Link>
                 <Nav.Item>
-                  <Form className="d-flex">
-                    <FormControl
-                      type="search"
-                      placeholder="به چه خدمتی نیاز دارید؟"
-                      className="me-2"
-                      aria-label="Search"
-                    />
-                    <Button variant="outline-success">جست‌وجو</Button>
-                  </Form>
+                <SearchButton />
                 </Nav.Item>
               </Nav>
             </Offcanvas.Body>

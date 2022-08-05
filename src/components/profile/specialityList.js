@@ -9,15 +9,15 @@ import AddSpecialty from "../modals/addSpecialty";
 const SpecialityList = ({}) => {
   const [specialtyList, setSpecialtyList] = useState();
   const [showNewSpecialtyModal, setShowNewSpecialtyModal] = useState(false);
-    const { data, error, loading } = useFetch(urls.certificate.get(), "GET");
-    useEffect(() => {
-      if (error) {
-        toast.error(error && error.message, {
-          position: toast.POSITION.BOTTOM_RIGHT,
-        });
-      }
-      setSpecialtyList(data);
-    }, [error, data]);
+  const { data, error, loading } = useFetch(urls.certificate.get(), "GET");
+  useEffect(() => {
+    if (error) {
+      toast.error(error && error.message, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+    }
+    setSpecialtyList(data);
+  }, [error, data]);
 
   return (
     <>
@@ -42,29 +42,25 @@ const SpecialityList = ({}) => {
           <Table striped bordered responsive hover>
             <thead>
               <tr>
-                <th>شماره تخصص</th>
-                {/* <th>بخش اصلی</th>
-                <th>نام تخصص</th> */}
-                {/* <th>تاریخ ثبت</th> */}
+                <th>نام تخصص</th>
                 <th>وضعیت</th>
+                <th>عملیات</th>
               </tr>
             </thead>
             <tbody>
               {specialtyList &&
                 specialtyList.map((req) => (
                   <tr key={req.id}>
-                    <td> {req.specialtyId} </td>
-                    {/* <td> {req.description} </td> */}
+                    <td> {req.specialtyDTO.name} </td>
+                    <td> {getStatusMessage(req.status)} </td>
                     {/* <td dir="ltr"> {req.date} </td> */}
                     <td>
-                      {req.validated ? (
+                      {req.status!=='PENDING' ? (
                         <h5>
-                          <Badge bg="success">{req.status}</Badge>
-                          {"  "}
                           <Button
                             style={{ marginLeft: "1em" }}
                             onClick={() => removeSpecialty(req.specialtyId)}
-                            variant="outline-dange"
+                            variant="outline-danger"
                           >
                             حذف
                           </Button>{" "}
@@ -72,13 +68,10 @@ const SpecialityList = ({}) => {
                       ) : (
                         <div>
                           <h5>
-                            <Badge>{req.status}</Badge>
-                            {"   "}
                             <Button
                               style={{ marginLeft: "1em" }}
                               onClick={() => removeSpecialty(req.specialtyId)}
-                              variant="outline-dange"
-                              disabled
+                              variant="outline-danger"
                             >
                               لغو
                             </Button>{" "}
@@ -95,7 +88,18 @@ const SpecialityList = ({}) => {
     </>
   );
 };
-
+function getStatusMessage(status) {
+  switch (status) {
+    case "PENDING":
+      return "درحال بررسی";
+    case "INVALID":
+      return "رد شده";
+    case "VALID":
+      return "قبول شده";
+    default:
+      return "نامشخص: " + status;
+  }
+}
 function removeSpecialty(id) {
   axios
     .delete(urls.certificate.remove(id), { withCredentials: true })
@@ -104,6 +108,7 @@ function removeSpecialty(id) {
         toast.success("حذف تخصص با موفقیت انجام شد.", {
           position: toast.POSITION.BOTTOM_RIGHT,
         });
+        window.location.reload();
       }
     })
     .catch((error) => {
@@ -126,6 +131,7 @@ function addSpecialty(id) {
         toast.success("ثبت تخصص با موفقیت انجام شد.", {
           position: toast.POSITION.BOTTOM_RIGHT,
         });
+        window.location.reload();
       }
     })
     .catch((error) => {

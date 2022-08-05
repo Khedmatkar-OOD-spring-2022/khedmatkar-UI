@@ -1,13 +1,11 @@
 import React from "react";
 import { Row,Card,CardGroup } from "react-bootstrap";
 import MainNavigation from "../common/navigation";
-import Search from "../components/search";
 import Welcome from "../components/welcome";
 class Home extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <MainNavigation />
         <Row>
           <Welcome />
         </Row>

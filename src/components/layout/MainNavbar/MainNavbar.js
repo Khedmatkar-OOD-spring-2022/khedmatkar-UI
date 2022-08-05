@@ -9,6 +9,7 @@ import {
   Offcanvas,
 } from "react-bootstrap";
 import { FiPackage } from "react-icons/fi";
+import { SearchButton } from "../../SearchPanel";
 import UserActions from "./NavbarNav/UserActions";
 
 const MainNavbar = ({ user, isAdmin = false }) => {
@@ -42,18 +43,8 @@ const MainNavbar = ({ user, isAdmin = false }) => {
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav className="justify-content-between flex-grow-1 pe-3">
-                <Nav.Item  style={{paddingRight:'8%'}}>
-                  {user && user.type !== "ADMIN" ? (
-                    <Form className="d-flex">
-                      <FormControl
-                        type="search"
-                        placeholder="به چه خدمتی نیاز دارید؟"
-                        className="me-2"
-                        aria-label="Search"
-                      />
-                      <Button variant="outline-success">جست‌وجو</Button>
-                    </Form>
-                  ) : null}{" "}
+                <Nav.Item style={{ paddingRight: "8%" }}>
+                  {user && user.type !== "ADMIN" ? <SearchButton /> : null}{" "}
                 </Nav.Item>
 
                 <UserActions user={user} isAdmin={isAdmin} />

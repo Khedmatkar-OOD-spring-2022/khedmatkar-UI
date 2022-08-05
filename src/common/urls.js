@@ -12,6 +12,7 @@ const urls = {
     sendFeedback: () => `${API_BASE_URL}/api/feedbacks/`,
     updatePassword: () => `${API_BASE_URL}/api/profile/changePassword`,
     updateUserInfo: () => `${API_BASE_URL}/api/profile`,
+    search: (id) => `${API_BASE_URL}/api/serviceRequests/${id}`,
   },
   servic: {
     servicRequest: () => `${API_BASE_URL}/api/serviceRequests/`,

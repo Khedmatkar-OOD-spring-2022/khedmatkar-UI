@@ -65,7 +65,7 @@ const UserTable = ({ isAdmin ,setDetailsId}) => {
                       <Button
                         style={{ marginLeft: "1em" }}
                         onClick={() => cancelRequest(req.id)}
-                        variant="outline-dange"
+                        variant="outline-danger"
                       >
                         لغو
                       </Button>

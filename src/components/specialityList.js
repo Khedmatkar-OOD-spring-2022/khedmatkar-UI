@@ -104,6 +104,7 @@ function approveSpecialty(id) {
         toast.success("قبول تخصص با موفقیت انجام شد.", {
           position: toast.POSITION.BOTTOM_RIGHT,
         });
+        window.location.reload();
       }
     })
     .catch((error) => {
@@ -120,6 +121,7 @@ function declineSpecialty(id) {
         toast.success("رد تخصص با موفقیت انجام شد.", {
           position: toast.POSITION.BOTTOM_RIGHT,
         });
+        window.location.reload();
       }
     })
     .catch((error) => {

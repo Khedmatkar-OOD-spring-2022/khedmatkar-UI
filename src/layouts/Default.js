@@ -2,6 +2,7 @@ import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import MainNavigation from "../common/navigation";
 
 import MainNavbar from "../components/layout/MainNavbar/MainNavbar";
 import MainSidebar from "../components/layout/MainSidebar/MainSidebar";
@@ -14,6 +15,7 @@ const DefaultLayout = ({ children, noNavbar = false }) => {
   }
   return (
     <Container fluid>
+      <MainNavigation />
       <Row>
         <Col>{children}</Col>
       </Row>

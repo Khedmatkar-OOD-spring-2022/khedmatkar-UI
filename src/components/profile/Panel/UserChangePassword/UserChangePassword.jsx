@@ -17,11 +17,11 @@ const UserChangePassword = ({ password, onChangeInfo }) => {
       confirmNewPassword: "",
     },
     validationSchema: object({
-      newPassword: string().required("please enter your new password"),
+      newPassword: string().required("رمزعبور جدید را وارد کنید"),
 
       confirmNewPassword: string()
-        .required("please enter your confirm new password")
-        .oneOf([ref("newPassword")], "your confirm new password must match"),
+        .required("تایید رمزعبور جدید را وارد کنید")
+        .oneOf([ref("newPassword")], "تایید رمزعبور مطابقت ندارد"),
     }),
     onSubmit: (values, { setFieldError }) => {
       onChangeInfo(values.newPassword);
@@ -47,7 +47,6 @@ const UserChangePassword = ({ password, onChangeInfo }) => {
           valid={submit && !formik.errors.newPassword ? true : false}
           errMsg={formik.errors.newPassword || ""}
           invalid={submit && formik.errors.newPassword ? true : false}
-          successMsg="done"
           {...formik.getFieldProps("newPassword")}
         />
         <FormInput
@@ -61,7 +60,6 @@ const UserChangePassword = ({ password, onChangeInfo }) => {
           valid={submit && !formik.errors.confirmNewPassword ? true : false}
           errMsg={formik.errors.confirmNewPassword || ""}
           invalid={submit && formik.errors.confirmNewPassword ? true : false}
-          successMsg="done"
           {...formik.getFieldProps("confirmNewPassword")}
         />
         <Button

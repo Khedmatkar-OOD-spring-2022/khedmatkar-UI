@@ -13,6 +13,7 @@ import { object, string } from "yup";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const LoginForm = ({ onRegister, onLogin }) => {
   const [submit, setSubmit] = useState(false);
@@ -25,11 +26,11 @@ const LoginForm = ({ onRegister, onLogin }) => {
     },
     validationSchema: object({
       email: string()
-        .email("invalid email")
-        .required("please enter your email"),
+        .email("ایمیل صحیح نیست")
+        .required("لطفا ایمیل خود را وارد کنید"),
       password: string()
-        .required("please enter your password")
-        .min(4, "your password must be 4 characters or more"),
+        .required("لطفا رمزعبور خود را وارد کنید")
+        .min(4, "رمزعبور باید بیشتر از ۴ حرف باشد"),
     }),
     onSubmit: ({ email, password }, { setFieldError }) => {
       const details = {
@@ -57,6 +58,11 @@ const LoginForm = ({ onRegister, onLogin }) => {
         if (response.status === 200) {
           navigate("/dashboard");
         }
+        console.log(response)
+      }).catch((error) => {
+        toast.error(error && error.message, {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
       });
     },
   });
@@ -77,7 +83,6 @@ const LoginForm = ({ onRegister, onLogin }) => {
           text="ایمیل"
           placeholder="ایمیل خود را وارد کنید..."
           errMsg={formik.errors.email || ""}
-          successMsg="done"
           invalid={submit && formik.errors.email ? true : false}
           valid={submit && !formik.errors.email ? true : false}
           {...formik.getFieldProps("email")}
@@ -91,7 +96,6 @@ const LoginForm = ({ onRegister, onLogin }) => {
           placeholder="رمزعبور خود را وارد کنید..."
           type="password"
           errMsg={formik.errors.password || ""}
-          successMsg="done"
           invalid={submit && formik.errors.password ? true : false}
           valid={submit && !formik.errors.password ? true : false}
           {...formik.getFieldProps("password")}

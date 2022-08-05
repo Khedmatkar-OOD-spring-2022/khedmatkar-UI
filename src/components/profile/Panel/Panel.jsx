@@ -42,13 +42,6 @@ const ProfilePanel = () => {
       icon: <Lock size="20" color="black" />,
       active: false,
     },
-    {
-      id: 3,
-      border: true,
-      text: "تنظیمات",
-      icon: <ProfileCircle size="20" color="black" />,
-      active: false,
-    },
   ];
 
   return (

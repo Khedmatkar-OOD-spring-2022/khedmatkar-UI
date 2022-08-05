@@ -12,6 +12,7 @@ import PropTypes from "prop-types";
 import { Button, Container, Form } from "react-bootstrap";
 import { object, ref, string } from "yup";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 // import utils
 
@@ -31,22 +32,22 @@ const RegisterForm = ({ onRegister, onLogin }) => {
     validationSchema: object({
       firstName: string()
         .required("نام واردنشده است")
-        .max(15, "your username must be 15 characters or less")
-        .min(4, "your username must be 4 characters or more"),
+        .max(15, "نام‌ باید حداکثر ۱۵ حرف باشد")
+        .min(4, "نام‌ باید حداقل ۴ حرف باشد"),
       lastName: string()
         .required("نام خانوادگی واردنشده است")
-        .max(15, "your username must be 15 characters or less")
-        .min(4, "your username must be 4 characters or more"),
+        .max(15, "نام‌خانوادگی باید حداکثر ۱۵ حرف باشد")
+        .min(4, "نام‌خانوادگی باید حداقل ۴ حرف باشد"),
       email: string()
-        .email("invalid email")
+        .email("ایمیل وارد نشده است")
         .required("ایمیل واردنشده است"),
       password: string()
         .required("رمزعبور واردنشده است")
-        .min(4, "your password must be 8 characters or more"),
+        .min(4, "رمزعبور باید حداقل ۴ حرف باشد"),
 
       confirmPassword: string()
         .required("تایید رمزعبور واردنشده است")
-        .oneOf([ref("password")], "your confirm password must match"),
+        .oneOf([ref("password")], "تایید رمزعبور مطابقت ندارد"),
     }),
     onSubmit: (values, { setFieldError }) => {
       values.type = typeOfUser.current.checked ? "specialist" : "customer";
@@ -58,10 +59,15 @@ const RegisterForm = ({ onRegister, onLogin }) => {
         body: JSON.stringify(values),
       };
       console.log(requestOptions.body);
-      fetch("http://localhost:8080/register", requestOptions).then((response) =>
-        response.json()
-      );
-      navigate("/login");
+      fetch("http://localhost:8080/register", requestOptions).then((response) => {
+        if (response.status === 200) {
+          navigate("/login");
+        }
+      }).catch((error) => {
+        toast.error(error && error.message, {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
+      });
     },
   });
 
@@ -83,7 +89,6 @@ const RegisterForm = ({ onRegister, onLogin }) => {
           invalid={submit && formik.errors.firstName ? true : false}
           errMsg={formik.errors.firstName || ""}
           valid={submit && !formik.errors.firstName ? true : false}
-          successMsg="انجام شد"
           {...formik.getFieldProps("firstName")}
         />
 
@@ -96,7 +101,6 @@ const RegisterForm = ({ onRegister, onLogin }) => {
           invalid={submit && formik.errors.lastName ? true : false}
           errMsg={formik.errors.lastName || ""}
           valid={submit && !formik.errors.lastName ? true : false}
-          successMsg="انجام شد"
           {...formik.getFieldProps("lastName")}
         />
 
@@ -109,7 +113,6 @@ const RegisterForm = ({ onRegister, onLogin }) => {
           invalid={submit && formik.errors.email ? true : false}
           errMsg={formik.errors.email || ""}
           valid={submit && !formik.errors.email ? true : false}
-          successMsg="انجام شد"
           {...formik.getFieldProps("email")}
         />
 
@@ -141,7 +144,6 @@ const RegisterForm = ({ onRegister, onLogin }) => {
           invalid={submit && formik.errors.password ? true : false}
           errMsg={formik.errors.password || ""}
           valid={submit && !formik.errors.password ? true : false}
-          successMsg="انجام شد"
           {...formik.getFieldProps("password")}
         />
 
@@ -155,7 +157,6 @@ const RegisterForm = ({ onRegister, onLogin }) => {
           invalid={submit && formik.errors.confirmPassword ? true : false}
           errMsg={formik.errors.confirmPassword || ""}
           valid={submit && !formik.errors.confirmPassword ? true : false}
-          successMsg="انجام شد"
           {...formik.getFieldProps("confirmPassword")}
         />
 

@@ -62,7 +62,7 @@ const AdminList = ({}) => {
                           <Button
                             style={{ marginLeft: "1em" }}
                             onClick={() => {}}
-                            variant="danger"
+                            variant="outline-dange"
                             disabled
                           >
                             حذف مدیر

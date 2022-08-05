@@ -69,7 +69,7 @@ const SpecialityApproveList = ({}) => {
                               <Button
                                 style={{ marginLeft: "1em" }}
                                 onClick={() => declineSpecialty(req.id)}
-                                variant="danger"
+                                variant="outline-danger"
                               >
                                 رد درخواست
                               </Button>

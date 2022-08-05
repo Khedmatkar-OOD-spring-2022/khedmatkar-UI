@@ -4,11 +4,12 @@ import { Button, Row, Table } from "react-bootstrap";
 import { toast } from "react-toastify";
 import urls from "../common/urls";
 import { useFetch } from "../utils/useFetch";
-import NewSpecialty from "./modals/newSpecialty";
+import {NewSpecialty,RemoveSpecialty} from "./modals/manageSpecialty";
 
 const SpecialityManagmentPanel = ({}) => {
   const [specialtyList, setSpecialityList] = useState(null);
   const [showNewModal, setShowNewModal] = useState(false);
+  const [showRemoveModal, setShowRemoveModal] = useState(false);
 
   const { data, error, loading } = useFetch(
     urls.speciality.getAll(true),
@@ -23,13 +24,17 @@ const SpecialityManagmentPanel = ({}) => {
 
   return (
     <div dir="rtl">
-      <NewSpecialty show={showNewModal} setShow={setShowNewModal} />
+      <NewSpecialty show={showNewModal} setShow={setShowNewModal}/>
+      <RemoveSpecialty show={showRemoveModal} setShow={setShowRemoveModal} specialtyList={specialtyList} action={removeSpecialty} />
       <h2 className="text-center" style={{ padding: "1em" }}>
         {"مدیریت تخصص های سامانه"}
       </h2>
       <div style={{ textAlign: "left" }}>
         <Button color="primary" onClick={() => setShowNewModal(true)}>
           {"ثبت تخصص اصلی"}
+        </Button>{" "}
+        <Button variant="outline-danger" onClick={() => setShowRemoveModal(true)}>
+          {"حذف تخصص اصلی"}
         </Button>
       </div>
       {specialtyList &&
@@ -51,24 +56,30 @@ const MainSpeciality = ({ id, name }) => {
   );
   useEffect(() => {
     if (error) {
-      toast.error(error && error.message, { position: toast.POSITION.BOTTOM_RIGHT });
+      toast.error(error && error.message, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
     }
     setSpecialityList(data);
   }, [error, data]);
 
   return (
     <>
-      <NewSpecialty show={showNewModal} setShow={setShowNewModal} id={id} name={name} />
+      <NewSpecialty
+        show={showNewModal}
+        setShow={setShowNewModal}
+        id={id}
+        name={name}
+      />
       <h3>{name}</h3>
       <div style={{ textAlign: "left" }}>
         <Button color="primary" onClick={() => setShowNewModal(true)}>
           {"ثبت تخصص"}
-        </Button>
+        </Button>{" "}
       </div>
       <Table striped bordered responsive hover>
         <thead>
           <tr>
-            <th>ID</th>
             <th>نام تخصص</th>
             <th>عملیات</th>
           </tr>
@@ -77,7 +88,6 @@ const MainSpeciality = ({ id, name }) => {
           {specialtyList &&
             specialtyList.map((req) => (
               <tr key={req.id}>
-                <td> {req.id} </td>
                 <td> {req.name} </td>
                 <td>
                   <div>
@@ -85,7 +95,7 @@ const MainSpeciality = ({ id, name }) => {
                       <Button
                         style={{ marginLeft: "1em" }}
                         onClick={() => removeSpecialty(req.id)}
-                        variant="danger"
+                        variant="outline-danger"
                       >
                         {"حذف تخصص"}{" "}
                       </Button>{" "}
@@ -108,6 +118,7 @@ function removeSpecialty(id) {
         toast.success("حذف تخصص با موفقیت انجام شد.", {
           position: toast.POSITION.BOTTOM_RIGHT,
         });
+        window.location.reload(true)
       }
     })
     .catch((error) => {

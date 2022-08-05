@@ -64,7 +64,7 @@ const SpecialityList = ({}) => {
                           <Button
                             style={{ marginLeft: "1em" }}
                             onClick={() => removeSpecialty(req.specialtyId)}
-                            variant="danger"
+                            variant="outline-dange"
                           >
                             حذف
                           </Button>{" "}
@@ -77,7 +77,7 @@ const SpecialityList = ({}) => {
                             <Button
                               style={{ marginLeft: "1em" }}
                               onClick={() => removeSpecialty(req.specialtyId)}
-                              variant="danger"
+                              variant="outline-dange"
                               disabled
                             >
                               لغو

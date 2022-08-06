@@ -24,6 +24,9 @@ const AddSpecialty = ({ show, setShow, action }) => {
       });
     }
     setSpecialityList(data);
+    if (data.length > 0) {
+      setChoosedSpecialty(data[0].id);
+    }
   }, [error, data]);
 
   useEffect(() => {
@@ -104,7 +107,10 @@ const AddSpecialty = ({ show, setShow, action }) => {
           <Button
             variant="success"
             onClick={() => {
-              action(nameRef.current.options[nameRef.current.selectedIndex].id,selectedFile);
+              action(
+                nameRef.current.options[nameRef.current.selectedIndex].id,
+                selectedFile
+              );
               setShow(false);
             }}
           >

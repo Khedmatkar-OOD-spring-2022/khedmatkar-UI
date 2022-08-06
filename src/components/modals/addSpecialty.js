@@ -7,8 +7,10 @@ import { useFetch } from "../../utils/useFetch";
 
 const AddSpecialty = ({ show, setShow, action }) => {
   const [specialtyList, setSpecialityList] = useState(null);
-  const [choosedSpecialty, setChoosedSpecialty] = useState()
+  const [choosedSpecialty, setChoosedSpecialty] = useState();
   const [subSpecialties, setSubSpecialties] = useState();
+  const [selectedFile, setSelectedFile] = useState(null);
+
   const nameRef = useRef("");
   const selectRef = useRef("");
   const { data, error, loading } = useFetch(
@@ -24,7 +26,7 @@ const AddSpecialty = ({ show, setShow, action }) => {
     setSpecialityList(data);
   }, [error, data]);
 
-  useEffect(() => {    
+  useEffect(() => {
     if (selectRef && selectRef.current) {
       const id = selectRef.current.options[selectRef.current.selectedIndex].id;
       axios
@@ -65,9 +67,14 @@ const AddSpecialty = ({ show, setShow, action }) => {
               </Form.Group>
               <Form.Group as={Col}>
                 <Form.Label>{"بخش اصلی:"}</Form.Label>
-                <Form.Select ref={selectRef} onChange={(e)=>{
-                  setChoosedSpecialty(e.target.options[e.target.selectedIndex].id)
-                }}>
+                <Form.Select
+                  ref={selectRef}
+                  onChange={(e) => {
+                    setChoosedSpecialty(
+                      e.target.options[e.target.selectedIndex].id
+                    );
+                  }}
+                >
                   {specialtyList &&
                     specialtyList.map((s) => (
                       <option id={s.id}>{s.name}</option>
@@ -77,7 +84,10 @@ const AddSpecialty = ({ show, setShow, action }) => {
             </Row>
             <Form.Group controlId="formFile" className="mb-3">
               <Form.Label>بارگذاری مدارک:</Form.Label>
-              <Form.Control type="file" />
+              <Form.Control
+                type="file"
+                onChange={(e) => setSelectedFile(e.target.files[0])}
+              />
             </Form.Group>
           </Form>
         </Modal.Body>
@@ -94,9 +104,7 @@ const AddSpecialty = ({ show, setShow, action }) => {
           <Button
             variant="success"
             onClick={() => {
-              action(
-                nameRef.current.options[nameRef.current.selectedIndex].id
-              );
+              action(nameRef.current.options[nameRef.current.selectedIndex].id,selectedFile);
               setShow(false);
             }}
           >

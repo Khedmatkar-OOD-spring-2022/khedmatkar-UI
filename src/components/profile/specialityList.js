@@ -55,7 +55,7 @@ const SpecialityList = ({}) => {
                     <td> {getStatusMessage(req.status)} </td>
                     {/* <td dir="ltr"> {req.date} </td> */}
                     <td>
-                      {req.status!=='PENDING' ? (
+                      {req.status !== "PENDING" ? (
                         <h5>
                           <Button
                             style={{ marginLeft: "1em" }}
@@ -117,15 +117,13 @@ function removeSpecialty(id) {
       });
     });
 }
-function addSpecialty(id) {
+function addSpecialty(id, file) {
+  const formData = new FormData();
+  formData.append("id", id);
+  formData.append("file", file);
+
   axios
-    .post(
-      urls.certificate.add(),
-      {
-        specialtyId: id,
-      },
-      { withCredentials: true }
-    )
+    .post(urls.certificate.add(), formData, { withCredentials: true })
     .then((res) => {
       if (res.status === 200) {
         toast.success("ثبت تخصص با موفقیت انجام شد.", {

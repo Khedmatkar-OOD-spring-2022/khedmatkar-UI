@@ -18,11 +18,15 @@ const urls = {
     servicRequest: () => `${API_BASE_URL}/api/serviceRequests/`,
     servicRequestById: (id) => `${API_BASE_URL}/api/serviceRequests/${id}`,
     cancel: (id) => `${API_BASE_URL}/api/serviceRequests/${id}/customer/cancel`,
-    specialistAccept: (id) => `${API_BASE_URL}/api/serviceRequests/${id}/specialist/accept`,
-    specialistReject: (id) => `${API_BASE_URL}/api/serviceRequests/${id}/specialist/reject`,
-  },chat: {
-    getByServicRequest: (id) => `${API_BASE_URL}/api/chats/serviceRequest/${id}`,
-    sendMessage: (id) => `${API_BASE_URL}/api/chats/`,
+    specialistAccept: (id) =>
+      `${API_BASE_URL}/api/serviceRequests/${id}/specialist/accept`,
+    specialistReject: (id) =>
+      `${API_BASE_URL}/api/serviceRequests/${id}/specialist/reject`,
+  },
+  chat: {
+    getByServicRequest: (id) =>
+      `${API_BASE_URL}/api/chats/serviceRequest/${id}`,
+    sendMessage: () => `${API_BASE_URL}/api/chats/`,
     getById: (id) => `${API_BASE_URL}/api/chats/${id}`,
   },
   speciality: {
@@ -48,6 +52,7 @@ const urls = {
       `${API_BASE_URL}/api/certificates/${id}/validate`,
     invalidateCertificate: (id) =>
       `${API_BASE_URL}/api/certificates/${id}/invalidate`,
+    cancelServiceRequest: (id) => `${API_BASE_URL}/api/serviceRequests/${id}/admin/cancel`,
   },
 };
 

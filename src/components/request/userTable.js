@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import urls from "../../common/urls";
 import { useFetch } from "../../utils/useFetch";
 
-const UserTable = ({ isAdmin ,setDetailsId}) => {
+const UserTable = ({ isAdmin, setDetailsId }) => {
   const navigate = useNavigate();
   const [userList, setUserList] = useState();
   const { data, error, loading } = useFetch(urls.servic.servicRequest(), "GET");
@@ -54,7 +54,7 @@ const UserTable = ({ isAdmin ,setDetailsId}) => {
                       {isAdmin ? null : (
                         <Button
                           onClick={() => {
-                            setDetailsId(req.id)
+                            setDetailsId(req.id);
                             navigate("/dashboard/request-details");
                           }}
                           variant="outline-warning"
@@ -64,7 +64,7 @@ const UserTable = ({ isAdmin ,setDetailsId}) => {
                       )}{" "}
                       <Button
                         style={{ marginLeft: "1em" }}
-                        onClick={() => cancelRequest(req.id)}
+                        onClick={() => cancelRequest(req.id, isAdmin)}
                         variant="outline-danger"
                       >
                         لغو
@@ -79,10 +79,13 @@ const UserTable = ({ isAdmin ,setDetailsId}) => {
     </>
   );
 };
-function cancelRequest(id) {
+function cancelRequest(id, isAdmin) {
+  const url = isAdmin
+    ? urls.admin.cancelServiceRequest(id)
+    : urls.servic.cancel(id);
   axios
     .post(
-      urls.servic.cancel(id),
+      url,
       {},
       {
         withCredentials: true,

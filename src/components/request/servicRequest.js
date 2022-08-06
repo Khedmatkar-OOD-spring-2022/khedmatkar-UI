@@ -1,26 +1,21 @@
 import axios from "axios";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
-  Form,
-  Button,
-  Row,
-  Col,
-  FormControl,
-  Container,
+  Button, Col, Container, Form, Row
 } from "react-bootstrap";
-import { toast, ToastContainer } from "react-toastify";
+import DatePicker from 'react-date-picker';
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import urls from "../../common/urls";
 import { useFetch } from "../../utils/useFetch";
 
-import Transportation from "./serviceTypes/Transportation";
 const ServiceRequest = ({}) => {
   const [mainSpecialty, setMainSpecialty] = useState(null);
   const [specialtyList, setSpecialityList] = useState(null);
+  const [date, onChangeDate] = useState(new Date());
 
   const address = useRef("");
   const description = useRef("");
-  const receptionDate = useRef("");
   const { data, error, loading } = useFetch(
     urls.speciality.getAll(true),
     "GET"
@@ -65,7 +60,7 @@ const ServiceRequest = ({}) => {
 
           <Form.Group as={Col} controlId="formGridZip">
             <Form.Label>تاریخ</Form.Label>
-            <Form.Control ref={receptionDate} />
+            <Form.Control as ={DatePicker} onChange={onChangeDate} value={date} />
           </Form.Group>
         </Row>
         <Form.Group className="mb-3" controlId="serviceType">
@@ -87,7 +82,7 @@ const ServiceRequest = ({}) => {
             submitRequest(
               description.current.value,
               address.current.value,
-              receptionDate.current.value,
+              date.toISOString(),
               mainSpecialty
             );
           }}

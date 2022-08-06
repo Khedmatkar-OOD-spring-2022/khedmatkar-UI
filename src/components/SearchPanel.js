@@ -143,7 +143,6 @@ function SpecialistCard(props) {
   return (
     <Card style={{ width: "20%" }}>
       <div id="center">
-        <Card.Img variant="top" src={props.Img} width="120rem" />
         <Card.Body>
           <h2 className="card_title">
             <Card.Title>{props.Title}</Card.Title>

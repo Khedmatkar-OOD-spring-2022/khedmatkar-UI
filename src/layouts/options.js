@@ -1,12 +1,6 @@
 import React from "react";
 import {
-  FiEdit,
-  FiTablet,
-  FiAlertCircle,
-  FiPenTool,
-  FiUser,
-  FiArchive,
-  FiMessageCircle,
+  FiAlertCircle, FiArchive, FiEdit, FiMessageCircle, FiPenTool, FiTablet
 } from "react-icons/fi";
 
 export const CustomerSidebar = [
@@ -32,38 +26,7 @@ export const CustomerSidebar = [
     to: "/dashboard/notification",
   },
 ];
-export const AdminSidebar = [
-  {
-    title: "Dashboard",
-    to: "/blog-overview",
-    htmlBefore: <FiEdit />,
-  },
-  {
-    title: "Add New Post",
-    htmlBefore: <FiArchive />,
-    to: "/add-new-post",
-  },
-  {
-    title: "Forms & Components",
-    htmlBefore: <FiPenTool />,
-    to: "/components-overview",
-  },
-  {
-    title: "Tables",
-    htmlBefore: <FiTablet />,
-    to: "/tables",
-  },
-  {
-    title: "User Profile",
-    htmlBefore: <FiUser />,
-    to: "/user-profile-lite",
-  },
-  {
-    title: "اعلانات",
-    htmlBefore: <FiAlertCircle />,
-    to: "/notification",
-  },
-];
+
 export const SuperAdminSidebar = [
   {
     title: "فهرست مدیران سامانه",
@@ -98,11 +61,6 @@ export const SuperAdminSidebar = [
     title: "پیشنهادات و انتقادات",
     htmlBefore: <FiArchive />,
     to: "/admin/feedbacks",
-  },
-  {
-    title: "اعلانات",
-    htmlBefore: <FiAlertCircle />,
-    to: "/admin/notification",
   },
 ];
 export const SpecialistSidebar = [

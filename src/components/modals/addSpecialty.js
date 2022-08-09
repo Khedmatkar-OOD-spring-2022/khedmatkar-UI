@@ -24,7 +24,7 @@ const AddSpecialty = ({ show, setShow, action }) => {
       });
     }
     setSpecialityList(data);
-    if (data.length > 0) {
+    if (data && data.length > 0) {
       setChoosedSpecialty(data[0].id);
     }
   }, [error, data]);

@@ -119,7 +119,7 @@ function removeSpecialty(id) {
 }
 function addSpecialty(id, file) {
   const formData = new FormData();
-  formData.append("id", id);
+  formData.append("specialtyId", id);
   formData.append("file", file);
 
   axios

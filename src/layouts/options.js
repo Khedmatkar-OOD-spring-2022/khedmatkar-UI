@@ -86,6 +86,15 @@ export const SuperAdminSidebar = [
     to: "/admin/speciality-approve",
   },
   {
+    title: "مشکلات فنی",
+    htmlBefore: <FiArchive />,
+    to: "/admin/technicalissues",
+  },
+  {
+    title: "تنظیمات سامانه",
+    htmlBefore: <FiArchive />,
+    to: "/admin/system-settings",
+  },  {
     title: "پیشنهادات و انتقادات",
     htmlBefore: <FiArchive />,
     to: "/admin/feedbacks",

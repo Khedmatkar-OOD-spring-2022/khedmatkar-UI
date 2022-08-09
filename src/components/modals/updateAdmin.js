@@ -4,11 +4,8 @@ import { Modal, Form, Button, Row, Col } from "react-bootstrap";
 import { toast } from "react-toastify";
 import urls from "../../common/urls";
 
-const AddAdmin = ({ show, setShow, permissions }) => {
+const UpdateAdmin = ({ show, setShow, permissions, email }) => {
   const [checkedPermissions, setCheckedPermissions] = useState([]);
-  const firstNameRef = useRef("");
-  const lastNameRef = useRef("");
-  const emailRef = useRef("");
   return (
     <>
       <Modal
@@ -19,24 +16,18 @@ const AddAdmin = ({ show, setShow, permissions }) => {
         centered
       >
         <Modal.Header>
-          <Modal.Title>{"ثبت مدیر جدید"} </Modal.Title>
+          <Modal.Title>{"به‌روزرسانی مدیر"} </Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
           <Form>
             <Row>
               <Form.Group as={Col}>
-                <Form.Label>{"نام مدیر:"}</Form.Label>
-                <Form.Control
-                  ref={firstNameRef}
-                  placeholder="لطفا نام را بنویسید"
-                />{" "}
-                <Form.Label>{"نام خانوادگی مدیر:"}</Form.Label>
-                <Form.Control
-                  ref={lastNameRef}
-                  placeholder="لطفا نام خانوادگی را بنویسید"
-                />
+                <Form.Label>{"ایمیل:"}</Form.Label>
+                <Form.Label>{email}</Form.Label>
               </Form.Group>
+            </Row>
+            <Row>
               <Form.Group as={Col}>
                 <Form.Label>{"سطح دسترسی:"}</Form.Label>
                 {permissions.map((e, i) => (
@@ -60,15 +51,6 @@ const AddAdmin = ({ show, setShow, permissions }) => {
                 ))}
               </Form.Group>
             </Row>
-            <Row>
-              <Form.Group as={Col}>
-                <Form.Label>{"ایمیل:"}</Form.Label>
-                <Form.Control
-                  ref={emailRef}
-                  placeholder="لطفا ایمیل را بنویسید"
-                />
-              </Form.Group>
-            </Row>
           </Form>
         </Modal.Body>
 
@@ -84,12 +66,7 @@ const AddAdmin = ({ show, setShow, permissions }) => {
           <Button
             variant="success"
             onClick={() => {
-              makeNewAdmin(
-                firstNameRef.current.value,
-                lastNameRef.current.value,
-                emailRef.current.value,
-                checkedPermissions
-              );
+              updateAdmin(email, checkedPermissions);
               setShow(false);
               setCheckedPermissions([]);
             }}
@@ -101,29 +78,25 @@ const AddAdmin = ({ show, setShow, permissions }) => {
     </>
   );
 };
-function makeNewAdmin(firstName, lastName, email, permissions) {
+function updateAdmin(email, permissions) {
   axios
     .post(
-      urls.admin.new(),
+      urls.admin.update(),
       {
-        firstName: firstName,
-        lastName: lastName,
         email: email,
-        password: null,
         permissions: permissions,
       },
       { withCredentials: true }
     )
     .then((res) => {
       if (res.status === 200) {
-        toast.success("ثبت مدیر با موفقیت انجام شد.", {
+        toast.success("به‌روزرسانی مدیر با موفقیت انجام شد.", {
           position: toast.POSITION.BOTTOM_RIGHT,
         });
-        window.location.reload()
+        window.location.reload();
       } else {
         console.log(res);
       }
-    
     })
     .catch((error) => {
       toast.error(error && error.message, {
@@ -131,4 +104,4 @@ function makeNewAdmin(firstName, lastName, email, permissions) {
       });
     });
 }
-export default AddAdmin;
+export default UpdateAdmin;

@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Button, Row, Table } from "react-bootstrap";
 import { toast } from "react-toastify";
 import urls from "../../common/urls";
+import { getPermissionLabel } from "../../utils/permissions";
 import { useFetch } from "../../utils/useFetch";
 import AddAdmin from "../modals/newAdmin";
+import UpdateAdmin from "../modals/updateAdmin";
 
 const AdminList = ({}) => {
   const [adminList, setAdminList] = useState();
@@ -17,10 +19,22 @@ const AdminList = ({}) => {
     setAdminList(data);
   }, [error, data]);
   const [showNewAdminModal, setShowNewAdminModal] = useState(false);
+  const [showUpdateAdmin, setShowUpdateAdmin] = useState(false);
+  const [choosedEmail, setChoosedEmail] = useState("");
 
   return (
     <>
-      <AddAdmin show={showNewAdminModal} setShow={setShowNewAdminModal} permissions={permissions} />
+      <AddAdmin
+        show={showNewAdminModal}
+        setShow={setShowNewAdminModal}
+        permissions={permissions}
+      />
+      <UpdateAdmin
+        show={showUpdateAdmin}
+        setShow={setShowUpdateAdmin}
+        permissions={permissions}
+        email={choosedEmail}
+      />
       <div dir="rtl">
         <h2 className="text-center" style={{ padding: "1em" }}>
           فهرست مدیران
@@ -46,7 +60,7 @@ const AdminList = ({}) => {
                 adminList.map((req) => (
                   <tr key={req.id}>
                     <td> {req.email} </td>
-                    <td> {"همه"} </td>
+                    <td> {req.permissions && req.permissions.map((e)=><tr>{getPermissionLabel(e)}</tr>)}</td>
                     <td> {req.firstName} </td>
                     <td> {req.lastName} </td>
                     <td>
@@ -54,7 +68,10 @@ const AdminList = ({}) => {
                         <h5>
                           <Button
                             style={{ marginLeft: "1em" }}
-                            onClick={() => {}}
+                            onClick={() => {
+                              setChoosedEmail(req.email);
+                              setShowUpdateAdmin(true);
+                            }}
                             variant="outline-primary"
                           >
                             تغییر سطح دسترسی

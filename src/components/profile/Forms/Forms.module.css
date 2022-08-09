@@ -1,6 +1,7 @@
 .container {
     min-height: 100vh !important;
     padding: 50px;
+    margin:-7%;
 }
 .submit-btn {
     padding: 12px 0;

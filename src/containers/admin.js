@@ -9,6 +9,7 @@ import UserTable from "../components/request/userTable";
 import ServicePanel from "../components/servicePanel";
 import SpecialityApproveList from "../components/specialityList";
 import SpecialityManagmentPanel from "../components/specialityManagment";
+import SystemConfig from "../components/systemSettings";
 import { useAuth } from "../providers/authentication";
 import "./dashboard/dashboard.css";
 const Admin = () => {
@@ -30,6 +31,10 @@ const Admin = () => {
         return <SpecialityManagmentPanel />;
       case "feedbacks":
         return <FeedbackPanel />;
+      case "technicalissues":
+        return <FeedbackPanel />;
+      case "system-settings":
+        return <SystemConfig />;
       default:
         return <></>;
     }

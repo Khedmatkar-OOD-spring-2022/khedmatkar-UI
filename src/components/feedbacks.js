@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Button, ListGroup, Modal, Row, Table } from "react-bootstrap";
+import { Button, Modal, Row, Table } from "react-bootstrap";
 
-import { css, StyleSheet } from "aphrodite";
+import { StyleSheet } from "aphrodite";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import urls from "../common/urls";
 import { useFetch } from "../utils/useFetch";
-import { useNavigate } from "react-router-dom";
 
 const FeedbackPanel = ({}) => {
   const [notifs, setNotifs] = useState();
@@ -56,39 +56,6 @@ const FeedbackPanel = ({}) => {
         </Table>
       </Row>
     </div>
-    // <div className={css(styles.notificationList)}>
-    //   <ListGroup>
-    //     <ListGroup.Item>
-    //       <ListGroup horizontal className={css(styles.notificationItem)}>
-    //         <ListGroup.Item style={{ border: "0px" }}>موضوع</ListGroup.Item>
-    //         <ListGroup.Item style={{ border: "0px" }}>فرستنده</ListGroup.Item>
-    //         <ListGroup.Item style={{ border: "0px" }}>توضیحات</ListGroup.Item>
-    //         <ListGroup.Item style={{ border: "0px" }}>تاریخ</ListGroup.Item>
-    //       </ListGroup>
-    //     </ListGroup.Item>
-    //     <br />
-
-    //     {notifs &&
-    //       notifs.map((notif) => (
-    //         <ListGroup.Item>
-    //           <ListGroup horizontal className={css(styles.notificationItem)}>
-    //             <ListGroup.Item style={{ border: "0px" }}>
-    //               {notif.title}
-    //             </ListGroup.Item>{" "}
-    //             <ListGroup.Item style={{ border: "0px" }}>
-    //               {notif.writerEmail}
-    //             </ListGroup.Item>
-    //             <ListGroup.Item style={{ border: "0px" }}>
-    //               {notif.content}
-    //             </ListGroup.Item>
-    //             <ListGroup.Item style={{ border: "0px" }}>
-    //               {notif.timeStamp.slice(0,10)}
-    //             </ListGroup.Item>
-    //           </ListGroup>
-    //         </ListGroup.Item>
-    //       ))}
-    //   </ListGroup>
-    // </div>
   );
 };
 

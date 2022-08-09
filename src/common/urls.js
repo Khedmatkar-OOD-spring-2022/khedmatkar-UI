@@ -10,6 +10,7 @@ const urls = {
   },
   common: {
     sendFeedback: () => `${API_BASE_URL}/api/feedbacks/`,
+    getAnnouncments: () => `${API_BASE_URL}/api/announcements/`,
     updatePassword: () => `${API_BASE_URL}/api/profile/changePassword`,
     updateUserInfo: () => `${API_BASE_URL}/api/profile`,
     search: (id) => `${API_BASE_URL}/api/serviceRequests/${id}`,
@@ -44,7 +45,10 @@ const urls = {
     remove: (value) => `${API_BASE_URL}/api/certificates/${value}`,
   },
   admin: {
+    changeConfig: () => `${API_BASE_URL}/api/config/`,
     new: () => `${API_BASE_URL}/api/admins/register`,
+    update: () => `${API_BASE_URL}/api/admins/permission`,
+    getPermissions: () => `${API_BASE_URL}/api/admins/permission`,
     get: () => `${API_BASE_URL}/api/admins/`,
     getFeedbacks: () => `${API_BASE_URL}/api/feedbacks/`,
     getCertificate: () => `${API_BASE_URL}/api/certificates/all`,

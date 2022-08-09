@@ -1,68 +1,87 @@
-import React, { useState } from "react";
-import { ListGroup, Badge } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Button, Modal, Row, Table } from "react-bootstrap";
 
-import { StyleSheet, css } from "aphrodite";
+import { StyleSheet } from "aphrodite";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import urls from "../common/urls";
+import { useFetch } from "../utils/useFetch";
 
-const NotificationPanel = ({ layout, stickyTop }) => {
-  const [notifs, setNotifs] = useState([
-    {
-      topic: "ثبت درخواست خدمت",
-      describtion:
-        "شما درخواست خود را برای تعمیر کولر خود ثبت کردید به محض پیدا شدن متخصص به شما اعلام خواهیم کرد",
-      date: "۱۴۰۱/۱/۱",
-      isNew: true,
-    },
-    {
-      topic: "ثبت درخواست خدمت",
-      describtion:
-        "شما درخواست خود را برای تعمیر کولر خود ثبت کردید به محض پیدا شدن متخصص به شما اعلام خواهیم کرد",
-      date: "۱۴۰۱/۱/۱",
-      isNew: true,
-    },
-    {
-      topic: "ثبت درخواست خدمت",
-      describtion:
-        "شما درخواست خود را برای تعمیر کولر خود ثبت کردید به محض پیدا شدن متخصص به شما اعلام خواهیم کرد",
-      date: "۱۴۰۱/۱/۱",
-      isNew: false,
-    },
-  ]);
+const NotificationPanel = ({}) => {
+  const [notifs, setNotifs] = useState();
+  const { data, error, loading } = useFetch(urls.common.getAnnouncments(), "GET");
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (error) {
+      toast.error(error && error.message, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+    }
+    if (typeof data == "string") {
+      localStorage.removeItem("user");
+      navigate("/login");
+    }
+    setNotifs(data);
+  }, [error, data]);
+
   return (
-    <div className={css(styles.notificationList)}>
-      <ListGroup>
-        <ListGroup.Item>
-          <ListGroup horizontal className={css(styles.notificationItem)}>
-            <ListGroup.Item style={{ border: "0px" }}>موضوع</ListGroup.Item>
-            <ListGroup.Item style={{ border: "0px" }}>توضیحات</ListGroup.Item>
-            <ListGroup.Item style={{ border: "0px" }}>تاریخ</ListGroup.Item>
-          </ListGroup>
-        </ListGroup.Item>
-        <br />
-
-        {notifs.map((notif) => (
-          <ListGroup.Item>
-            <ListGroup horizontal className={css(styles.notificationItem)}>
-              <ListGroup.Item style={{ border: "0px" }}>
-                {notif.topic}
-                {notif.isNew ? (
-                  <Badge bg="primary" pill>
-                    جدید
-                  </Badge>
-                ) : null}
-              </ListGroup.Item>
-              <ListGroup.Item style={{ border: "0px" }}>
-                {notif.describtion}
-              </ListGroup.Item>
-              <ListGroup.Item style={{ border: "0px" }}>
-                {notif.date}
-              </ListGroup.Item>
-            </ListGroup>
-          </ListGroup.Item>
-        ))}
-      </ListGroup>
+    <div dir="rtl">
+      <h2 className="text-center" style={{ padding: "1em" }}>
+        فهرست اعلانات
+      </h2>
+      <Row>
+        <Table striped bordered responsive hover>
+          <thead>
+            <tr>
+              <th>موضوع</th>
+              <th>توضیحات</th>
+              <th>تاریخ</th>
+            </tr>
+          </thead>
+          <tbody>
+            {notifs &&
+              notifs.map((notif) => (
+                <tr key={notif.id}>
+                  <td> {notif.title} </td>
+                  <td> {notif.writerEmail} </td>
+                  <td>
+                    <DescriptionModal description={notif.content}
+                     /> 
+                  </td>
+                  <td dir="ltr"> {notif.timeStamp.slice(0, 10)} </td>
+                </tr>
+              ))}
+          </tbody>
+        </Table>
+      </Row>
     </div>
   );
 };
+
+function DescriptionModal({description}) {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  return (
+    <>
+      <Button variant="primary" onClick={handleShow}>
+      {"مشاهده توضیحات"}
+      </Button>
+
+      <Modal show={show} onHide={handleClose}>
+
+        <Modal.Body>{description}</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            بستن
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </>
+  );
+}
 const styles = StyleSheet.create({
   notificationList: {
     direction: "rtl",

@@ -34,21 +34,21 @@ const NotificationPanel = ({}) => {
           <thead>
             <tr>
               <th>موضوع</th>
-              <th>توضیحات</th>
+              <th>پیام</th>
               <th>تاریخ</th>
             </tr>
           </thead>
           <tbody>
             {notifs &&
-              notifs.map((notif) => (
-                <tr key={notif.id}>
-                  <td> {notif.title} </td>
-                  <td> {notif.writerEmail} </td>
-                  <td>
+              notifs.map((notif,i) => (
+                <tr key={i}>
+                  <td> {notif.subject} </td>
+                  <td> {notif.message} </td>
+                  {/* <td>
                     <DescriptionModal description={notif.content}
                      /> 
-                  </td>
-                  <td dir="ltr"> {notif.timeStamp.slice(0, 10)} </td>
+                  </td> */}
+                  <td dir="ltr"> {notif.creation.slice(0, 10)} </td>
                 </tr>
               ))}
           </tbody>

@@ -6,10 +6,11 @@ import { toast } from "react-toastify";
 import urls from "../common/urls";
 import { useFetch } from "../utils/useFetch";
 import { useNavigate } from "react-router-dom";
-import { TechnicalissueCreate } from "./modals/technicalissue";
+import { TechnicalissueAnswer, TechnicalissueCreate } from "./modals/technicalissue";
+import axios from "axios";
 
 const TechnicalIssuePanel = ({ isAdmin }) => {
-  const [technicalIssues, setTechnicalIssues] = useState();
+  const [technicalIssues, setTechnicalIssues] = useState([]);
   const [showNewModal, setShowNewModal] = useState(false);
   const { data, error, loading } = useFetch(urls.technicalIssue.get(), "GET");
   const navigate = useNavigate();
@@ -43,49 +44,72 @@ const TechnicalIssuePanel = ({ isAdmin }) => {
         <Table striped bordered responsive hover>
           <thead>
             <tr>
-              <th>شماره درخواست</th>
-              <th>نام تخصص</th>
-              <th>وضعیت</th>
-              <th>مدرک بارگذاری شده</th>
-              <th>وضعیت</th>
+              <th width="10%">شماره درخواست</th>
+              <th width="10%">موضوع </th>
+              <th width="30%">جزئیات </th>
+              <th width="10%">وضعیت</th>
+              <th >پاسخ</th>
+              {isAdmin ? <th>عملیات</th> : null}
             </tr>
           </thead>
           <tbody>
-            {/* {specialtyList &&
-            specialtyList.map((req) => (
-              <tr key={req.id}>
-                <td> {req.id} </td>
-                <td> {req.specialtyDTO.name} </td>
-                <td> {getStatusMessage(req.status)} </td>
-                <td>
-                  <Button
-                    variant="secondary"
-                    onClick={() => {
-                      saveAs(
-                        urls.storage.downloadFile(req.filePath),
-                        req.filePath
-                      );
-                    }}
-                    disabled={!req.filePath}
-                  >
-                    <FiDownload />
-                  </Button>{" "}
-                </td>
-                <td>
-                  <div>
-                    <h5>
-
-                    </h5>
-                  </div>
-                </td>
-              </tr>
-            ))} */}
+            {technicalIssues &&
+              technicalIssues.map((req) => (
+                <tr key={req.id}>
+                  <td> {req.id} </td>
+                  <td> {req.ticket.title} </td>
+                  <td> {req.ticket.content} </td>
+                  <td> {getStatusMessage(req.status)} </td>
+                  <td> {req.answers && req.answers.length>0 && req.answers[req.answers.length-1].content} </td>
+                  {isAdmin ? (
+                    <td>
+                      <TechnicalissueAnswer disabled={req.status === "CLOSED"} name='پاسخ' id={req.id} />
+                        {"   "}
+                      <Button
+                        variant="outline-danger"
+                        disabled={req.status === "CLOSED"}
+                        onClick={() => closeTechnicalIssue(req.id)}
+                      >
+                        بستن
+                      </Button>
+                    </td>
+                  ) : null}
+                </tr>
+              ))}
           </tbody>
         </Table>
       </Row>
     </div>
   );
 };
+function closeTechnicalIssue(id) {
+  axios
+    .post(urls.technicalIssue.close(id), {}, { withCredentials: true })
+    .then((res) => {
+      if (res.status === 200) {
+        toast.success(" مشکل با موفقیت بسته شد.", {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
+        window.location.reload();
+      }
+    })
+    .catch((error) => {
+      toast.error(error && error.message, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+    });
+}
+function getStatusMessage(status) {
+  switch (status) {
+    case "OPENED":
+      return "درحال بررسی";
+    case "CLOSED":
+      return "بسته شده";
+
+    default:
+      return "نامشخص";
+  }
+}
 const styles = StyleSheet.create({
   notificationList: {
     direction: "rtl",

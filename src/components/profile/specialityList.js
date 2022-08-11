@@ -42,8 +42,8 @@ const SpecialityList = ({}) => {
           <Table striped bordered responsive hover>
             <thead>
               <tr>
-                <th>نام تخصص</th>
-                <th>وضعیت</th>
+                <th width='30%'>نام تخصص</th>
+                <th width='30%'>وضعیت</th>
                 <th>عملیات</th>
               </tr>
             </thead>

@@ -80,7 +80,7 @@ const MainSpeciality = ({ id, name }) => {
       <Table striped bordered responsive hover>
         <thead>
           <tr>
-            <th>نام تخصص</th>
+            <th width='40%'>نام تخصص</th>
             <th>عملیات</th>
           </tr>
         </thead>

@@ -5,6 +5,7 @@ import urls from "../../common/urls";
 import { useFetch } from "../../utils/useFetch";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function SuggestedRequests() {
   const [customerList, setCustomerList] = useState();
@@ -37,6 +38,9 @@ export default function SuggestedRequests() {
                 name={c.receptionDate}
                 Title={c.specialty.name}
                 address={c.address}
+                waitingForAcceptance={
+                  c.status === "WAITING_FOR_CUSTOMER_ACCEPTANCE"
+                }
                 isAccepted={c.status === "WAITING_FOR_CUSTOMER_ACCEPTANCE"}
                 inProgress={c.status === "IN_PROGRESS"}
                 isCanceled={c.status === "CANCELED"}
@@ -91,10 +95,12 @@ function RequestInfoCard({
   address,
   Title,
   name,
+  waitingForAcceptance,
   isAccepted,
   inProgress,
   isCanceled,
 }) {
+  const navigate=useNavigate()
   return (
     <Card style={{ width: "45%", "flex-direction": "row" }}>
       <Card.Img variant="top" src={Img} style={{ width: "30%" }} />
@@ -126,7 +132,7 @@ function RequestInfoCard({
               <Badge bg="secondary">در حال بررسی توسط مشتری</Badge>
               {"\n"}
             </div>
-            <Button className="card_btn" variant="outline-warning">
+            <Button className="card_btn" variant="outline-warning" onClick={()=>{navigate('/chat/'+id)}}>
               {"ارسال پیام"}
             </Button>
           </div>
@@ -141,13 +147,26 @@ function RequestInfoCard({
             </Button>
           </div>
         ) : (
-          <Button
-            className="card_btn"
-            variant="primary"
-            onClick={() => acceptOffer(id)}
-          >
-            قبول پیشنهاد
-          </Button>
+          <div>
+               <div dir="ltr">
+              <Badge bg="dark">در حال بررسی توسط متخصص</Badge>
+              {"\n"}
+            </div>
+            <Button
+              className="card_btn"
+              variant="primary"
+              onClick={() => acceptOffer(id)}
+            >
+              قبول پیشنهاد
+            </Button>
+            <Button
+              className="card_btn"
+              variant="outline-danger"
+              onClick={() => rejectOffer(id)}
+            >
+             رد پیشنهاد
+            </Button>
+          </div>
         )}{" "}
       </Card.Body>
     </Card>
@@ -162,6 +181,7 @@ function acceptOffer(id) {
         toast.success("قبول درخواست خدمت با موفقیت انجام شد.", {
           position: toast.POSITION.BOTTOM_RIGHT,
         });
+        window.location.reload();
       }
     })
     .catch((error) => {
@@ -178,6 +198,7 @@ function rejectOffer(id) {
         toast.success("رد درخواست خدمت با موفقیت انجام شد.", {
           position: toast.POSITION.BOTTOM_RIGHT,
         });
+        window.location.reload()
       }
     })
     .catch((error) => {

@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { ListGroup } from "react-bootstrap";
+import { Button, ListGroup, Row, Table } from "react-bootstrap";
 
 import { css, StyleSheet } from "aphrodite";
 import { toast } from "react-toastify";
 import urls from "../common/urls";
 import { useFetch } from "../utils/useFetch";
 import { useNavigate } from "react-router-dom";
+import { TechnicalissueCreate } from "./modals/technicalissue";
 
-const TechnicalIssuePanel = ({}) => {
+const TechnicalIssuePanel = ({ isAdmin }) => {
   const [technicalIssues, setTechnicalIssues] = useState();
-  const { data, error, loading } = useFetch(urls.admin.getFeedbacks(), "GET");
+  const [showNewModal, setShowNewModal] = useState(false);
+  const { data, error, loading } = useFetch(urls.technicalIssue.get(), "GET");
   const navigate = useNavigate();
   useEffect(() => {
     if (error) {
@@ -25,38 +27,62 @@ const TechnicalIssuePanel = ({}) => {
   }, [error, data]);
 
   return (
-    <div className={css(styles.notificationList)}>
-      <ListGroup>
-        <ListGroup.Item>
-          <ListGroup horizontal className={css(styles.notificationItem)}>
-            <ListGroup.Item style={{ border: "0px" }}>موضوع</ListGroup.Item>
-            <ListGroup.Item style={{ border: "0px" }}>فرستنده</ListGroup.Item>
-            <ListGroup.Item style={{ border: "0px" }}>توضیحات</ListGroup.Item>
-            <ListGroup.Item style={{ border: "0px" }}>تاریخ</ListGroup.Item>
-          </ListGroup>
-        </ListGroup.Item>
-        <br />
+    <div dir="rtl">
+      <h2 className="text-center" style={{ padding: "1em" }}>
+        {"بررسی وضعیت مشکلات فنی"}
+      </h2>
+      <TechnicalissueCreate show={showNewModal} setShow={setShowNewModal} />
+      {!isAdmin ? (
+        <div style={{ textAlign: "left" }}>
+          <Button color="primary" onClick={() => setShowNewModal(true)}>
+            {"ثبت مشکل"}
+          </Button>{" "}
+        </div>
+      ) : null}
+      <Row>
+        <Table striped bordered responsive hover>
+          <thead>
+            <tr>
+              <th>شماره درخواست</th>
+              <th>نام تخصص</th>
+              <th>وضعیت</th>
+              <th>مدرک بارگذاری شده</th>
+              <th>وضعیت</th>
+            </tr>
+          </thead>
+          <tbody>
+            {/* {specialtyList &&
+            specialtyList.map((req) => (
+              <tr key={req.id}>
+                <td> {req.id} </td>
+                <td> {req.specialtyDTO.name} </td>
+                <td> {getStatusMessage(req.status)} </td>
+                <td>
+                  <Button
+                    variant="secondary"
+                    onClick={() => {
+                      saveAs(
+                        urls.storage.downloadFile(req.filePath),
+                        req.filePath
+                      );
+                    }}
+                    disabled={!req.filePath}
+                  >
+                    <FiDownload />
+                  </Button>{" "}
+                </td>
+                <td>
+                  <div>
+                    <h5>
 
-        {technicalIssues &&
-          technicalIssues.map((notif) => (
-            <ListGroup.Item>
-              <ListGroup horizontal className={css(styles.notificationItem)}>
-                <ListGroup.Item style={{ border: "0px" }}>
-                  {notif.title}
-                </ListGroup.Item>{" "}
-                <ListGroup.Item style={{ border: "0px" }}>
-                  {notif.writerEmail}
-                </ListGroup.Item>
-                <ListGroup.Item style={{ border: "0px" }}>
-                  {notif.content}
-                </ListGroup.Item>
-                <ListGroup.Item style={{ border: "0px" }}>
-                  {notif.timeStamp.slice(0,10)}
-                </ListGroup.Item>
-              </ListGroup>
-            </ListGroup.Item>
-          ))}
-      </ListGroup>
+                    </h5>
+                  </div>
+                </td>
+              </tr>
+            ))} */}
+          </tbody>
+        </Table>
+      </Row>
     </div>
   );
 };

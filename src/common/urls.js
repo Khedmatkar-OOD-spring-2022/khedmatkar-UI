@@ -15,6 +15,12 @@ const urls = {
     updateUserInfo: () => `${API_BASE_URL}/api/profile`,
     search: (id) => `${API_BASE_URL}/api/serviceRequests/${id}`,
   },
+  technicalIssue: {
+    send: () => `${API_BASE_URL}/api/technical_issues/`,
+    get: () => `${API_BASE_URL}/api/technical_issues/`,
+    answer: (id) => `${API_BASE_URL}/api/technical_issues/${id}/answer`,
+    close: (id) => `${API_BASE_URL}/api/technical_issues/${id}/close`,
+  },
   servic: {
     servicRequest: () => `${API_BASE_URL}/api/serviceRequests/`,
     servicRequestById: (id) => `${API_BASE_URL}/api/serviceRequests/${id}`,
@@ -56,7 +62,11 @@ const urls = {
       `${API_BASE_URL}/api/certificates/${id}/validate`,
     invalidateCertificate: (id) =>
       `${API_BASE_URL}/api/certificates/${id}/invalidate`,
-    cancelServiceRequest: (id) => `${API_BASE_URL}/api/serviceRequests/${id}/admin/cancel`,
+    cancelServiceRequest: (id) =>
+      `${API_BASE_URL}/api/serviceRequests/${id}/admin/cancel`,
+  },
+  storage: {
+    downloadFile: (name) => `${API_BASE_URL}/files/${name}`,
   },
 };
 

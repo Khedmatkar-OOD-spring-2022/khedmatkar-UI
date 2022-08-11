@@ -1,6 +1,11 @@
 import React from "react";
 import {
-  FiAlertCircle, FiArchive, FiEdit, FiMessageCircle, FiPenTool, FiTablet
+  FiAlertCircle,
+  FiArchive,
+  FiEdit,
+  FiMessageCircle,
+  FiPenTool,
+  FiTablet,
 } from "react-icons/fi";
 
 export const CustomerSidebar = [
@@ -16,9 +21,9 @@ export const CustomerSidebar = [
   },
 
   {
-    title: "پیام ها",
-    htmlBefore: <FiMessageCircle />,
-    to: "/dashboard/chat",
+    title: "گزارش مشکل فنی",
+    htmlBefore: <FiArchive />,
+    to: "/dashboard/technicalissues",
   },
   {
     title: "اعلانات",
@@ -57,7 +62,8 @@ export const SuperAdminSidebar = [
     title: "تنظیمات سامانه",
     htmlBefore: <FiArchive />,
     to: "/admin/system-settings",
-  },  {
+  },
+  {
     title: "پیشنهادات و انتقادات",
     htmlBefore: <FiArchive />,
     to: "/admin/feedbacks",
@@ -81,9 +87,9 @@ export const SpecialistSidebar = [
   // },
 
   {
-    title: "پیام ها",
-    htmlBefore: <FiMessageCircle />,
-    to: "/dashboard/chat",
+    title: "گزارش مشکل فنی",
+    htmlBefore: <FiArchive />,
+    to: "/dashboard/technicalissues",
   },
   {
     title: "اعلانات",

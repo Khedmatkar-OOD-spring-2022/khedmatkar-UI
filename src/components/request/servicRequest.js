@@ -140,6 +140,7 @@ function submitRequest(description, address, date, mainSpecialty) {
         toast.success("ثبت درخواست خدمت با موفقیت انجام شد.", {
           position: toast.POSITION.BOTTOM_RIGHT,
         });
+        window.location.reload()
       }
     })
     .catch((error) => {

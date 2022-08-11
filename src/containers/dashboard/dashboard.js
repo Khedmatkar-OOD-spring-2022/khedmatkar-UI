@@ -12,6 +12,7 @@ import ServiceRequest from "../../components/request/servicRequest";
 import UserTable from "../../components/request/userTable";
 
 import ServicePanel from "../../components/servicePanel";
+import TechnicalIssuePanel from "../../components/technicalIssue";
 import { useAuth } from "../../providers/authentication";
 import "./dashboard.css";
 const Dashboard = () => {
@@ -30,7 +31,8 @@ const Dashboard = () => {
         return <RequestDetails id={detailsId} />;
       case "profile":
         return <ProfilePanel />;
-
+      case "technicalissues":
+        return <TechnicalIssuePanel />;
       default:
         return <></>;
     }
@@ -45,6 +47,8 @@ const Dashboard = () => {
         return <SuggestedRequests />;
       case "profile":
         return <ProfilePanel />;
+      case "technicalissues":
+        return <TechnicalIssuePanel />;
       default:
         return <></>;
     }

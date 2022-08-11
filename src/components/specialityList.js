@@ -4,6 +4,8 @@ import React, { useState, useEffect } from "react";
 import { Badge, Button, Row, Table } from "react-bootstrap";
 import { FiDownload, FiUploadCloud } from "react-icons/fi";
 import { toast } from "react-toastify";
+import { saveAs } from "file-saver";
+
 import urls from "../common/urls";
 import { useFetch } from "../utils/useFetch";
 
@@ -45,7 +47,16 @@ const SpecialityApproveList = ({}) => {
                     <td> {req.specialtyDTO.name} </td>
                     <td> {getStatusMessage(req.status)} </td>
                     <td>
-                      <Button variant="secondary" disabled>
+                      <Button
+                        variant="secondary"
+                        onClick={() => {
+                          saveAs(
+                            urls.storage.downloadFile(req.filePath),
+                            req.filePath
+                          );
+                        }}
+                        disabled={!req.filePath}
+                      >
                         <FiDownload />
                       </Button>{" "}
                     </td>

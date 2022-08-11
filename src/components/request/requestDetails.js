@@ -5,6 +5,7 @@ import { useFetch } from "../../utils/useFetch";
 import { toast } from "react-toastify";
 import urls from "../../common/urls";
 import { useNavigate } from "react-router-dom";
+import { getRequestStatusMessage } from "../../utils/statuses";
 
 export default function RequestDetails({ id }) {
   const navigate = useNavigate();
@@ -54,7 +55,7 @@ export default function RequestDetails({ id }) {
                   details.candidateSpecialist.lastName
                 }
                 description={details.candidateSpecialist.email}
-                isCandidate
+                status={details.status}
                 isCanceled={details.status === "CANCELED"}
                 sendMessageAction={sendMessageAction}
               />
@@ -104,6 +105,7 @@ function SpecialistInfoCard({
   Img,
   description,
   isCanceled,
+  status,
   name,
   sendMessageAction,
 }) {
@@ -114,9 +116,10 @@ function SpecialistInfoCard({
         <h2 className="card_title">
           <Card.Title>{name}</Card.Title>
         </h2>
-        {/* <h3 className="card_title">
-          <Card.Title>{Title}</Card.Title>
-        </h3> */}
+        <div dir="ltr">
+              <Badge bg="dark">{getRequestStatusMessage(status)}</Badge>
+              {"\n"}
+            </div>
         <p className="card_description">
           <Card.Text>{description}</Card.Text>
         </p>
@@ -126,7 +129,7 @@ function SpecialistInfoCard({
         <Button
           className="card_btn"
           variant="outline-warning"
-          disabled={isCanceled}
+          disabled={isCanceled }
           onClick={() => sendMessageAction()}
         >
           {"ارسال پیام"}

@@ -8,6 +8,10 @@ export function getRequestStatusMessage(status) {
       return "درحال بررسی توسط متخصص";
     case "IN_PROGRESS":
       return "درحال اجرا";
+    case "EVALUATION":
+      return "ارزیابی";
+    case "DONE":
+      return "اتمام یافته";
     default:
       break;
   }

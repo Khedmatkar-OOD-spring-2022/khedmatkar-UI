@@ -19,7 +19,7 @@ export default function SearchPanel({ specialists }) {
   const searchInputRef = useRef("");
   const navigate = useNavigate();
   return (
-    <div style={{ right: "20%", position: "absolute" }}>
+    <div style={{ right: "20%", position: "absolute" ,width:'80%'}}>
       <h2 style={{ padding: "10px", textAlign: "end" }}>{"نتیجه جست‌وجو"}</h2>
       {/* <Row>
         <Container style={{ width: "30%" }}>

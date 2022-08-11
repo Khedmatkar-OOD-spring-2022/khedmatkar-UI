@@ -1,9 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
-import {
-  Button, Col, Container, Form, Row
-} from "react-bootstrap";
-import DatePicker from 'react-date-picker';
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import DatePicker from "react-date-picker";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import urls from "../../common/urls";
@@ -13,7 +12,7 @@ const ServiceRequest = ({}) => {
   const [mainSpecialty, setMainSpecialty] = useState(null);
   const [specialtyList, setSpecialityList] = useState(null);
   const [date, onChangeDate] = useState(new Date());
-
+  const navigate = useNavigate();
   const address = useRef("");
   const description = useRef("");
   const { data, error, loading } = useFetch(
@@ -60,12 +59,17 @@ const ServiceRequest = ({}) => {
 
           <Form.Group as={Col} controlId="formGridZip">
             <Form.Label>تاریخ</Form.Label>
-            <Form.Control as ={DatePicker} onChange={onChangeDate} value={date} />
+            <Form.Control
+              as={DatePicker}
+              onChange={onChangeDate}
+              value={date}
+            />
           </Form.Group>
         </Row>
         <Form.Group className="mb-3" controlId="serviceType">
           <Form.Label>نوع خدمت</Form.Label>
           <Form.Select
+            style={{ paddingRight: "30px" }}
             onChange={(e) =>
               setMainSpecialty(e.target.options[e.target.selectedIndex].id)
             }
@@ -83,7 +87,8 @@ const ServiceRequest = ({}) => {
               description.current.value,
               address.current.value,
               date.toISOString(),
-              mainSpecialty
+              mainSpecialty,
+              navigate
             );
           }}
         >
@@ -110,7 +115,8 @@ const SubSpecialties = ({ id }) => {
   return (
     <>
       <Form.Label>نوع تخصص</Form.Label>
-      <Form.Select>
+      <Form.Select           style={{paddingRight:'30px'}}
+>
         {specialtyList &&
           specialtyList.map((s) => <option id={s.id}>{s.name}</option>)}
       </Form.Select>
@@ -118,7 +124,7 @@ const SubSpecialties = ({ id }) => {
   );
 };
 
-function submitRequest(description, address, date, mainSpecialty) {
+function submitRequest(description, address, date, mainSpecialty, navigate) {
   axios
     .post(
       urls.servic.servicRequest(),
@@ -140,7 +146,6 @@ function submitRequest(description, address, date, mainSpecialty) {
         toast.success("ثبت درخواست خدمت با موفقیت انجام شد.", {
           position: toast.POSITION.BOTTOM_RIGHT,
         });
-        window.location.reload()
       }
     })
     .catch((error) => {

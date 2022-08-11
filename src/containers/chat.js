@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Row, useAccordionButton } from "react-bootstrap";
+import { Button, Row } from "react-bootstrap";
+import { IoArrowBack } from "react-icons/io5";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import urls from "../common/urls";
@@ -53,6 +54,15 @@ const ChatApp = () => {
 
   return (
     <React.Fragment>
+            <div style={{ padding: 20 }}>
+        <Button
+          variant="outline-primary"
+          className="rounded-circle"
+          onClick={() => navigate(-1)}
+        >
+          <IoArrowBack />
+        </Button>
+      </div>
       {chatroom && (
         <ChatRoom chatroom={chatroom} user={user} onSend={sendMessage} />
       )}

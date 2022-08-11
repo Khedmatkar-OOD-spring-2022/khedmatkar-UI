@@ -12,6 +12,7 @@ import { User } from "iconsax-react";
 import Admin from "./admin";
 import ChatApp from "./chat";
 import Search from "./search";
+import RequestDetails from "../components/request/requestDetails";
 
 const routes = [
   {
@@ -46,6 +47,10 @@ const routes = [
     component: Search,
   },
   {
+    path: "/dashboard/request-details/:id",
+    layout: UserLayout,
+    component: RequestDetails,
+  },  {
     path: "/dashboard/:section",
     layout: UserLayout,
     component: Dashboard,

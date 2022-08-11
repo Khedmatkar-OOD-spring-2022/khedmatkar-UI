@@ -6,6 +6,7 @@ import { useFetch } from "../../utils/useFetch";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { getRequestStatusMessage } from "../../utils/statuses";
 
 export default function SuggestedRequests() {
   const [customerList, setCustomerList] = useState();
@@ -41,8 +42,7 @@ export default function SuggestedRequests() {
                 waitingForAcceptance={
                   c.status === "WAITING_FOR_CUSTOMER_ACCEPTANCE"
                 }
-                isAccepted={c.status === "WAITING_FOR_CUSTOMER_ACCEPTANCE"}
-                inProgress={c.status === "IN_PROGRESS"}
+                status={c.status}
                 isCanceled={c.status === "CANCELED"}
               />
             </>
@@ -95,15 +95,90 @@ function RequestInfoCard({
   address,
   Title,
   name,
-  waitingForAcceptance,
-  isAccepted,
-  inProgress,
   isCanceled,
+  status,
 }) {
-  const navigate=useNavigate()
+  const navigate = useNavigate();
+  function getFunctionByStatus(status) {
+    switch (status) {
+      case "CANCELED":
+        return <></>;
+      case "WAITING_FOR_CUSTOMER_ACCEPTANCE":
+        return (
+          <>
+            <Button
+              className="card_btn"
+              variant="outline-warning"
+              onClick={() => {
+                navigate("/chat/" + id);
+              }}
+            >
+              {"ارسال پیام"}
+            </Button>
+          </>
+        );
+      case "WAITING_FOR_SPECIALIST_ACCEPTANCE":
+        return (
+          <>
+            <Button
+              className="card_btn"
+              variant="primary"
+              onClick={() => acceptOffer(id)}
+            >
+              قبول پیشنهاد
+            </Button>{' '}
+            <Button
+              className="card_btn"
+              variant="outline-danger"
+              onClick={() => rejectOffer(id)}
+            >
+              رد پیشنهاد
+            </Button>
+          </>
+        );
+      case "IN_PROGRESS":
+        return (
+          <>
+            <Button
+              className="card_btn"
+              variant="primary"
+              onClick={() => finishRequest(id)}
+            >
+              اتمام درخواست خدمت
+            </Button>{' '}
+            <Button
+              className="card_btn"
+              variant="outline-warning"
+              onClick={() => {
+                navigate("/chat/" + id);
+              }}
+            >
+              {"ارسال پیام"}
+            </Button>
+          </>
+        );
+      case "EVALUATION":
+        return <></>;
+      case "DONE":
+        return (
+          <>
+            {" "}
+            <Button className="card_btn" variant="primary" onClick={() => {}}>
+              مشاهده ارزیابی
+            </Button>
+          </>
+        );
+      default:
+        break;
+    }
+  }
   return (
     <Card style={{ width: "45%", "flex-direction": "row" }}>
-      <Card.Img variant="top" src={Img} style={{ width: "30%" }} />
+      <Card.Img
+        variant="top"
+        src={Img}
+        style={{ width: "25%", margin: "10px" }}
+      />
       <Card.Body>
         <h2 className="card_title">
           <Card.Title>{Title}</Card.Title>
@@ -116,58 +191,13 @@ function RequestInfoCard({
         <p className="card_description">
           <Card.Text>{"آدرس : " + address}</Card.Text>
         </p>
-        {inProgress ? (
-          <div>
-            <div dir="ltr">
-              <Badge bg="info">درحال انجام</Badge>
-              {"\n"}
-            </div>
-            <Button className="card_btn" variant="outline-warning">
-              {"ارسال پیام"}
-            </Button>
+        <div>
+          <div dir="ltr">
+            <Badge bg="dark">{getRequestStatusMessage(status)}</Badge>
+            {"\n"}
           </div>
-        ) : isAccepted ? (
-          <div>
-            <div dir="ltr">
-              <Badge bg="secondary">در حال بررسی توسط مشتری</Badge>
-              {"\n"}
-            </div>
-            <Button className="card_btn" variant="outline-warning" onClick={()=>{navigate('/chat/'+id)}}>
-              {"ارسال پیام"}
-            </Button>
-          </div>
-        ) : isCanceled ? (
-          <div>
-            <div dir="ltr">
-              <Badge bg="dark">کنسل شد</Badge>
-              {"\n"}
-            </div>
-            <Button className="card_btn" variant="outline-warning" disabled>
-              {"ارسال پیام"}
-            </Button>
-          </div>
-        ) : (
-          <div>
-               <div dir="ltr">
-              <Badge bg="dark">در حال بررسی توسط متخصص</Badge>
-              {"\n"}
-            </div>
-            <Button
-              className="card_btn"
-              variant="primary"
-              onClick={() => acceptOffer(id)}
-            >
-              قبول پیشنهاد
-            </Button>
-            <Button
-              className="card_btn"
-              variant="outline-danger"
-              onClick={() => rejectOffer(id)}
-            >
-             رد پیشنهاد
-            </Button>
-          </div>
-        )}{" "}
+          {getFunctionByStatus(status)}
+        </div>
       </Card.Body>
     </Card>
   );
@@ -198,7 +228,24 @@ function rejectOffer(id) {
         toast.success("رد درخواست خدمت با موفقیت انجام شد.", {
           position: toast.POSITION.BOTTOM_RIGHT,
         });
-        window.location.reload()
+        window.location.reload();
+      }
+    })
+    .catch((error) => {
+      toast.error(error && error.message, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+    });
+}
+function finishRequest(id) {
+  axios
+    .post(urls.servic.specialistFinish(id), {}, { withCredentials: true })
+    .then((res) => {
+      if (res.status === 200) {
+        toast.success("اتمام درخواست خدمت با موفقیت انجام شد.", {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
+        window.location.reload();
       }
     })
     .catch((error) => {

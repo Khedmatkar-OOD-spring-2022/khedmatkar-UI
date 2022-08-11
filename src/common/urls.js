@@ -29,6 +29,12 @@ const urls = {
       `${API_BASE_URL}/api/serviceRequests/${id}/specialist/accept`,
     specialistReject: (id) =>
       `${API_BASE_URL}/api/serviceRequests/${id}/specialist/reject`,
+    specialistFinish: (id) =>
+      `${API_BASE_URL}/api/serviceRequests/${id}/finish`,
+    customerAccept: (id) =>
+      `${API_BASE_URL}/api/serviceRequests/${id}/customer/accept`,
+    customerReject: (id) =>
+      `${API_BASE_URL}/api/serviceRequests/${id}/customer/reject`,
   },
   chat: {
     getByServicRequest: (id) =>

@@ -4,6 +4,7 @@ import { Button, Row, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import urls from "../../common/urls";
+import { getRequestStatusMessage } from "../../utils/statuses";
 import { useFetch } from "../../utils/useFetch";
 
 const UserTable = ({ isAdmin, setDetailsId }) => {
@@ -40,6 +41,7 @@ const UserTable = ({ isAdmin, setDetailsId }) => {
                 <th>خدمت مورد نظر</th>
                 <th>ادرس</th>
                 <th>تاریخ ثبت</th>
+                {isAdmin ? <th> وضعیت</th> : null}
                 <th>عملیات</th>
               </tr>
             </thead>
@@ -50,6 +52,9 @@ const UserTable = ({ isAdmin, setDetailsId }) => {
                     <td> {req.specialty.name} </td>
                     <td> {req.address} </td>
                     <td dir="ltr"> {req.creation.slice(0, 10)} </td>
+                    {isAdmin ? (
+                      <td>{getRequestStatusMessage(req.status)}</td>
+                    ) : null}
                     <td>
                       {isAdmin ? null : (
                         <Button
@@ -66,6 +71,9 @@ const UserTable = ({ isAdmin, setDetailsId }) => {
                         style={{ marginLeft: "1em" }}
                         onClick={() => cancelRequest(req.id, isAdmin)}
                         variant="outline-danger"
+                        disabled={
+                          req.status === "DONE" || req.status === "CANCELED"
+                        }
                       >
                         لغو
                       </Button>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Container } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 
 import NotificationPanel from "../../common/notification";
 import ProfilePanel from "../../components/profile/Panel/Panel";
@@ -18,7 +18,7 @@ const Dashboard = () => {
   const params = useParams();
   const [detailsId, setDetailsId] = useState();
   function GetCustomerSection({ section }) {
-    console.log(section)
+    console.log(section);
     switch (section) {
       case "notification":
         return <NotificationPanel />;
@@ -27,11 +27,11 @@ const Dashboard = () => {
       case "request-list":
         return <UserTable setDetailsId={setDetailsId} />;
       case "request-details":
-        return <RequestDetails id={detailsId} />;
+        return <Navigate to={"/dashboard/request-details/" + detailsId} />;
       case "profile":
         return <ProfilePanel />;
       case "technicalissues":
-        return <TechnicalIssuePanel />;      
+        return <TechnicalIssuePanel />;
       default:
         return <></>;
     }

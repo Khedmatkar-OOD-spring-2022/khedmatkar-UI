@@ -8,7 +8,9 @@ import urls from "../../common/urls";
 const ServiceReqWithSpecificSpecialist = ({ specialistId, specialty }) => {
   const [show, setShow] = useState(false);
   const [date, onChangeDate] = useState(new Date());
-  const [mainSpecialty, setMainSpecialty] = useState(0);
+  const [mainSpecialty, setMainSpecialty] = useState(
+    specialty && specialty[0].id
+  );
   const address = useRef("");
   const description = useRef("");
   return (

@@ -13,7 +13,7 @@ const urls = {
     getAnnouncments: () => `${API_BASE_URL}/api/announcements/`,
     updatePassword: () => `${API_BASE_URL}/api/profile/changePassword`,
     updateUserInfo: () => `${API_BASE_URL}/api/profile`,
-    search: (id) => `${API_BASE_URL}/api/serviceRequests/${id}`,
+    search: () => `${API_BASE_URL}/api/specialists/search`,
   },
   technicalIssue: {
     send: () => `${API_BASE_URL}/api/technical_issues/`,

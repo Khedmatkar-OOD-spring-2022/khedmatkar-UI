@@ -10,19 +10,23 @@ import { useAuth } from "../providers/authentication";
 import { useFetch } from "../utils/useFetch";
 const Search = () => {
   const params = useParams();
+  const [specialists, setSpecialists] = useState([]);
   const navigate = useNavigate();
-  //   const [chatroom, setChatroom] = useState();
-  //   const { data, error, loading } = useFetch(
-  //     urls.chat.getByServicRequest(params.id),
-  //     "GET"
-  //   );
+  const { data, error, loading } = useFetch(
+    urls.common.search(),
+    "POST",{
+      specialtyName:params.searchInput
+    }
+  );
 
-  //   useEffect(() => {
-  //     if (error) {
-  //       toast.error(error, { position: toast.POSITION.BOTTOM_RIGHT });
-  //     }
-  //     setChatroom(data && data[0]);
-  //   }, [error, data]);
+  useEffect(() => {
+    if (error) {
+      toast.error(error && error.message, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+    }
+    setSpecialists(data);
+  }, [error, data]);
 
   return (
     <React.Fragment>
@@ -35,7 +39,7 @@ const Search = () => {
           <IoArrowBack />
         </Button>
       </div>
-      <SearchPanel />
+      {specialists && <SearchPanel specialists={specialists} />}
     </React.Fragment>
   );
 };

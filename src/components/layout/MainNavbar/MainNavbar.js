@@ -44,7 +44,7 @@ const MainNavbar = ({ user, isAdmin = false }) => {
             <Offcanvas.Body>
               <Nav className="justify-content-between flex-grow-1 pe-3">
                 <Nav.Item style={{ paddingRight: "8%" }}>
-                  {user && user.type !== "ADMIN" ? <SearchButton /> : null}{" "}
+                  {user && user.type === "CUSTOMER" ? <SearchButton /> : null}{" "}
                 </Nav.Item>
 
                 <UserActions user={user} isAdmin={isAdmin} />

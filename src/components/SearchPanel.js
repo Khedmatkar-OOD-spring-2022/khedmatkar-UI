@@ -11,14 +11,18 @@ import {
 } from "react-bootstrap";
 import { StyleSheet, css } from "aphrodite";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../providers/authentication";
+import ServiceReqWithSpecificSpecialist from "./modals/serviceReqWithSpecificSpecialist";
 
-export default function SearchPanel() {
+export default function SearchPanel({ specialists }) {
+  const [, isLoggedIn] = useAuth();
   const searchInputRef = useRef("");
   const navigate = useNavigate();
   return (
-    <>
-      <Row>
-        <Container style={{ width: "40%" }}>
+    <div style={{ right: "20%", position: "absolute" }}>
+      <h2 style={{ padding: "10px", textAlign: "end" }}>{"نتیجه جست‌وجو"}</h2>
+      {/* <Row>
+        <Container style={{ width: "30%" }}>
           <Form style={{ display: "flex" }} dir={"rtl"}>
             <FormControl
               type="search"
@@ -31,7 +35,11 @@ export default function SearchPanel() {
               variant="outline-success"
               onClick={() => {
                 console.log(searchInputRef);
-                navigate("/search/" + searchInputRef.current.value);
+                if (isLoggedIn) {
+                  navigate("/dashboard/search/" + searchInputRef.current.value);
+                } else {
+                  navigate("/search/" + searchInputRef.current.value);
+                }
               }}
               style={{ fontSize: "26px" }}
             >
@@ -39,66 +47,30 @@ export default function SearchPanel() {
             </Button>
           </Form>
         </Container>
-      </Row>
+      </Row> */}
       <br />
       <Row className={css(styles.groupServicePanel)}>
-        <SpecialistCard
-          Img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTr0PrHZI1jENiXK5lF_4tTupp9ceDVZCS01A&usqp=CAU"
-          Title="لوله کش"
-          description="  متخصص لوله کشی ساختمان با ده ماه ضمانت"
-        />
-
-        <SpecialistCard
-          Img="https://mrdariush.ir/wp-content/uploads/2021/09/%D8%A2%D8%B1%D8%A7%DB%8C%D8%B4%DA%AF%D8%B1-%DA%A9%DB%8C%D8%B3%D8%AA-%D9%88-%DA%86%D9%87-%D8%AA%D8%AE%D8%B5%D8%B5%DB%8C-%D8%AF%D8%A7%D8%B1%D8%AF%D8%9F-1.jpg"
-          Title="آرایشگر"
-          description="  آرایشگر به همراه لوازم در محل شما جهت انجام خدمات"
-        />
-
-        <SpecialistCard
-          Img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmp5REx6_ydtZ8n95CJp04TykgFgyVGNrmdXvSHCpRBmEu0ik_wTPpok92vvVirHojLao&usqp=CAU"
-          Title="تعمیرات آسانسور"
-          description="  متخصص تعمیرات آسانسور ساختمان با دو سال ضمانت"
-        />
-
-        <SpecialistCard
-          Img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmp5REx6_ydtZ8n95CJp04TykgFgyVGNrmdXvSHCpRBmEu0ik_wTPpok92vvVirHojLao&usqp=CAU"
-          Title="تعمیرات آسانسور"
-          description="  متخصص تعمیرات آسانسور ساختمان با دو سال ضمانت"
-        />
-      </Row>
-      <Row className={css(styles.groupServicePanel)}>
-        <SpecialistCard
-          Img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTr0PrHZI1jENiXK5lF_4tTupp9ceDVZCS01A&usqp=CAU"
-          Title="لوله کش"
-          description="  متخصص لوله کشی ساختمان با ده ماه ضمانت"
-        />
-
-        <SpecialistCard
-          Img="https://mrdariush.ir/wp-content/uploads/2021/09/%D8%A2%D8%B1%D8%A7%DB%8C%D8%B4%DA%AF%D8%B1-%DA%A9%DB%8C%D8%B3%D8%AA-%D9%88-%DA%86%D9%87-%D8%AA%D8%AE%D8%B5%D8%B5%DB%8C-%D8%AF%D8%A7%D8%B1%D8%AF%D8%9F-1.jpg"
-          Title="آرایشگر"
-          description="  آرایشگر به همراه لوازم در محل شما جهت انجام خدمات"
-        />
-
-        <SpecialistCard
-          Img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmp5REx6_ydtZ8n95CJp04TykgFgyVGNrmdXvSHCpRBmEu0ik_wTPpok92vvVirHojLao&usqp=CAU"
-          Title="تعمیرات آسانسور"
-          description="  متخصص تعمیرات آسانسور ساختمان با دو سال ضمانت"
-        />
-
-        <SpecialistCard
-          Img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmp5REx6_ydtZ8n95CJp04TykgFgyVGNrmdXvSHCpRBmEu0ik_wTPpok92vvVirHojLao&usqp=CAU"
-          Title="تعمیرات آسانسور"
-          description="  متخصص تعمیرات آسانسور ساختمان با دو سال ضمانت"
-        />
+        {specialists.map((s) => (
+          <>
+            <SpecialistCard
+              firstName={s.firstName}
+              lastName={s.lastName}
+              email={s.email}
+              specialty={s.specialty}
+              id={s.id}
+            />
+          </>
+        ))}
       </Row>
       <Row className={css(styles.paginationRow)}>
         {/* <CustomPagination /> */}
       </Row>
-    </>
+    </div>
   );
 }
 
 export const SearchButton = () => {
+  const [, isLoggedIn] = useAuth();
   const searchInputRef = useRef("");
   const navigate = useNavigate();
   return (
@@ -114,7 +86,11 @@ export const SearchButton = () => {
           variant="outline-success"
           onClick={() => {
             console.log(searchInputRef);
-            navigate("/search/" + searchInputRef.current.value);
+            if (isLoggedIn) {
+              navigate("/dashboard/search/" + searchInputRef.current.value);
+            } else {
+              navigate("/search/" + searchInputRef.current.value);
+            }
           }}
         >
           جست‌وجو
@@ -128,7 +104,6 @@ const styles = StyleSheet.create({
   groupServicePanel: {
     direction: "rtl",
     display: "flex",
-    justifyContent: "space-around",
     alignItems: "flex-start",
     padding: "10px",
     flexDirection: "row",
@@ -139,20 +114,30 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
   },
 });
-function SpecialistCard(props) {
+function SpecialistCard({ firstName, lastName, email, id, specialty }) {
   return (
-    <Card style={{ width: "20%" }}>
+    <Card style={{ width: "25%", margin: "10px" }}>
       <div id="center">
         <Card.Body>
           <h2 className="card_title">
-            <Card.Title>{props.Title}</Card.Title>
+            <Card.Title>{firstName + " " + lastName}</Card.Title>
           </h2>
           <p className="card_description">
-            <Card.Text>{props.description}</Card.Text>
+            <Card.Text></Card.Text>
+            <Card.Text>{email}</Card.Text>
           </p>
-          <Button className="card_btn" variant="primary">
-            ارسال درخواست
-          </Button>
+          <div dir="ltr">
+            {specialty.map((e) => (
+              <Badge style={{ margin: "5px" }} bg="secondary">
+                {e.name}
+              </Badge>
+            ))}
+          </div>
+          <br />
+          <ServiceReqWithSpecificSpecialist
+            specialistId={id}
+            specialty={specialty}
+          />
         </Card.Body>
       </div>
     </Card>

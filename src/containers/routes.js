@@ -41,6 +41,11 @@ const routes = [
     component: Dashboard,
   },
   {
+    path: "/dashboard/search/:searchInput",
+    layout: UserLayout,
+    component: Search,
+  },
+  {
     path: "/dashboard/:section",
     layout: UserLayout,
     component: Dashboard,

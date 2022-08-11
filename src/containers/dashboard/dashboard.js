@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { Container } from "react-bootstrap";
-import { Navigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import NotificationPanel from "../../common/notification";
-import ChatRoom from "../../components/chat/ChatRoom";
 import ProfilePanel from "../../components/profile/Panel/Panel";
 import SpecialityList from "../../components/profile/specialityList";
 import RequestDetails from "../../components/request/requestDetails";
@@ -11,7 +10,6 @@ import SuggestedRequests from "../../components/request/serviceSuggestedRequests
 import ServiceRequest from "../../components/request/servicRequest";
 import UserTable from "../../components/request/userTable";
 
-import ServicePanel from "../../components/servicePanel";
 import TechnicalIssuePanel from "../../components/technicalIssue";
 import { useAuth } from "../../providers/authentication";
 import "./dashboard.css";
@@ -20,6 +18,7 @@ const Dashboard = () => {
   const params = useParams();
   const [detailsId, setDetailsId] = useState();
   function GetCustomerSection({ section }) {
+    console.log(section)
     switch (section) {
       case "notification":
         return <NotificationPanel />;
@@ -32,7 +31,7 @@ const Dashboard = () => {
       case "profile":
         return <ProfilePanel />;
       case "technicalissues":
-        return <TechnicalIssuePanel />;
+        return <TechnicalIssuePanel />;      
       default:
         return <></>;
     }

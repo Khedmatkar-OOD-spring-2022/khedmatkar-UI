@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, useMap } from "react-leaflet";
 
 // react-bootstrap components
 import { Badge, Button, Navbar, Nav, Container } from "react-bootstrap";
-import DraggableMarker from "components/draggableMarker";
+import DraggableMarker from "./../components/draggableMarker";
 
 function Maps() {
   const center = { lat: 35.68658125560941, lng: 51.38819652084644 };

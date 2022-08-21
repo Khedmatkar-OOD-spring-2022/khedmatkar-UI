@@ -13,6 +13,7 @@ import { Button, Container, Form } from "react-bootstrap";
 import { object, ref, string } from "yup";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import urls from "../../../common/urls";
 
 // import utils
 
@@ -59,7 +60,7 @@ const RegisterForm = ({ onRegister, onLogin }) => {
         body: JSON.stringify(values),
       };
       console.log(requestOptions.body);
-      fetch("http://localhost:8080/register", requestOptions).then((response) => {
+      fetch(urls.auth.register(), requestOptions).then((response) => {
         if (response.status === 200) {
           navigate("/login");
         }

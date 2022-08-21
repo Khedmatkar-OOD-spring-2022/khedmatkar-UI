@@ -14,6 +14,7 @@ import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import urls from "./../../../common/urls";
 
 const LoginForm = ({ onRegister, onLogin }) => {
   const [submit, setSubmit] = useState(false);
@@ -51,7 +52,7 @@ const LoginForm = ({ onRegister, onLogin }) => {
           "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
         },
         data: formBody,
-        url: "http://localhost:8080/login",
+        url: urls.auth.login(),
         withCredentials: true,
       };
       axios(requestOptions).then((response) => {

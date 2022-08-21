@@ -50,6 +50,7 @@ const AddSpecialty = ({ show, setShow, action }) => {
         onHide={() => setShow(false)}
         dir="rtl"
         aria-labelledby="contained-modal-title-vcenter"
+        style={{fontFamily:'B-Nazanin'}}
         centered
       >
         <Modal.Header>

@@ -19,7 +19,7 @@ export default function SearchPanel({ specialists }) {
   const searchInputRef = useRef("");
   const navigate = useNavigate();
   return (
-    <div style={{ right: "20%", position: "absolute" ,width:'80%'}}>
+    <div style={{ right: "20%", position: "absolute", width: "80%" }}>
       <h2 style={{ padding: "10px", textAlign: "end" }}>{"نتیجه جست‌وجو"}</h2>
       {/* <Row>
         <Container style={{ width: "30%" }}>
@@ -116,17 +116,25 @@ const styles = StyleSheet.create({
 });
 function SpecialistCard({ firstName, lastName, email, id, specialty }) {
   return (
-    <Card style={{ width: "25%", margin: "10px" }}>
+    <Card style={{ width: "25%", margin: "10px", backgroundColor: "#fefefe" }}>
+      <Card.Img
+        style={{
+          width: "30%",
+          position: "absolute",
+          left: "2%",
+          paddingTop: "2%",
+        }}
+        src={require("./../assets/avatar.png")}
+      ></Card.Img>
       <div id="center">
         <Card.Body>
           <h2 className="card_title">
             <Card.Title>{firstName + " " + lastName}</Card.Title>
           </h2>
           <p className="card_description">
-            <Card.Text></Card.Text>
             <Card.Text>{email}</Card.Text>
           </p>
-          <div dir="ltr">
+          <div dir="ltr" style={{}}>
             {specialty.map((e) => (
               <Badge style={{ margin: "5px" }} bg="secondary">
                 {e.name}

@@ -7,7 +7,7 @@ const UserActions = ({ user, isAdmin }) => {
   return (
     <Nav.Item as={Dropdown} style={{ textAlign: "end", width: "30%" }}>
       <Dropdown.Toggle variant="outline" id="dropdown-basic">
-        <span className="d-none d-md-inline-block">
+        <span className="d-none d-md-inline-block" style={{color:'white'}}>
           {user && user.firstName}
         </span>
         {"  "}

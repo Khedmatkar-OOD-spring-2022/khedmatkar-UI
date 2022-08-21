@@ -3,6 +3,7 @@ import {
   FiAlertCircle,
   FiArchive,
   FiEdit,
+  FiMap,
   FiMessageCircle,
   FiPenTool,
   FiTablet,
@@ -18,6 +19,11 @@ export const CustomerSidebar = [
     title: "فهرست درخواست خدمت ها",
     htmlBefore: <FiTablet />,
     to: "/dashboard/request-list",
+  },
+  {
+    title: "فهرست آدرس ها",
+    htmlBefore: <FiMap />,
+    to: "/dashboard/location",
   },
 
   {
@@ -80,6 +86,7 @@ export const SpecialistSidebar = [
     htmlBefore: <FiArchive />,
     to: "/dashboard/addSpecialty",
   },
+
   // {
   //   title: "فهرست درخواست خدمت ها",
   //   htmlBefore: <FiTablet />,

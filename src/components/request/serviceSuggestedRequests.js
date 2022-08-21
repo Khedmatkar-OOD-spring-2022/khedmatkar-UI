@@ -173,11 +173,11 @@ function RequestInfoCard({
     }
   }
   return (
-    <Card style={{ width: "45%", "flex-direction": "row" }}>
+    <Card style={{ width: "90%", "flex-direction": "row" ,margin:'10px'}}>
       <Card.Img
         variant="top"
         src={Img}
-        style={{ width: "25%", margin: "10px" }}
+        style={{ width: "15%", margin: "10px" }}
       />
       <Card.Body>
         <h2 className="card_title">

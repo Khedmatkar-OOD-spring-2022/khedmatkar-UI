@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Container } from "react-bootstrap";
 import { Navigate, useParams } from "react-router-dom";
+import Maps from "../../common/maps";
 
 import NotificationPanel from "../../common/notification";
 import ProfilePanel from "../../components/profile/Panel/Panel";
@@ -32,6 +33,8 @@ const Dashboard = () => {
         return <ProfilePanel />;
       case "technicalissues":
         return <TechnicalIssuePanel />;
+      case "location":
+        return <Maps />;
       default:
         return <></>;
     }

@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import NotificationPanel from "../common/notification";
 import FeedbackPanel from "../components/feedbacks";
 import ProfilePanel from "../components/profile/Panel/Panel";
+import Evaluation from "../components/QA/evaluation";
 import AdminList from "../components/request/adminList";
 import UserTable from "../components/request/userTable";
 import ServicePanel from "../components/servicePanel";
@@ -36,6 +37,8 @@ const Admin = () => {
         return <TechnicalIssuePanel isAdmin />;
       case "system-settings":
         return <SystemConfig />;
+      case "evaluation":
+        return <Evaluation type="admin" />;
       default:
         return <></>;
     }

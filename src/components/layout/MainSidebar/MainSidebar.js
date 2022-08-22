@@ -15,7 +15,7 @@ const MainSidebar = ({
     return location.pathname.indexOf(routeName) > -1 ? "active" : "";
   };
   return (
-    <div className="sidebar" data-image={image} data-color={color}>
+    <div className="sidebar" data-image={image} data-color={color} style={{paddingTop: '1%'}}>
       <div
         className="sidebar-background"
         style={{
@@ -29,7 +29,7 @@ const MainSidebar = ({
             className="simple-text logo-mini mx-1"
           >
             <div className="logo-img">
-              <img src={require('./../../../assets/img/reactlogo.png')} alt="..." />
+              <img src={require('./../../../assets/img/logo.png')} alt="..." />
             </div>
           </a>
           <h3 >
@@ -50,11 +50,11 @@ const MainSidebar = ({
                 >
                   <NavLink
                     to={prop.to}
-                    className="nav-link"
+                    className="nav-link inline-flex"
                     activeClassName="active"
                   >
-                    <i className={prop.htmlBefore} />
-                    <h5>{prop.title}</h5>
+                    
+                    <h5>{prop.htmlBefore} {' '} {prop.title}</h5>
                   </NavLink>
                 </li>
               );

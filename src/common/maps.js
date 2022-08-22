@@ -1,8 +1,7 @@
 import React from "react";
-import { MapContainer, TileLayer, useMap } from "react-leaflet";
+import { MapContainer, TileLayer } from "react-leaflet";
 
 // react-bootstrap components
-import { Badge, Button, Navbar, Nav, Container } from "react-bootstrap";
 import DraggableMarker from "./../components/draggableMarker";
 
 function Maps() {
@@ -13,7 +12,7 @@ function Maps() {
       center={center}
       zoom={12}
       scrollWheelZoom={true}
-      style={{ height: "400px" }}
+      style={{ height: "400px",width:'40%' }}
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

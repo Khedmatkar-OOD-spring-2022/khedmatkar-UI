@@ -227,8 +227,8 @@ body > .navbar-collapse {
   background-position: center center; }
   .sidebar .sidebar-wrapper,
   body > .navbar-collapse .sidebar-wrapper {
-    position: relative;
-    max-height: calc(100vh - 75px);
+    position: fixed;
+    /* max-height: calc(100vh - 75px); */
     min-height: 100%;
     overflow: auto;
     width: 260px;

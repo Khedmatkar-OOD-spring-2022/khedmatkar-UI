@@ -5,21 +5,21 @@ import { logout } from "../../../../providers/authentication";
 const UserActions = ({ user, isAdmin }) => {
   const navigate = useNavigate();
   return (
-    <Nav.Item as={Dropdown} style={{ textAlign: "end", width: "30%" }}>
-      <Dropdown.Toggle variant="outline" id="dropdown-basic">
-        <span className="d-none d-md-inline-block" style={{color:'white'}}>
+    <Nav.Item as={Dropdown} style={{ textAlign: "end"}}>
+      <Dropdown.Toggle variant="outline" id="dropdown-basic" style={{border:'none',margin:0,padding:0,justifyContent:'flex-start'}}>
+        <span className="d-none d-md-inline-block" style={{color:'black'}}>
           {user && user.firstName}
         </span>
         {"  "}
         <img
           className="user-avatar rounded-circle mr-2"
-          width={"12%"}
+          width={"15%"}
           src={require("./../../../../assets/avatar.png")}
           alt="User Avatar"
         />
       </Dropdown.Toggle>
 
-      <Dropdown.Menu dir="rtl">
+      <Dropdown.Menu dir="rtl" >
         <Dropdown.Item
           onClick={() => {
             if (isAdmin) {

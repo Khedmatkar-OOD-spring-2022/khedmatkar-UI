@@ -26,6 +26,7 @@ const SystemConfig = ({}) => {
               <Card.Header>{"استراتژی جست‌وجوی متخصص"}</Card.Header>
               <Card.Body>
                 <FormControl
+                  value={specialistStrategy}
                   onChange={(e) => setSpecialistStrategy(e.target.value)}
                   placeholder=""
                 ></FormControl>
@@ -43,6 +44,54 @@ const SystemConfig = ({}) => {
                 >
                   ثبت
                 </Button>
+              </Card.Body>
+            </Card>
+            <Card>
+              <Card.Header>{"توضیحات انواع استراتژی"}</Card.Header>
+              <Card.Body>
+                <Card.Link
+                  onClick={() =>
+                    setSpecialistStrategy(
+                      "com.khedmatkar.demo.service.domain.RandomCertificatedSpecialistFinder"
+                    )
+                  }
+                >
+                  {" "}
+                  RandomCertificatedSpecialistFinder
+                </Card.Link>
+                <Card.Text>
+                  هر مرتبه یک متخصص با مدرک تایید شده مربوط و تصادفی انتخاب
+                  میکند
+                </Card.Text>
+                <hr />{" "}
+                <Card.Link
+                  onClick={() =>
+                    setSpecialistStrategy(
+                      "com.khedmatkar.demo.service.domain.RandomSpecialistFinder"
+                    )
+                  }
+                >
+                  RandomSpecialistFinder
+                </Card.Link>
+                <Card.Text>
+                  صرفا یک متخصص انتخاب میکند که ممکن است مدرک مرتبط و تایید شده
+                  نداشته باشد.
+                </Card.Text>
+                <hr />{" "}
+                <Card.Link
+                  onClick={() =>
+                    setSpecialistStrategy(
+                      "com.khedmatkar.demo.service.domain.NewCertificatedSpecialistFinder"
+                    )
+                  }
+                >
+                  {" "}
+                  NewCertificatedSpecialistFinder
+                </Card.Link>
+                <Card.Text>
+                  یک متخصص با مدرک تایید شده انتخاب میکند که در فهرست متخصصان
+                  قبلی که این درخواست را رد کرده اند نیست.
+                </Card.Text>
               </Card.Body>
             </Card>
           </Col>

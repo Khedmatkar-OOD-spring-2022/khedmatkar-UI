@@ -10,6 +10,7 @@ import { useFetch } from "../../utils/useFetch";
 
 const ServiceRequest = ({}) => {
   const [mainSpecialty, setMainSpecialty] = useState(null);
+  const [subSpecialty, setSubSpecialty] = useState(null);
   const [specialtyList, setSpecialityList] = useState(null);
   const [date, onChangeDate] = useState(new Date());
   const navigate = useNavigate();
@@ -24,6 +25,9 @@ const ServiceRequest = ({}) => {
       toast.error(error, { position: toast.POSITION.BOTTOM_RIGHT });
     }
     setSpecialityList(data);
+    if (data && data.length > 0) {
+      setMainSpecialty(data[0].id);
+    }
   }, [error, data]);
 
   function makeRequest() {
@@ -77,9 +81,10 @@ const ServiceRequest = ({}) => {
             {specialtyList &&
               specialtyList.map((s) => <option id={s.id}>{s.name}</option>)}
           </Form.Select>
-          {mainSpecialty && <SubSpecialties id={mainSpecialty} />}
+          {mainSpecialty && (
+            <SubSpecialties set={setSubSpecialty} id={mainSpecialty} />
+          )}
         </Form.Group>
-        {/* <Transportation /> */}
         <Button
           variant="success"
           onClick={() => {
@@ -87,7 +92,7 @@ const ServiceRequest = ({}) => {
               description.current.value,
               address.current.value,
               date.toISOString(),
-              mainSpecialty,
+              subSpecialty,
               navigate
             );
           }}
@@ -99,7 +104,7 @@ const ServiceRequest = ({}) => {
   );
 };
 
-const SubSpecialties = ({ id }) => {
+const SubSpecialties = ({ id, set }) => {
   const [specialtyList, setSpecialityList] = useState();
   const { data, error, loading } = useFetch(
     urls.speciality.getChildren(id),
@@ -110,13 +115,18 @@ const SubSpecialties = ({ id }) => {
       toast.error(error, { position: toast.POSITION.BOTTOM_RIGHT });
     }
     setSpecialityList(data);
+    if (data && data.length > 0) {
+      set(data[0].id);
+    }
   }, [error, data]);
 
   return (
     <>
       <Form.Label>نوع تخصص</Form.Label>
-      <Form.Select           style={{paddingRight:'30px'}}
->
+      <Form.Select
+        style={{ paddingRight: "30px" }}
+        onChange={(e) => set(e.target.options[e.target.selectedIndex].id)}
+      >
         {specialtyList &&
           specialtyList.map((s) => <option id={s.id}>{s.name}</option>)}
       </Form.Select>

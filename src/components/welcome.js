@@ -11,31 +11,37 @@ const Welcome = ({}) => {
         <Col>
           <img
             className="back"
-            src={require("./../assets/shape.jpg")}
+            src={
+              "https://designtech9studio.in/wp-content/uploads/2020/08/5e4129dea00b3.png"
+            }
             alt="Background"
           />
         </Col>
 
-        <Col>
+        <Col style={{ marginTop: "5%" }}>
           <h1 className="text-color">خدمتکار</h1>
           <br />
-          <h5>پلتفرم آنلاین خدمات منزل</h5>
+          <h2>پلتفرم آنلاین خدمات منزل</h2>
           <p>
             {" "}
             در خدمتکار درخواست خود را ثبت کنید تا در سریع ترین
             <br /> زمان از تخصص بهترین متخصصان کشور استفاده کنید
           </p>
-          <Button variant="primary">جستجو انواع خدمت</Button>&nbsp;&nbsp;
-          <Button variant="info">ثبت نام </Button>
+          <Button style={{ fontSize: "22px" }} variant="primary">
+            جستجو انواع خدمت
+          </Button>
+          &nbsp;&nbsp;
+          <Button style={{ fontSize: "22px" }} variant="secondary">
+            ثبت نام{" "}
+          </Button>
           <br />
-          <div>
-            <img
-              width={"400px"}
-              className="a"
-              src={require("./../assets/a.jpg")}
-              alt="Background"
-            />
-          </div>
+          <br />
+          <img
+            width={"200px"}
+            className="a"
+            src={require("./../assets/logo.png")}
+            alt="Background"
+          />
         </Col>
       </Row>
       <br />

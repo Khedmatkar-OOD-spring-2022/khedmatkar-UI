@@ -29,7 +29,7 @@ const MainSidebar = ({
             className="simple-text logo-mini mx-1"
           >
             <div className="logo-img">
-              <img src={require('./../../../assets/img/logo.png')} alt="..." />
+              <img src={require('./../../../assets/logo.png')} alt="..." />
             </div>
           </a>
           <h3 >

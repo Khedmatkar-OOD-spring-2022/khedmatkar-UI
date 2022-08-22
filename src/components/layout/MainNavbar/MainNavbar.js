@@ -19,7 +19,7 @@ const MainNavbar = ({ user, isAdmin = false }) => {
     <Navbar key={expand} bg="light" expand={expand} dir="rtl">
       <Navbar.Brand href="/">
       <div className="logo-img">
-              <img src={require('./../../../assets/img/logo.png')} alt="..." width={'40px'}/>
+              <img src={require('./../../../assets/logo.png')} alt="..." width={'40px'}/>
             </div>
         {"سامانه خدمتکار"}
       </Navbar.Brand>

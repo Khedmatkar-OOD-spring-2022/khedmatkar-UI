@@ -13,7 +13,7 @@ const UserActions = ({ user, isAdmin }) => {
         {"  "}
         <img
           className="user-avatar rounded-circle mr-2"
-          width={"15%"}
+          width={"50px"}
           src={require("./../../../../assets/avatar.png")}
           alt="User Avatar"
         />

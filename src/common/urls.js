@@ -66,7 +66,7 @@ const urls = {
     remove: (value) => `${API_BASE_URL}/api/certificates/${value}`,
   },
   admin: {
-    changeConfig: () => `${API_BASE_URL}/api/config/`,
+    changeConfig: () => `${API_BASE_URL}/api/configs`,
     new: () => `${API_BASE_URL}/api/admins/register`,
     update: () => `${API_BASE_URL}/api/admins/permission`,
     getPermissions: () => `${API_BASE_URL}/api/admins/permission`,

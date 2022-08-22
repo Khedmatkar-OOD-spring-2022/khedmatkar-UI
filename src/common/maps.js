@@ -19,10 +19,20 @@ function Maps({ position, setPosition, isDraggable = true }) {
       center={center}
       zoom={12}
       scrollWheelZoom={true}
-      style={{
-        height: isDraggable ? "300px" : "100px",
-        width: isDraggable ? "100%" : "30%",
-      }}
+      style={
+        isDraggable
+          ? {
+              height: "300px",
+              width: "100%",
+            }
+          : {
+              height: "200px",
+              width: "30%",
+              position: "absolute",
+              left: "20%",
+              top: "10%",
+            }
+      }
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

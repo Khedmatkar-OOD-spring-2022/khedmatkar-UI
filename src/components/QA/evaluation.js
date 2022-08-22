@@ -64,12 +64,12 @@ const AdminEvaluation = () => {
       <Tab eventKey="CUSTOMER" title="ارزیابی مشتری">
         <EvaluationCreateQuestion userType={key} />
         <hr />
-        <EvaluationForm />
+        <EvaluationForm type={key} questions={questions} />
       </Tab>
       <Tab eventKey="SPECIALIST" title="ارزیابی متخصص">
         <EvaluationCreateQuestion userType={key} />
         <hr />
-        <EvaluationForm />
+        <EvaluationForm type={key} questions={questions} />
       </Tab>
     </Tabs>
   );

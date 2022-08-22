@@ -2,6 +2,7 @@ import axios from "axios";
 import { useRef, useState } from "react";
 import {
   Button,
+  Card,
   Col,
   Container,
   Form,
@@ -9,12 +10,58 @@ import {
   Row,
 } from "react-bootstrap";
 import { toast } from "react-toastify";
+import StarRatingComponent from "react-star-rating-component";
+
 import urls from "../../common/urls";
 
-export const EvaluationForm = () => {
-  const typeOfQuestion = useRef("");
+export const EvaluationForm = ({ type, questions }) => {
+  function getQuestionByType(content) {
+    switch (content.contentType) {
+      case "SCORE":
+        const scoreContent = content.scoreContent;
+        return (
+          <StarRatingComponent
+            name="score"
+            starCount={scoreContent.maxScore}
+            value={scoreContent.minScore}
+          />
+        );
+      case "DOUBLE_CHOICE":
+        return <></>;
+      case "TEXT":
+        return <FormControl placeholder="پاسخ خود را بنویسید" />;
+      case "MULTIPLE_CHOICE":
+        return <></>;
+      default:
+        return <></>;
+    }
+  }
 
-  return <></>;
+  return (
+    <Container>
+        <h3>سوالات ثبت شده </h3>
+      <Form>
+        {questions &&
+          questions.map((e) => {
+            if (e.answererType === type) {
+              return (
+                <Card>
+                  <Card.Header>{e.content.questionText}</Card.Header>
+                  <Card.Body style={{ marginRight: "2rem" }}>
+                    {getQuestionByType(e.content)}
+                  </Card.Body>
+                  <Card.Footer dir="ltr">
+                    <Button variant="outline-danger" onClick={() => deleteQuestion(e.id)}>
+                      حذف سوال
+                    </Button>
+                  </Card.Footer>
+                </Card>
+              );
+            }
+          })}
+      </Form>
+    </Container>
+  );
 };
 export const EvaluationCreateQuestion = ({ userType }) => {
   const [newQuestionType, setNewQuestionType] = useState("MULTIPLE_CHOICE");
@@ -130,23 +177,38 @@ export const EvaluationCreateQuestion = ({ userType }) => {
 };
 
 function createQuestion(content) {
-  console.log(content);
   axios
-    .post(
-      urls.evaluation.createQuestion(),
-      content,
-      {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    )
+    .post(urls.evaluation.createQuestion(), content, {
+      withCredentials: true,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
     .then((res) => {
       if (res.status === 200) {
         toast.success("ثبت ارزیابی با موفقیت انجام شد.", {
           position: toast.POSITION.BOTTOM_RIGHT,
         });
+        window.location.reload();
+      }
+    })
+    .catch((error) => {
+      toast.error(error && error.message, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+    });
+}
+function deleteQuestion(id) {
+  axios
+    .delete(urls.evaluation.deleteQuestion(id), {
+      withCredentials: true,
+    })
+    .then((res) => {
+      if (res.status === 200) {
+        toast.success("سوال با موفقیت حذف شد.", {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
+        window.location.reload();
       }
     })
     .catch((error) => {

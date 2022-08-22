@@ -3,8 +3,10 @@ import { Col, Container, Row } from "react-bootstrap";
 import Accordion from "react-bootstrap/Accordion";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+import { useNavigate } from "react-router-dom";
 import "./welcome.css";
 const Welcome = ({}) => {
+  const navigate = useNavigate();
   return (
     <Container className="land">
       <Row>
@@ -27,11 +29,19 @@ const Welcome = ({}) => {
             در خدمتکار درخواست خود را ثبت کنید تا در سریع ترین
             <br /> زمان از تخصص بهترین متخصصان کشور استفاده کنید
           </p>
-          <Button style={{ fontSize: "22px" }} variant="primary">
+          <Button
+            style={{ fontSize: "22px" }}
+            variant="primary"
+            onClick={() => navigate("/search")}
+          >
             جستجو انواع خدمت
           </Button>
           &nbsp;&nbsp;
-          <Button style={{ fontSize: "22px" }} variant="secondary">
+          <Button
+            style={{ fontSize: "22px" }}
+            variant="secondary"
+            onClick={() => navigate("/login")}
+          >
             ثبت نام{" "}
           </Button>
           <br />
@@ -112,7 +122,7 @@ function Cardinfo() {
           />
           <Card.Body>
             <Card.Title>
-              <h4>عرفان فراوانی</h4>
+              <h4>محمدرضا عبدی</h4>
             </Card.Title>
             <Card.Text>
               دانشجوی مقطع کارشناسی
@@ -131,7 +141,7 @@ function Cardinfo() {
           />
           <Card.Body>
             <Card.Title>
-              <h4>عرفان فراوانی</h4>
+              <h4>امیرمحمد قاسمی</h4>
             </Card.Title>{" "}
             <Card.Text>
               دانشجوی مقطع کارشناسی
@@ -177,12 +187,12 @@ function Cardinfo() {
           />
           <Card.Body>
             <Card.Title>
-              <h4>عرفان فراوانی</h4>
+              <h4>میلاد میرزازاده</h4>
             </Card.Title>{" "}
             <Card.Text>
               دانشجوی مقطع کارشناسی
               <br />
-              مهندسی کامپیوتر
+              مهندسی صنایع
               <br />
               دانشگاه صنعتی شریف
             </Card.Text>

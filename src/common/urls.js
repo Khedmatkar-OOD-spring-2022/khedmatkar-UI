@@ -1,4 +1,4 @@
-// const API_BASE_URL = "http://185.105.239.241";
+// const API_BASE_URL = "http://185.105.239.241:8080";
 const API_BASE_URL = "http://localhost:8080";
 export const React_Base_URL = process.env.NODE_ENV === "production" ? "" : "";
 
@@ -13,7 +13,7 @@ const urls = {
     sendFeedback: () => `${API_BASE_URL}/api/feedbacks/`,
     getAnnouncments: () => `${API_BASE_URL}/api/announcements/`,
     updatePassword: () => `${API_BASE_URL}/api/profile/changePassword`,
-    updateUserInfo: () => `${API_BASE_URL}/api/profile`,
+    updateUserInfo: () => `${API_BASE_URL}/api/profile/`,
     search: () => `${API_BASE_URL}/api/specialists/search`,
   },
   technicalIssue: {

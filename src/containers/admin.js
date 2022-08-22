@@ -39,6 +39,8 @@ const Admin = () => {
         return <SystemConfig />;
       case "evaluation":
         return <Evaluation type="admin" />;
+      case "evaluation-list":
+        return <Evaluation type="admin" />;
       default:
         return <></>;
     }

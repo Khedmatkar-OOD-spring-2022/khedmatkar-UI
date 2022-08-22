@@ -5,6 +5,7 @@ import DatePicker from "react-date-picker";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Maps from "../../common/maps";
 import urls from "../../common/urls";
 import { useFetch } from "../../utils/useFetch";
 
@@ -12,6 +13,10 @@ const ServiceRequest = ({}) => {
   const [mainSpecialty, setMainSpecialty] = useState(null);
   const [subSpecialty, setSubSpecialty] = useState(null);
   const [specialtyList, setSpecialityList] = useState(null);
+  const [position, setPosition] = useState({
+    lat: 35.68658125560941,
+    lng: 51.38819652084644,
+  });
   const [date, onChangeDate] = useState(new Date());
   const navigate = useNavigate();
   const address = useRef("");
@@ -54,32 +59,45 @@ const ServiceRequest = ({}) => {
           )}
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formGridAddress">
-          <Form.Label>آدرس</Form.Label>
-          <Form.Control ref={address} placeholder="ادرس خود را وارد کنید." />
-        </Form.Group>
-
         <Row className="mb-3">
-          <Form.Group as={Col} controlId="formGridCity">
-            <Form.Label>شهر</Form.Label>
-            <Form.Control />
-          </Form.Group>
+          <Col>
+            <Form.Group as={Row} className="mb-3" controlId="formGridAddress">
+              <Form.Label>آدرس</Form.Label>
+              <Form.Control
+                ref={address}
+                placeholder="ادرس خود را وارد کنید."
+                as="textarea"
+                rows={2}
+              />
+            </Form.Group>
 
-          <Form.Group as={Col} controlId="formGridState">
-            <Form.Label>استان</Form.Label>
-            <Form.Select defaultValue="انتخاب کنید...">
-              <option>تهران</option>
-            </Form.Select>
-          </Form.Group>
+            <Form.Group as={Row} controlId="formGridCity">
+              <Form.Label>شهر</Form.Label>
+              <Form.Control />
+            </Form.Group>
 
-          <Form.Group as={Col} controlId="formGridZip">
-            <Form.Label>تاریخ</Form.Label>
-            <Form.Control
-              as={DatePicker}
-              onChange={onChangeDate}
-              value={date}
-            />
-          </Form.Group>
+            <Form.Group as={Row} controlId="formGridState">
+              <Form.Label>استان</Form.Label>
+              <Form.Select defaultValue="انتخاب کنید...">
+                <option>تهران</option>
+              </Form.Select>
+            </Form.Group>
+
+            <Form.Group as={Row} controlId="formGridZip">
+              <Form.Label>تاریخ</Form.Label>
+              <Form.Control
+                as={DatePicker}
+                onChange={onChangeDate}
+                value={date}
+              />
+            </Form.Group>
+          </Col>
+          <Col>
+            <Form.Group>
+              <Form.Label>موقعیت مکانی</Form.Label>
+              <Maps position={position} setPosition={setPosition} />
+            </Form.Group>
+          </Col>
         </Row>
         <Form.Group className="mb-3" controlId="description">
           <Form.Label>توضیحات</Form.Label>
@@ -88,12 +106,14 @@ const ServiceRequest = ({}) => {
 
         <Button
           variant="success"
+          style={{ width: "30%" }}
           onClick={() => {
             submitRequest(
               description.current.value,
               address.current.value,
               date.toISOString(),
               subSpecialty,
+              { latitude: position.lat, longitude: position.lng },
               navigate
             );
           }}
@@ -135,7 +155,14 @@ const SubSpecialties = ({ id, set }) => {
   );
 };
 
-function submitRequest(description, address, date, mainSpecialty, navigate) {
+function submitRequest(
+  description,
+  address,
+  date,
+  mainSpecialty,
+  geoPoint,
+  navigate
+) {
   axios
     .post(
       urls.servic.servicRequest(),
@@ -144,6 +171,7 @@ function submitRequest(description, address, date, mainSpecialty, navigate) {
         description: description,
         address: address,
         receptionDate: date,
+        geoPoint: geoPoint,
       },
       {
         withCredentials: true,

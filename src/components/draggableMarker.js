@@ -1,9 +1,8 @@
 import React, { useCallback, useMemo, useRef, useState } from "react";
 import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 
-export default function DraggableMarker({center}) {
+export default function DraggableMarker({position,setPosition}) {
   const [draggable, setDraggable] = useState(true);
-  const [position, setPosition] = useState(center);
   const markerRef = useRef(null);
   const eventHandlers = useMemo(
     () => ({

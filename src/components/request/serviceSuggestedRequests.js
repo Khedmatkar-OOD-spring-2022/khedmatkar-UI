@@ -8,6 +8,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { getRequestStatusMessage } from "../../utils/statuses";
 import { EvaluationModal } from "../QA/evaluateModal";
+import Maps from "../../common/maps";
 
 export default function SuggestedRequests() {
   const [customerList, setCustomerList] = useState();
@@ -45,6 +46,7 @@ export default function SuggestedRequests() {
                 }
                 status={c.status}
                 isCanceled={c.status === "CANCELED"}
+                location={c.geoPoint}
               />
             </>
           ))}
@@ -98,6 +100,7 @@ function RequestInfoCard({
   name,
   isCanceled,
   status,
+  location,
 }) {
   const navigate = useNavigate();
   function getFunctionByStatus(status) {
@@ -171,7 +174,10 @@ function RequestInfoCard({
     }
   }
   return (
-    <Card style={{ width: "90%", "flex-direction": "row", margin: "10px" }}>
+    <Card
+      className="shadow-sm"
+      style={{ width: "90%", "flex-direction": "row", margin: "10px" }}
+    >
       <Card.Img
         variant="top"
         src={Img}
@@ -189,6 +195,7 @@ function RequestInfoCard({
         </h3>
         <p className="card_description">
           <Card.Text>{"آدرس : " + address}</Card.Text>
+          <Maps position={location} isDraggable={false} />
         </p>
         <div>
           <div dir="ltr">

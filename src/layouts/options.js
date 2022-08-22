@@ -1,11 +1,16 @@
 import React from "react";
 import { AiFillBug, AiFillNotification, AiOutlineTool } from "react-icons/ai";
-import { BsFillPatchCheckFill } from "react-icons/bs";
+import { BsFillPatchCheckFill, BsListCheck } from "react-icons/bs";
 import { FaFileUpload } from "react-icons/fa";
 import { FiArchive, FiMap } from "react-icons/fi";
 import { IoListCircleSharp, IoSettingsSharp } from "react-icons/io5";
 import { MdCreateNewFolder } from "react-icons/md";
-import { RiSurveyFill, RiFeedbackFill, RiUser2Fill } from "react-icons/ri";
+import {
+  RiSurveyFill,
+  RiFeedbackFill,
+  RiUser2Fill,
+  RiSurveyLine,
+} from "react-icons/ri";
 
 export const CustomerSidebar = [
   {
@@ -22,11 +27,11 @@ export const CustomerSidebar = [
     ),
     to: "/dashboard/request-list",
   },
-  {
-    title: "فهرست آدرس ها",
-    htmlBefore: <FiMap size={"1.4em"} style={{ marginLeft: "5px" }} />,
-    to: "/dashboard/location",
-  },
+  // {
+  //   title: "فهرست آدرس ها",
+  //   htmlBefore: <FiMap size={"1.4em"} style={{ marginLeft: "5px" }} />,
+  //   to: "/dashboard/location",
+  // },
   {
     title: "گزارش مشکل فنی",
     htmlBefore: <FiArchive size={"1.4em"} style={{ marginLeft: "5px" }} />,
@@ -95,6 +100,11 @@ export const SuperAdminSidebar = [
     ),
     to: "/admin/notification",
   },
+  {
+    title: "فهرست ارزیابی ",
+    htmlBefore: <BsListCheck size={"1.4em"} style={{ marginLeft: "5px" }} />,
+    to: "/admin/evaluation-list",
+  },
 ];
 export const SpecialistSidebar = [
   {
@@ -138,6 +148,8 @@ export function getSideBarWithPermission(per) {
     adminSideBar.push(SuperAdminSidebar[2]);
   if (contains(permissions, "VALIDATE_CERTIFICATE_W"))
     adminSideBar.push(SuperAdminSidebar[3]);
+  if (contains(permissions, "QUESTIONNAIRE_RW"))
+    adminSideBar.push(SuperAdminSidebar[9]);
   if (contains(permissions, "QUESTIONNAIRE_RW"))
     adminSideBar.push(SuperAdminSidebar[4]);
   if (contains(permissions, "TECHNICAL_ISSUE_RW"))

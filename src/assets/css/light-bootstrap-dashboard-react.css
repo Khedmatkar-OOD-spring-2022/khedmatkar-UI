@@ -1394,15 +1394,14 @@ Copyright (c) 2015 Daniel Eden
     border-bottom: none !important; }
   .card .card-category,
   .card label {
-    font-size: 14px;
+    font-size: 20px;
     font-weight: 400;
-    color: #9A9A9A;
     margin-bottom: 0px; }
     .card .card-category i,
     .card label i {
       font-size: 32px; }
   .card label {
-    font-size: 12px;
+    font-size: 20px;
     margin-bottom: 5px;
     text-transform: uppercase; }
   .card .card-title {

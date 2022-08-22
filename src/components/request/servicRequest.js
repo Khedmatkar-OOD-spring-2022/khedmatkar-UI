@@ -38,9 +38,20 @@ const ServiceRequest = ({}) => {
   return (
     <Container>
       <Form dir="rtl" onSubmit={makeRequest}>
-        <Form.Group className="mb-3" controlId="description">
-          <Form.Label>توضیحات</Form.Label>
-          <Form.Control ref={description} as="textarea" rows={3} />{" "}
+        <Form.Group className="mb-3" controlId="serviceType">
+          <Form.Label>نوع خدمت</Form.Label>
+          <Form.Select
+            style={{ paddingRight: "30px" }}
+            onChange={(e) =>
+              setMainSpecialty(e.target.options[e.target.selectedIndex].id)
+            }
+          >
+            {specialtyList &&
+              specialtyList.map((s) => <option id={s.id}>{s.name}</option>)}
+          </Form.Select>
+          {mainSpecialty && (
+            <SubSpecialties set={setSubSpecialty} id={mainSpecialty} />
+          )}
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formGridAddress">
@@ -70,21 +81,11 @@ const ServiceRequest = ({}) => {
             />
           </Form.Group>
         </Row>
-        <Form.Group className="mb-3" controlId="serviceType">
-          <Form.Label>نوع خدمت</Form.Label>
-          <Form.Select
-            style={{ paddingRight: "30px" }}
-            onChange={(e) =>
-              setMainSpecialty(e.target.options[e.target.selectedIndex].id)
-            }
-          >
-            {specialtyList &&
-              specialtyList.map((s) => <option id={s.id}>{s.name}</option>)}
-          </Form.Select>
-          {mainSpecialty && (
-            <SubSpecialties set={setSubSpecialty} id={mainSpecialty} />
-          )}
+        <Form.Group className="mb-3" controlId="description">
+          <Form.Label>توضیحات</Form.Label>
+          <Form.Control ref={description} as="textarea" rows={3} />{" "}
         </Form.Group>
+
         <Button
           variant="success"
           onClick={() => {

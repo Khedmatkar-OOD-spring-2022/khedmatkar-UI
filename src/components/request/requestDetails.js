@@ -74,8 +74,7 @@ export default function RequestDetails() {
                     id={params.id}
                   />
                 </Row>
-              ) : null}
-              {details.candidateSpecialist ? (
+              ) : details.candidateSpecialist ? (
                 <Row className={css(styles.groupServicePanel)}>
                   <h4 dir="rtl">متخصصان کاندید برای انجام کار</h4>
 
@@ -204,16 +203,15 @@ function SpecialistInfoCard({
             </Button>
           </>
         );
-      case "EVALUATION":
+      case "DONE":
         return (
           <>
             <Button className="card_btn" variant="primary" onClick={() => {}}>
-              ارزیابی
+              {"ارزیابی متخصص"}
             </Button>{" "}
           </>
         );
-      case "DONE":
-        return <></>;
+
       default:
         break;
     }
@@ -237,7 +235,6 @@ function SpecialistInfoCard({
           <Badge bg="dark">
             <h5>{getRequestStatusMessage(status)}</h5>
           </Badge>
-          {"\n"}
         </div>
         <p className="card_description">
           <Card.Text>{description}</Card.Text>

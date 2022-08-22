@@ -15,7 +15,7 @@ import StarRatingComponent from "react-star-rating-component";
 import urls from "../../common/urls";
 
 export const EvaluationForm = ({ type, questions }) => {
-  function getQuestionByType(content) {
+  function getQuestionByType(content, id) {
     switch (content.contentType) {
       case "SCORE":
         const scoreContent = content.scoreContent;
@@ -27,11 +27,44 @@ export const EvaluationForm = ({ type, questions }) => {
           />
         );
       case "DOUBLE_CHOICE":
-        return <></>;
+        return (
+          <div className="mb-3" style={{ width: "30%", color: "black" }}>
+            <Row>
+              {" "}
+              <Form.Check
+                type="radio"
+                name="double-choice"
+                id={`${id}-1`}
+                label={content.doubleChoiceContent.choice1}
+              />
+              <Form.Check
+                type="radio"
+                id={`${id}-2`}
+                name="double-choice"
+                label={content.doubleChoiceContent.choice2}
+              />
+            </Row>
+          </div>
+        );
       case "TEXT":
         return <FormControl placeholder="پاسخ خود را بنویسید" />;
       case "MULTIPLE_CHOICE":
-        return <></>;
+        const multipleChoiceContent = content.multipleChoiceContent;
+        const type = multipleChoiceContent.isSingleSelection
+          ? "radio"
+          : "checkbox";
+        return (
+          <div className="mb-3" style={{ width: "30%", color: "black" }}>
+            {multipleChoiceContent.choices.map((c, i) => (
+              <Form.Check
+                type={type}
+                name="multiple-choice"
+                id={`${id}-choice-${i}`}
+                label={c}
+              />
+            ))}
+          </div>
+        );
       default:
         return <></>;
     }
@@ -39,7 +72,7 @@ export const EvaluationForm = ({ type, questions }) => {
 
   return (
     <Container>
-        <h3>سوالات ثبت شده </h3>
+      <h3>سوالات ثبت شده </h3>
       <Form>
         {questions &&
           questions.map((e) => {
@@ -48,10 +81,13 @@ export const EvaluationForm = ({ type, questions }) => {
                 <Card>
                   <Card.Header>{e.content.questionText}</Card.Header>
                   <Card.Body style={{ marginRight: "2rem" }}>
-                    {getQuestionByType(e.content)}
+                    {getQuestionByType(e.content, e.id)}
                   </Card.Body>
                   <Card.Footer dir="ltr">
-                    <Button variant="outline-danger" onClick={() => deleteQuestion(e.id)}>
+                    <Button
+                      variant="outline-danger"
+                      onClick={() => deleteQuestion(e.id)}
+                    >
                       حذف سوال
                     </Button>
                   </Card.Footer>
@@ -71,9 +107,9 @@ export const EvaluationCreateQuestion = ({ userType }) => {
   const choice2 = useRef("");
   const maxScore = useRef("");
   const minScore = useRef("");
-  const isSingleSelection = useRef("");
-  const addChoice = useRef("");
+  const isSingleSelection = useRef(true);
   const answerWordLength = useRef("");
+  const addChoice = useRef("");
 
   return (
     <Container>
@@ -114,9 +150,36 @@ export const EvaluationCreateQuestion = ({ userType }) => {
         {newQuestionType === "MULTIPLE_CHOICE" ? (
           <div>
             <Form.Group>
+              <Form.Label>{"گزینه ها"}</Form.Label>
+              <Form.Group style={{ marginRight: "50px" }}>
+                {multipleChoice && multipleChoice.map((c) => <h6>{c}</h6>)}
+              </Form.Group>
+            </Form.Group>
+            <Form.Group>
               <Form.Label>متن گزینه جدید</Form.Label>
               <FormControl ref={addChoice} />
-              <Button>اضافه کردن</Button>
+              <Button
+                variant="secondary"
+                style={{ marginTop: "5px" }}
+                onClick={() =>
+                  setMultipleChoice([
+                    ...multipleChoice,
+                    addChoice.current.value,
+                  ])
+                }
+              >
+                اضافه کردن
+              </Button>
+            </Form.Group>
+            <Form.Group
+              style={{ width: "20%", margin: "1rem", fontSize: "20px" }}
+            >
+              <Form.Check
+                type="checkbox"
+                id={`single`}
+                label="قابلیت انتخاب چند تایی"
+                ref={isSingleSelection}
+              />
             </Form.Group>
           </div>
         ) : null}
@@ -141,7 +204,8 @@ export const EvaluationCreateQuestion = ({ userType }) => {
           </div>
         ) : null}
         <Button
-          style={{ marginTop: "15px" }}
+          variant="primary"
+          style={{ marginTop: "15px", width: "40%" }}
           onClick={() =>
             createQuestion({
               answererType: userType,
@@ -162,7 +226,7 @@ export const EvaluationCreateQuestion = ({ userType }) => {
                   choice2: choice2.current.value,
                 },
                 multipleChoiceContent: {
-                  isSingleSelection: isSingleSelection.current.checked,
+                  isSingleSelection: !isSingleSelection.current.checked,
                   choices: multipleChoice,
                 },
               },

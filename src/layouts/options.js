@@ -32,11 +32,6 @@ export const CustomerSidebar = [
     to: "/dashboard/location",
   },
   {
-    title: "ارزیابی",
-    htmlBefore: <FiArchive size={"1.4em"} style={{ marginLeft: "5px" }} />,
-    to: "/dashboard/evaluation",
-  },
-  {
     title: "گزارش مشکل فنی",
     htmlBefore: <FiArchive size={"1.4em"} style={{ marginLeft: "5px" }} />,
     to: "/dashboard/technicalissues",
@@ -107,11 +102,6 @@ export const SpecialistSidebar = [
     title: "بارگذاری مدارک",
     htmlBefore: <FaFileUpload size={"1.4em"} style={{ marginLeft: "5px" }} />,
     to: "/dashboard/addSpecialty",
-  },
-  {
-    title: "ارزیابی",
-    htmlBefore: <FiArchive size={"1.4em"} style={{ marginLeft: "5px" }} />,
-    to: "/dashboard/evaluation",
   },
   {
     title: "گزارش مشکل فنی",

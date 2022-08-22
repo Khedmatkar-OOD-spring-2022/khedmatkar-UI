@@ -126,7 +126,7 @@ function RequestInfoCard({
               onClick={() => acceptOffer(id)}
             >
               قبول پیشنهاد
-            </Button>{' '}
+            </Button>{" "}
             <Button
               className="card_btn"
               variant="outline-danger"
@@ -145,7 +145,7 @@ function RequestInfoCard({
               onClick={() => finishRequest(id)}
             >
               اتمام درخواست خدمت
-            </Button>{' '}
+            </Button>{" "}
             <Button
               className="card_btn"
               variant="outline-warning"
@@ -157,14 +157,13 @@ function RequestInfoCard({
             </Button>
           </>
         );
-      case "EVALUATION":
-        return <></>;
+
       case "DONE":
         return (
           <>
             {" "}
-            <Button className="card_btn" variant="primary" onClick={() => {}}>
-              مشاهده ارزیابی
+            <Button className="card_btn" onClick={() => {}}>
+              {"ارزیابی مشتری"}{" "}
             </Button>
           </>
         );
@@ -173,16 +172,17 @@ function RequestInfoCard({
     }
   }
   return (
-    <Card style={{ width: "90%", "flex-direction": "row" ,margin:'10px'}}>
+    <Card style={{ width: "90%", "flex-direction": "row", margin: "10px" }}>
       <Card.Img
         variant="top"
         src={Img}
         style={{ width: "15%", margin: "10px" }}
       />
       <Card.Body>
-        <h2 className="card_title">
-          <Card.Title>{Title}</Card.Title>
-        </h2>
+        <Card.Title>
+          <h3>{Title}</h3>
+        </Card.Title>
+
         <h3 className="card_title">
           <Card.Title dir="rtl">
             {"زمان تحویل: " + name.slice(0, 10)}
@@ -193,8 +193,10 @@ function RequestInfoCard({
         </p>
         <div>
           <div dir="ltr">
-            <Badge bg="dark">{getRequestStatusMessage(status)}</Badge>
-            {"\n"}
+            <Badge bg="dark">
+              {" "}
+              <h5>{getRequestStatusMessage(status)}</h5>
+            </Badge>
           </div>
           {getFunctionByStatus(status)}
         </div>

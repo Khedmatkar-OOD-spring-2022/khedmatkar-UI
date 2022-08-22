@@ -20,7 +20,6 @@ const Dashboard = () => {
   const params = useParams();
   const [detailsId, setDetailsId] = useState();
   function GetCustomerSection({ section }) {
-    console.log(section);
     switch (section) {
       case "notification":
         return <NotificationPanel />;

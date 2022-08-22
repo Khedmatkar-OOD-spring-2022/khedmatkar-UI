@@ -1,15 +1,11 @@
 import React from "react";
-import { AiFillNotification } from "react-icons/ai";
+import { AiFillBug, AiFillNotification, AiOutlineTool } from "react-icons/ai";
+import { BsFillPatchCheckFill } from "react-icons/bs";
 import { FaFileUpload } from "react-icons/fa";
-import {
-  FiAlertCircle,
-  FiArchive,
-  FiMap,
-  FiPenTool,
-  FiTablet,
-} from "react-icons/fi";
-import { IoListCircleSharp } from "react-icons/io5";
+import { FiArchive, FiMap } from "react-icons/fi";
+import { IoListCircleSharp, IoSettingsSharp } from "react-icons/io5";
 import { MdCreateNewFolder } from "react-icons/md";
+import { RiSurveyFill, RiFeedbackFill, RiUser2Fill } from "react-icons/ri";
 
 export const CustomerSidebar = [
   {
@@ -48,54 +44,64 @@ export const CustomerSidebar = [
 export const SuperAdminSidebar = [
   {
     title: "فهرست مدیران سامانه",
-    htmlBefore: <FiPenTool size={"1.4em"} style={{ marginLeft: "5px" }} />,
+    htmlBefore: <RiUser2Fill size={"1.4em"} style={{ marginLeft: "5px" }} />,
     to: "/admin/list",
   },
   {
     title: "فهرست درخواست خدمت ها",
-    htmlBefore: <FiTablet size={"1.4em"} style={{ marginLeft: "5px" }} />,
+    htmlBefore: (
+      <IoListCircleSharp size={"1.4em"} style={{ marginLeft: "5px" }} />
+    ),
     to: "/admin/request-list",
   },
   {
     title: "مدیریت تخصص های سامانه",
-    htmlBefore: <FiArchive size={"1.4em"} style={{ marginLeft: "5px" }} />,
+    htmlBefore: <AiOutlineTool size={"1.4em"} style={{ marginLeft: "5px" }} />,
     to: "/admin/speciality-managment",
   },
   {
     title: "بررسی مدارک متخصصان",
-    htmlBefore: <FiArchive size={"1.4em"} style={{ marginLeft: "5px" }} />,
+    htmlBefore: (
+      <BsFillPatchCheckFill size={"1.4em"} style={{ marginLeft: "5px" }} />
+    ),
     to: "/admin/speciality-approve",
   },
   {
     title: "مدیریت ارزیابی ",
-    htmlBefore: <FiArchive size={"1.4em"} style={{ marginLeft: "5px" }} />,
+    htmlBefore: <RiSurveyFill size={"1.4em"} style={{ marginLeft: "5px" }} />,
     to: "/admin/evaluation",
   },
   {
     title: "مشکلات فنی",
-    htmlBefore: <FiArchive size={"1.4em"} style={{ marginLeft: "5px" }} />,
+    htmlBefore: <AiFillBug size={"1.4em"} style={{ marginLeft: "5px" }} />,
     to: "/admin/technicalissues",
   },
   {
     title: "تنظیمات سامانه",
-    htmlBefore: <FiArchive size={"1.4em"} style={{ marginLeft: "5px" }} />,
+    htmlBefore: (
+      <IoSettingsSharp size={"1.4em"} style={{ marginLeft: "5px" }} />
+    ),
     to: "/admin/system-settings",
   },
   {
     title: "پیشنهادات و انتقادات",
-    htmlBefore: <FiArchive size={"1.4em"} style={{ marginLeft: "5px" }} />,
+    htmlBefore: <RiFeedbackFill size={"1.4em"} style={{ marginLeft: "5px" }} />,
     to: "/admin/feedbacks",
   },
   {
     title: "اعلانات",
-    htmlBefore: <FiAlertCircle size={"1.4em"} style={{ marginLeft: "5px" }} />,
+    htmlBefore: (
+      <AiFillNotification size={"1.4em"} style={{ marginLeft: "5px" }} />
+    ),
     to: "/admin/notification",
   },
 ];
 export const SpecialistSidebar = [
   {
     title: "فهرست درخواست خدمت ها",
-    htmlBefore: <FiTablet size={"1.4em"} style={{ marginLeft: "5px" }} />,
+    htmlBefore: (
+      <IoListCircleSharp size={"1.4em"} style={{ marginLeft: "5px" }} />
+    ),
     to: "/dashboard/request-list",
   },
   {
@@ -105,12 +111,14 @@ export const SpecialistSidebar = [
   },
   {
     title: "گزارش مشکل فنی",
-    htmlBefore: <FiArchive size={"1.4em"} style={{ marginLeft: "5px" }} />,
+    htmlBefore: <AiFillBug size={"1.4em"} style={{ marginLeft: "5px" }} />,
     to: "/dashboard/technicalissues",
   },
   {
     title: "اعلانات",
-    htmlBefore: <FiAlertCircle size={"1.4em"} style={{ marginLeft: "5px" }} />,
+    htmlBefore: (
+      <AiFillNotification size={"1.4em"} style={{ marginLeft: "5px" }} />
+    ),
     to: "/dashboard/notification",
   },
 ];
@@ -121,8 +129,10 @@ export function getSideBarWithPermission(per) {
   }
   const permissions = per.permissions;
   const adminSideBar = [];
+  if (contains(permissions, "ROOT")) adminSideBar.push(SuperAdminSidebar[0]);
+
   if (contains(permissions, "SERVICE_W"))
-    adminSideBar.push(SuperAdminSidebar[0]);
+    adminSideBar.push(SuperAdminSidebar[1]);
 
   if (contains(permissions, "SPECIALTY_W"))
     adminSideBar.push(SuperAdminSidebar[2]);
@@ -140,8 +150,6 @@ export function getSideBarWithPermission(per) {
   return adminSideBar;
 }
 function contains(a, obj) {
-  console.log(a, obj);
-
   var i = a.length;
   while (i--) {
     if (a[i] === obj) {

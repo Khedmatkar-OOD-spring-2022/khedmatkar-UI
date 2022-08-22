@@ -38,6 +38,7 @@ const UserTable = ({ isAdmin, setDetailsId }) => {
           <Table striped bordered responsive hover>
             <thead>
               <tr>
+                <th style={{width:'10%'}}>شماره درخواست</th>
                 <th>خدمت مورد نظر</th>
                 <th>ادرس</th>
                 <th>تاریخ ثبت</th>
@@ -49,9 +50,10 @@ const UserTable = ({ isAdmin, setDetailsId }) => {
               {userList &&
                 userList.map((req) => (
                   <tr key={req.id}>
+                    <td> {req.id} </td>
                     <td> {req.specialty.name} </td>
                     <td> {req.address} </td>
-                    <td dir="ltr"> {req.creation.slice(0, 10)} </td>
+                    <td dir="rtl"> {req.creation.slice(0, 10)} </td>
                     {isAdmin ? (
                       <td>{getRequestStatusMessage(req.status)}</td>
                     ) : null}

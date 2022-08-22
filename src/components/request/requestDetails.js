@@ -15,6 +15,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getRequestStatusMessage } from "../../utils/statuses";
 import { useAuth } from "../../providers/authentication";
 import axios from "axios";
+import { EvaluationModal } from "../QA/evaluateModal";
 
 export default function RequestDetails() {
   const [user, _] = useAuth();
@@ -204,13 +205,7 @@ function SpecialistInfoCard({
           </>
         );
       case "DONE":
-        return (
-          <>
-            <Button className="card_btn" variant="primary" onClick={() => {}}>
-              {"ارزیابی متخصص"}
-            </Button>{" "}
-          </>
-        );
+        return <>{id && parseInt(id) && <EvaluationModal name={"ارزیابی متخصص"} id={id} />}</>;
 
       default:
         break;

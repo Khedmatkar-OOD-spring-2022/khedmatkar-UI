@@ -26,6 +26,9 @@ const urls = {
     servicRequest: () => `${API_BASE_URL}/api/serviceRequests/`,
     servicRequestById: (id) => `${API_BASE_URL}/api/serviceRequests/${id}`,
     cancel: (id) => `${API_BASE_URL}/api/serviceRequests/${id}/customer/cancel`,
+    getQuestionnaire: (id) =>
+      `${API_BASE_URL}/api/serviceRequests/${id}/questionnaire`,
+    evaluate: (id) => `${API_BASE_URL}/api/serviceRequests/${id}/evaluate`,
     specialistAccept: (id) =>
       `${API_BASE_URL}/api/serviceRequests/${id}/specialist/accept`,
     specialistReject: (id) =>

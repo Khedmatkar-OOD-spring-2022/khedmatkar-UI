@@ -85,7 +85,6 @@ export const SearchButton = () => {
         <Button
           variant="outline-success"
           onClick={() => {
-            console.log(searchInputRef);
             if (isLoggedIn) {
               navigate("/dashboard/search/" + searchInputRef.current.value);
             } else {

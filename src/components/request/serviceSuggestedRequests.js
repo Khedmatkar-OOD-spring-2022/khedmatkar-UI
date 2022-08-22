@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { getRequestStatusMessage } from "../../utils/statuses";
+import { EvaluationModal } from "../QA/evaluateModal";
 
 export default function SuggestedRequests() {
   const [customerList, setCustomerList] = useState();
@@ -162,9 +163,7 @@ function RequestInfoCard({
         return (
           <>
             {" "}
-            <Button className="card_btn" onClick={() => {}}>
-              {"ارزیابی مشتری"}{" "}
-            </Button>
+            <EvaluationModal name={"ارزیابی مشتری"} id={id} />
           </>
         );
       default:

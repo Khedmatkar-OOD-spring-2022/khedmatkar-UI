@@ -58,7 +58,15 @@ const UserTable = ({ isAdmin, setDetailsId }) => {
                       <td>{getRequestStatusMessage(req.status)}</td>
                     ) : null}
                     <td>
-                      {isAdmin ? null : (
+                      {isAdmin ? <Button
+                          onClick={() => {
+                            setDetailsId(req.id);
+                            navigate("/dashboard/request-details");
+                          }}
+                          variant="secondary"
+                        >
+                          مشاهده ارزیابی
+                        </Button> : (
                         <Button
                           onClick={() => {
                             setDetailsId(req.id);

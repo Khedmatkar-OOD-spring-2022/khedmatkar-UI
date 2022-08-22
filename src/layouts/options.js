@@ -148,8 +148,8 @@ export function getSideBarWithPermission(per) {
     adminSideBar.push(SuperAdminSidebar[2]);
   if (contains(permissions, "VALIDATE_CERTIFICATE_W"))
     adminSideBar.push(SuperAdminSidebar[3]);
-  if (contains(permissions, "QUESTIONNAIRE_RW"))
-    adminSideBar.push(SuperAdminSidebar[9]);
+  // if (contains(permissions, "QUESTIONNAIRE_RW"))
+  //   adminSideBar.push(SuperAdminSidebar[9]);
   if (contains(permissions, "QUESTIONNAIRE_RW"))
     adminSideBar.push(SuperAdminSidebar[4]);
   if (contains(permissions, "TECHNICAL_ISSUE_RW"))

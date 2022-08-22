@@ -40,7 +40,7 @@ const Welcome = ({}) => {
           <Button
             style={{ fontSize: "22px" }}
             variant="secondary"
-            onClick={() => navigate("/register")}
+            onClick={() => navigate("/auth/register")}
           >
             ثبت نام{" "}
           </Button>

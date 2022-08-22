@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button, Form, FormControl, Modal, Row } from "react-bootstrap";
 import StarRatingComponent from "react-star-rating-component";
 import { toast } from "react-toastify";
@@ -8,7 +8,8 @@ import { useFetch } from "../../utils/useFetch";
 export const EvaluationModal = ({ name, id }) => {
   const [show, setShow] = useState(false);
   const [questionnaire, setQuestionnaire] = useState();
-
+  //   const [answers, setAnswer] = useState([]);
+  const answers = useRef([]);
   const { data, error, loading } = useFetch(
     urls.servic.getQuestionnaire(id),
     "GET"
@@ -20,8 +21,20 @@ export const EvaluationModal = ({ name, id }) => {
       });
     }
     setQuestionnaire(data);
+    if (data && data.length > 0) {
+      answers.current = data.map((item, index) => ({
+        questionId: item.id,
+        answererType: item.answererType,
+        content: null,
+      }));
+    }
   }, [error, data]);
 
+  function addToAnswer(index, content) {
+    console.log(index, content);
+    console.log(answers.current);
+    answers.current[index].content = content;
+  }
   return (
     <>
       <Modal
@@ -38,11 +51,17 @@ export const EvaluationModal = ({ name, id }) => {
         <Modal.Body>
           <Form>
             {questionnaire &&
-              questionnaire.map((q) => {
+              questionnaire.map((q, index) => {
                 return (
                   <Form.Group>
                     <Form.Label>{q.content.questionText}</Form.Label>
-                    {getQuestionByType(q.content, q.answererType, q.id)}
+                    {getQuestionByType(
+                      q.content,
+                      index,
+                      q.id,
+                      addToAnswer,
+                      answers
+                    )}
                     <hr />
                   </Form.Group>
                 );
@@ -62,7 +81,7 @@ export const EvaluationModal = ({ name, id }) => {
           <Button
             variant="success"
             onClick={() => {
-              evaluate(id, {});
+              evaluate(id, answers.current);
               setShow(false);
             }}
           >
@@ -75,7 +94,7 @@ export const EvaluationModal = ({ name, id }) => {
     </>
   );
 };
-function getQuestionByType(content, answererType, id) {
+function getQuestionByType(content, index, id, addToAnswer, answers) {
   switch (content.contentType) {
     case "SCORE":
       const scoreContent = content.scoreContent;
@@ -84,7 +103,14 @@ function getQuestionByType(content, answererType, id) {
           <StarRatingComponent
             name="score"
             starCount={scoreContent.maxScore}
-            value={scoreContent.minScore}
+            onStarClick={(nextValue, prevValue, name) =>
+              addToAnswer(index, {
+                contentType: content.contentType,
+                scoreContent: {
+                  score: nextValue,
+                },
+              })
+            }
           />
         </div>
       );
@@ -96,6 +122,14 @@ function getQuestionByType(content, answererType, id) {
             <Form.Check
               type="radio"
               name="double-choice"
+              onClick={(e) => {
+                addToAnswer(index, {
+                  contentType: content.contentType,
+                  doubleChoiceContent: {
+                    answerChoice: content.doubleChoiceContent.choice1,
+                  },
+                });
+              }}
               id={`${id}-1`}
               label={content.doubleChoiceContent.choice1}
             />
@@ -104,12 +138,30 @@ function getQuestionByType(content, answererType, id) {
               id={`${id}-2`}
               name="double-choice"
               label={content.doubleChoiceContent.choice2}
+              onClick={(e) => {
+                addToAnswer(index, {
+                  contentType: content.contentType,
+                  doubleChoiceContent: {
+                    answerChoice: content.doubleChoiceContent.choice2,
+                  },
+                });
+              }}
             />
           </Row>
         </div>
       );
     case "TEXT":
-      return <FormControl placeholder="پاسخ خود را بنویسید" />;
+      return (
+        <FormControl
+          onChange={(e) =>
+            addToAnswer(index, {
+              contentType: content.contentType,
+              textContent: { text: e.target.value },
+            })
+          }
+          placeholder="پاسخ خود را بنویسید"
+        />
+      );
     case "MULTIPLE_CHOICE":
       const multipleChoiceContent = content.multipleChoiceContent;
       const type = multipleChoiceContent.isSingleSelection
@@ -123,6 +175,23 @@ function getQuestionByType(content, answererType, id) {
               name="multiple-choice"
               id={`${id}-choice-${i}`}
               label={c}
+              onClick={() => {
+                if (multipleChoiceContent.isSingleSelection) {
+                  addToAnswer(index, {
+                    contentType: content.contentType,
+                    multipleChoiceContent: {
+                      answerChoices: [i],
+                    },
+                  });
+                } else {
+                  addToAnswer(index, {
+                    contentType: content.contentType,
+                    multipleChoiceContent: {
+                      answerChoices: [i],
+                    },
+                  });
+                }
+              }}
             />
           ))}
         </div>
@@ -132,8 +201,9 @@ function getQuestionByType(content, answererType, id) {
   }
 }
 function evaluate(id, content) {
+  console.log(content);
   axios
-    .post(urls.evaluation.evaluate(id), content, {
+    .post(urls.servic.evaluate(id), content, {
       withCredentials: true,
       headers: {
         "Content-Type": "application/json",

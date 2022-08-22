@@ -37,6 +37,10 @@ const urls = {
     customerReject: (id) =>
       `${API_BASE_URL}/api/serviceRequests/${id}/customer/reject`,
   },
+  evaluation: {
+    createQuestion: () => `${API_BASE_URL}/api/evaluation/questions/`,
+    getQuestions: () => `${API_BASE_URL}/api/evaluation/questions/`,
+  },
   chat: {
     getByServicRequest: (id) =>
       `${API_BASE_URL}/api/chats/serviceRequest/${id}`,

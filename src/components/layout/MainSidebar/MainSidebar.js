@@ -51,7 +51,6 @@ const MainSidebar = ({
                   <NavLink
                     to={prop.to}
                     className="nav-link inline-flex"
-                    activeClassName="active"
                   >
                     
                     <h5>{prop.htmlBefore} {' '} {prop.title}</h5>

@@ -91,6 +91,11 @@ export const SuperAdminSidebar = [
     htmlBefore: <FiArchive size={"1.4em"} style={{ marginLeft: "5px" }} />,
     to: "/admin/feedbacks",
   },
+  {
+    title: "اعلانات",
+    htmlBefore: <FiAlertCircle size={"1.4em"} style={{ marginLeft: "5px" }} />,
+    to: "/admin/notification",
+  },
 ];
 export const SpecialistSidebar = [
   {
@@ -119,3 +124,39 @@ export const SpecialistSidebar = [
     to: "/dashboard/notification",
   },
 ];
+
+export function getSideBarWithPermission(per) {
+  if (!per) {
+    return [];
+  }
+  const permissions = per.permissions;
+  const adminSideBar = [];
+  if (contains(permissions, "SERVICE_W"))
+    adminSideBar.push(SuperAdminSidebar[0]);
+
+  if (contains(permissions, "SPECIALTY_W"))
+    adminSideBar.push(SuperAdminSidebar[2]);
+  if (contains(permissions, "VALIDATE_CERTIFICATE_W"))
+    adminSideBar.push(SuperAdminSidebar[3]);
+  if (contains(permissions, "QUESTIONNAIRE_RW"))
+    adminSideBar.push(SuperAdminSidebar[4]);
+  if (contains(permissions, "TECHNICAL_ISSUE_RW"))
+    adminSideBar.push(SuperAdminSidebar[5]);
+  if (contains(permissions, "FEEDBACK_RW"))
+    adminSideBar.push(SuperAdminSidebar[7]);
+  if (contains(permissions, "ROOT")) adminSideBar.push(SuperAdminSidebar[6]);
+
+  adminSideBar.push(SuperAdminSidebar[8]);
+  return adminSideBar;
+}
+function contains(a, obj) {
+  console.log(a, obj);
+
+  var i = a.length;
+  while (i--) {
+    if (a[i] === obj) {
+      return true;
+    }
+  }
+  return false;
+}

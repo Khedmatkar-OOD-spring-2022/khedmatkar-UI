@@ -32,7 +32,7 @@ const Welcome = ({}) => {
           <Button
             style={{ fontSize: "22px" }}
             variant="primary"
-            onClick={() => navigate("/search")}
+            onClick={() => navigate("/search/*")}
           >
             جستجو انواع خدمت
           </Button>
@@ -40,7 +40,7 @@ const Welcome = ({}) => {
           <Button
             style={{ fontSize: "22px" }}
             variant="secondary"
-            onClick={() => navigate("/login")}
+            onClick={() => navigate("/register")}
           >
             ثبت نام{" "}
           </Button>

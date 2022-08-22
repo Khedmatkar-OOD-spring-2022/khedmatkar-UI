@@ -38,11 +38,11 @@ const UserTable = ({ isAdmin, setDetailsId }) => {
           <Table striped bordered responsive hover>
             <thead>
               <tr>
-                <th style={{width:'10%'}}>شماره درخواست</th>
+                <th style={{ width: "10%" }}>شماره درخواست</th>
                 <th>خدمت مورد نظر</th>
                 <th>ادرس</th>
                 <th>تاریخ ثبت</th>
-                {isAdmin ? <th> وضعیت</th> : null}
+                <th> وضعیت</th>
                 <th>عملیات</th>
               </tr>
             </thead>
@@ -54,11 +54,10 @@ const UserTable = ({ isAdmin, setDetailsId }) => {
                     <td> {req.specialty.name} </td>
                     <td> {req.address} </td>
                     <td dir="rtl"> {req.creation.slice(0, 10)} </td>
-                    {isAdmin ? (
-                      <td>{getRequestStatusMessage(req.status)}</td>
-                    ) : null}
+                    <td>{getRequestStatusMessage(req.status)}</td>
                     <td>
-                      {isAdmin ? <Button
+                      {isAdmin ? (
+                        <Button
                           onClick={() => {
                             setDetailsId(req.id);
                             navigate("/dashboard/request-details");
@@ -66,7 +65,8 @@ const UserTable = ({ isAdmin, setDetailsId }) => {
                           variant="secondary"
                         >
                           مشاهده ارزیابی
-                        </Button> : (
+                        </Button>
+                      ) : (
                         <Button
                           onClick={() => {
                             setDetailsId(req.id);

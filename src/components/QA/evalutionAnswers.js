@@ -37,33 +37,27 @@ const EvaluationAnswers = ({}) => {
             <thead>
               <tr>
                 <th> ایمیل </th>
-                <th> سطح دسترسی</th>
-                <th>نام مدیر</th>
-                <th>نام خانوادگی مدیر</th>
-                <th>عملیات</th>
+                <th> نوع کاربر </th>
+                <th> نوع سوال</th>
+                <th>متن سوال</th>
+                <th>متن پاسخ</th>
               </tr>
             </thead>
             <tbody>
               {answers &&
-                answers.map((req) => (
-                  <tr key={req.id}>
-                    <td> {req.email} </td>
-                    <td>
-                      {" "}
-                      {req.permissions &&
-                        req.permissions.map((e) => (
-                          <tr>{getPermissionLabel(e)}</tr>
-                        ))}
-                    </td>
-                    <td> {req.firstName} </td>
-                    <td> {req.lastName} </td>
+                answers.map((a) => (
+                  <tr key={a.id}>
+                    <td> {a.answererEmail} </td>
+                    <td>{}</td>
+                    <td> {a.firstName} </td>
+                    <td> {a.lastName} </td>
                     <td>
                       <div>
                         <h5>
                           <Button
                             style={{ marginLeft: "1em" }}
                             onClick={() => {
-                              setChoosedEmail(req.email);
+                              setChoosedEmail(a.email);
                             }}
                             variant="outline-primary"
                           >

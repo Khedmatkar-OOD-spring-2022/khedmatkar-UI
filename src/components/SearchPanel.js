@@ -50,17 +50,18 @@ export default function SearchPanel({ specialists }) {
       </Row> */}
       <br />
       <Row className={css(styles.groupServicePanel)}>
-        {specialists.map((s) => (
-          <>
-            <SpecialistCard
-              firstName={s.firstName}
-              lastName={s.lastName}
-              email={s.email}
-              specialty={s.specialty}
-              id={s.id}
-            />
-          </>
-        ))}
+        {specialists &&
+          specialists.map((s) => (
+            <>
+              <SpecialistCard
+                firstName={s.firstName}
+                lastName={s.lastName}
+                email={s.email}
+                specialty={s.specialty}
+                id={s.id}
+              />
+            </>
+          ))}
       </Row>
       <Row className={css(styles.paginationRow)}>
         {/* <CustomPagination /> */}

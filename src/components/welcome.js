@@ -76,6 +76,7 @@ const Welcome = ({}) => {
         <br />
         <br />
         <Cardinfo />
+        <hr class="solid"></hr>
       </Row>
     </Container>
   );
@@ -110,7 +111,7 @@ function Questions() {
   );
 }
 
-function Cardinfo() {
+export function Cardinfo() {
   return (
     <Container>
       <Row style={{ justifyContent: "space-around" }}>

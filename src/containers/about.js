@@ -1,15 +1,22 @@
 import React from "react";
-import { Row } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
+import { Cardinfo } from "../components/welcome";
 class AboutUs extends React.Component {
-
-
   render() {
     return (
-      <React.Fragment>
-        <Row>{"about us"}</Row>
-      </React.Fragment>
+      <Container>
+        <Row>
+          <br />
+          <br />
+          <h2 className="text-color" style={{textAlign:'center'}}>تیم ما</h2>
+          <br />
+          <br />
+          <br />
+          <Cardinfo /> <hr class="solid"></hr>
+        </Row>
+      </Container>
     );
   }
 }
 
-export default  AboutUs;
+export default AboutUs;

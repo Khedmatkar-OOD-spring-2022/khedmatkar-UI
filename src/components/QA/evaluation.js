@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { EvaluationCreateQuestion, EvaluationForm } from "./evaluationForm";
 import { useFetch } from "../../utils/useFetch";
 import urls from "../../common/urls";
+import { ShowError } from "../../common/errors";
 
 const Evaluation = ({ type }) => {
   //   const [questionaire, setQuestionaire] = useState();
@@ -42,9 +43,7 @@ const AdminEvaluation = () => {
   const navigate = useNavigate();
   useEffect(() => {
     if (error) {
-      toast.error(error && error.message, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
+      ShowError((error))
     }
     if (typeof data == "string") {
       localStorage.removeItem("user");

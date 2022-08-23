@@ -16,6 +16,7 @@ import { getRequestStatusMessage } from "../../utils/statuses";
 import { useAuth } from "../../providers/authentication";
 import axios from "axios";
 import { EvaluationModal } from "../QA/evaluateModal";
+import { ShowError } from "../../common/errors";
 
 export default function RequestDetails() {
   const [user, _] = useAuth();
@@ -28,9 +29,7 @@ export default function RequestDetails() {
   );
   useEffect(() => {
     if (error) {
-      toast.error(error && error.message, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
+      ShowError(error)
     }
     console.log(data);
     setDetails(data);
@@ -251,9 +250,7 @@ function acceptOffer(id) {
       }
     })
     .catch((error) => {
-      toast.error(error && error.message, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
+      ShowError(error)
     });
 }
 function rejectOffer(id) {
@@ -268,9 +265,7 @@ function rejectOffer(id) {
       }
     })
     .catch((error) => {
-      toast.error(error && error.message, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
+      ShowError(error)
     });
 }
 

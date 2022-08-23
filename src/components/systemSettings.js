@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Button, Card, Col, FormControl, Row } from "react-bootstrap";
 import { toast } from "react-toastify";
+import { ShowError } from "../common/errors";
 import urls from "../common/urls";
 
 const SystemConfig = ({}) => {
@@ -147,9 +148,7 @@ function changeConfig(key, value) {
       }
     })
     .catch((error) => {
-      toast.error(error && error.message, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
+      ShowError(error)
     });
 }
 export default SystemConfig;

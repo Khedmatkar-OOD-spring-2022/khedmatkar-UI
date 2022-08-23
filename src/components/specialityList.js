@@ -8,15 +8,14 @@ import { saveAs } from "file-saver";
 
 import urls from "../common/urls";
 import { useFetch } from "../utils/useFetch";
+import { ShowError } from "../common/errors";
 
 const SpecialityApproveList = ({}) => {
   const [specialtyList, setSpecialtyList] = useState();
   const { data, error, loading } = useFetch(urls.admin.getCertificate(), "GET");
   useEffect(() => {
     if (error) {
-      toast.error(error && error.message, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
+      ShowError(error);
     }
     setSpecialtyList(data);
   }, [error, data]);
@@ -119,9 +118,7 @@ function approveSpecialty(id) {
       }
     })
     .catch((error) => {
-      toast.error(error && error.message, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
+      ShowError(error);
     });
 }
 function declineSpecialty(id) {
@@ -136,9 +133,7 @@ function declineSpecialty(id) {
       }
     })
     .catch((error) => {
-      toast.error(error && error.message, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
+      ShowError(error);
     });
 }
 export default SpecialityApproveList;

@@ -4,6 +4,7 @@ import { Button, Row } from "react-bootstrap";
 import { IoArrowBack } from "react-icons/io5";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { ShowError } from "../common/errors";
 import urls from "../common/urls";
 import ChatRoom from "../components/chat/ChatRoom";
 import { useAuth } from "../providers/authentication";
@@ -20,8 +21,7 @@ const ChatApp = () => {
 
   useEffect(() => {
     if (error) {
-      toast.error(error, { position: toast.POSITION.BOTTOM_RIGHT });
-    }
+ShowError(error)    }
     setChatroom(data && data[0]);
   }, [error, data]);
 
@@ -46,9 +46,7 @@ const ChatApp = () => {
         }
       })
       .catch((error) => {
-        toast.error(error && error.message, {
-          position: toast.POSITION.BOTTOM_RIGHT,
-        });
+        ShowError(error)
       });
   }
 

@@ -4,6 +4,7 @@ import { Button } from "react-bootstrap";
 import { IoArrowBack } from "react-icons/io5";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { ShowError } from "../common/errors";
 import urls from "../common/urls";
 import SearchPanel, { SearchButton } from "../components/SearchPanel";
 import { useAuth } from "../providers/authentication";
@@ -12,18 +13,13 @@ const Search = () => {
   const params = useParams();
   const [specialists, setSpecialists] = useState([]);
   const navigate = useNavigate();
-  const { data, error, loading } = useFetch(
-    urls.common.search(),
-    "POST",{
-      specialtyName:params.searchInput
-    }
-  );
+  const { data, error, loading } = useFetch(urls.common.search(), "POST", {
+    specialtyName: params.searchInput,
+  });
 
   useEffect(() => {
     if (error) {
-      toast.error(error && error.message, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
+      ShowError(error);
     }
     setSpecialists(data);
   }, [error, data]);

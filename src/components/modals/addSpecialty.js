@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useRef, useState, useEffect } from "react";
 import { Modal, Form, Button, Row, Col } from "react-bootstrap";
 import { toast } from "react-toastify";
+import { ShowError } from "../../common/errors";
 import urls from "../../common/urls";
 import { useFetch } from "../../utils/useFetch";
 
@@ -19,9 +20,7 @@ const AddSpecialty = ({ show, setShow, action }) => {
   );
   useEffect(() => {
     if (error) {
-      toast.error(error && error.messsage, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
+      ShowError(error)
     }
     setSpecialityList(data);
     if (data && data.length > 0) {

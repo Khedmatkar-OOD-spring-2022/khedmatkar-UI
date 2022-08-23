@@ -14,6 +14,7 @@ import { object, ref, string } from "yup";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import urls from "../../../common/urls";
+import { ShowError } from "../../../common/errors";
 
 // import utils
 
@@ -65,9 +66,7 @@ const RegisterForm = ({ onRegister, onLogin }) => {
           navigate("/login");
         }
       }).catch((error) => {
-        toast.error(error && error.message, {
-          position: toast.POSITION.BOTTOM_RIGHT,
-        });
+        ShowError(error)
       });
     },
   });

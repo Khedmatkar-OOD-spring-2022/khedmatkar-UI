@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Row, Table } from "react-bootstrap";
 import { toast } from "react-toastify";
+import { ShowError } from "../../common/errors";
 import urls from "../../common/urls";
 import { getPermissionLabel } from "../../utils/permissions";
 import { useFetch } from "../../utils/useFetch";
@@ -12,9 +13,7 @@ const AdminList = ({}) => {
   const { data, error, loading } = useFetch(urls.admin.get(), "GET");
   useEffect(() => {
     if (error) {
-      toast.error(error && error.message, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
+      ShowError(error)
     }
     setAdminList(data);
   }, [error, data]);

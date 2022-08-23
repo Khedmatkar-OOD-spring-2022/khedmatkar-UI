@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import urls from "../common/urls";
 import { useFetch } from "../utils/useFetch";
+import { ShowError } from "../common/errors";
 
 const FeedbackPanel = ({}) => {
   const [notifs, setNotifs] = useState();
@@ -13,9 +14,7 @@ const FeedbackPanel = ({}) => {
   const navigate = useNavigate();
   useEffect(() => {
     if (error) {
-      toast.error(error && error.message, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
+      ShowError(error)
     }
     if (typeof data == "string") {
       localStorage.removeItem("user");

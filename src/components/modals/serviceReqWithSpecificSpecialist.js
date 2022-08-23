@@ -3,6 +3,7 @@ import React, { useRef, useState } from "react";
 import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 import DatePicker from "react-date-picker";
 import { toast } from "react-toastify";
+import { ShowError } from "../../common/errors";
 import urls from "../../common/urls";
 
 const ServiceReqWithSpecificSpecialist = ({ specialistId, specialty }) => {
@@ -130,9 +131,7 @@ function submitRequest(
       }
     })
     .catch((error) => {
-      toast.error(error && error.message, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
+      ShowError(error)
     });
 }
 export default ServiceReqWithSpecificSpecialist;

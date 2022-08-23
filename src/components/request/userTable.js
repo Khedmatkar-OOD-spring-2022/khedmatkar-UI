@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Row, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { ShowError } from "../../common/errors";
 import urls from "../../common/urls";
 import { getRequestStatusMessage } from "../../utils/statuses";
 import { useFetch } from "../../utils/useFetch";
@@ -14,8 +15,7 @@ const UserTable = ({ isAdmin, setDetailsId }) => {
   const { data, error, loading } = useFetch(urls.servic.servicRequest(), "GET");
   useEffect(() => {
     if (error) {
-      toast.error(error, { position: toast.POSITION.BOTTOM_RIGHT });
-    }
+ShowError(error)    }
     setUserList(data);
   }, [error, data]);
 
@@ -110,9 +110,7 @@ function cancelRequest(id, isAdmin) {
       }
     })
     .catch((error) => {
-      toast.error(error && error.message, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
+      ShowError(error)
     });
 }
 export default UserTable;

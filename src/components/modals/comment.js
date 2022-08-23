@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useRef } from "react";
 import { Modal, Form, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
+import { ShowError } from "../../common/errors";
 import urls from "../../common/urls";
 
 const CommentModal = ({ show, setShow, action }) => {
@@ -84,9 +85,7 @@ function sendFeedback(title, content) {
       }
     })
     .catch((error) => {
-      toast.error(error && error.message, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
+      ShowError(error)
     });
 }
 export default CommentModal;

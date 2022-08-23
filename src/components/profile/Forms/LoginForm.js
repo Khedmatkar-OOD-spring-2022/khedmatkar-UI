@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import urls from "./../../../common/urls";
+import { ShowError } from "../../../common/errors";
 
 const LoginForm = ({ onRegister, onLogin }) => {
   const [submit, setSubmit] = useState(false);
@@ -63,9 +64,7 @@ const LoginForm = ({ onRegister, onLogin }) => {
           console.log(response);
         })
         .catch((error) => {
-          toast.error(error && error.message, {
-            position: toast.POSITION.BOTTOM_RIGHT,
-          });
+          ShowError(error)
         });
     },
   });

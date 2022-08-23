@@ -9,15 +9,14 @@ import { useNavigate } from "react-router-dom";
 import { getRequestStatusMessage } from "../../utils/statuses";
 import { EvaluationModal } from "../QA/evaluateModal";
 import Maps from "../../common/maps";
+import { ShowError } from "../../common/errors";
 
 export default function SuggestedRequests() {
   const [customerList, setCustomerList] = useState();
   const { data, error, loading } = useFetch(urls.servic.servicRequest(), "GET");
   useEffect(() => {
     if (error) {
-      toast.error(error && error.message, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
+      ShowError(error)
     }
     console.log(data);
     setCustomerList(data);
@@ -223,9 +222,7 @@ function acceptOffer(id) {
       }
     })
     .catch((error) => {
-      toast.error(error && error.message, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
+      ShowError(error)
     });
 }
 function rejectOffer(id) {
@@ -240,9 +237,7 @@ function rejectOffer(id) {
       }
     })
     .catch((error) => {
-      toast.error(error && error.message, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
+      ShowError(error)
     });
 }
 function finishRequest(id) {
@@ -257,8 +252,6 @@ function finishRequest(id) {
       }
     })
     .catch((error) => {
-      toast.error(error && error.message, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
+      ShowError(error)
     });
 }

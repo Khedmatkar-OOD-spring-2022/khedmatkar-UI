@@ -5,6 +5,7 @@ import DatePicker from "react-date-picker";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { ShowError } from "../../common/errors";
 import Maps from "../../common/maps";
 import urls from "../../common/urls";
 import { useFetch } from "../../utils/useFetch";
@@ -27,7 +28,7 @@ const ServiceRequest = ({}) => {
   );
   useEffect(() => {
     if (error) {
-      toast.error(error, { position: toast.POSITION.BOTTOM_RIGHT });
+      ShowError(error);
     }
     setSpecialityList(data);
     if (data && data.length > 0) {
@@ -133,8 +134,7 @@ const SubSpecialties = ({ id, set }) => {
   );
   useEffect(() => {
     if (error) {
-      toast.error(error, { position: toast.POSITION.BOTTOM_RIGHT });
-    }
+ShowError(error)    }
     setSpecialityList(data);
     if (data && data.length > 0) {
       set(data[0].id);
@@ -185,12 +185,11 @@ function submitRequest(
         toast.success("ثبت درخواست خدمت با موفقیت انجام شد.", {
           position: toast.POSITION.BOTTOM_RIGHT,
         });
+        window.location.reload()
       }
     })
     .catch((error) => {
-      toast.error(error && error.message, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
+      ShowError(error)
     });
 }
 export default ServiceRequest;

@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useRef, useState } from "react";
 import { Modal, Form, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
+import { ShowError } from "../../common/errors";
 import urls from "../../common/urls";
 
 export const TechnicalissueCreate = ({ show, setShow, action }) => {
@@ -156,9 +157,7 @@ function sendTechnicalIssue(title, content) {
       }
     })
     .catch((error) => {
-      toast.error(error && error.message, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
+      ShowError(error)
     });
 }
 function answerTechnicalIssue(id, title, content) {
@@ -180,8 +179,6 @@ function answerTechnicalIssue(id, title, content) {
       }
     })
     .catch((error) => {
-      toast.error(error && error.message, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
+      ShowError(error)
     });
 }

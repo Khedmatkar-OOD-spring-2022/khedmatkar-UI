@@ -21,6 +21,7 @@ import { useState } from "react";
 import { useAuth } from "../../../providers/authentication";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { ShowError } from "../../../common/errors";
 
 const ProfilePanel = () => {
   const [toggle, setToggle] = useState("information");
@@ -114,12 +115,11 @@ function updatePassword(password) {
         toast.success("بروزرسانی با موفقیت انجام شد.", {
           position: toast.POSITION.BOTTOM_RIGHT,
         });
+        window.location.reload();
       }
     })
     .catch((error) => {
-      toast.error(error && error.message, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
+      ShowError(error);
     });
 }
 function updateUserInfo(firstName, lastName, email) {
@@ -139,12 +139,11 @@ function updateUserInfo(firstName, lastName, email) {
           position: toast.POSITION.BOTTOM_RIGHT,
         });
         localStorage.removeItem("user");
+        window.location.reload();
       }
     })
     .catch((error) => {
-      toast.error(error && error.message, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
+      ShowError(error);
     });
 }
 ProfilePanel.propTypes = {

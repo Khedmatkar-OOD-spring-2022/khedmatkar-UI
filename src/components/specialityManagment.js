@@ -2,9 +2,10 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Button, Row, Table } from "react-bootstrap";
 import { toast } from "react-toastify";
+import { ShowError } from "../common/errors";
 import urls from "../common/urls";
 import { useFetch } from "../utils/useFetch";
-import {NewSpecialty,RemoveSpecialty} from "./modals/manageSpecialty";
+import { NewSpecialty, RemoveSpecialty } from "./modals/manageSpecialty";
 
 const SpecialityManagmentPanel = ({}) => {
   const [specialtyList, setSpecialityList] = useState(null);
@@ -17,15 +18,20 @@ const SpecialityManagmentPanel = ({}) => {
   );
   useEffect(() => {
     if (error) {
-      toast.error(error, { position: toast.POSITION.BOTTOM_RIGHT });
+      ShowError(error);
     }
     setSpecialityList(data);
   }, [error, data]);
 
   return (
     <div dir="rtl">
-      <NewSpecialty show={showNewModal} setShow={setShowNewModal}/>
-      <RemoveSpecialty show={showRemoveModal} setShow={setShowRemoveModal} specialtyList={specialtyList} action={removeSpecialty} />
+      <NewSpecialty show={showNewModal} setShow={setShowNewModal} />
+      <RemoveSpecialty
+        show={showRemoveModal}
+        setShow={setShowRemoveModal}
+        specialtyList={specialtyList}
+        action={removeSpecialty}
+      />
       <h2 className="text-center" style={{ padding: "1em" }}>
         {"مدیریت تخصص های سامانه"}
       </h2>
@@ -33,7 +39,10 @@ const SpecialityManagmentPanel = ({}) => {
         <Button color="primary" onClick={() => setShowNewModal(true)}>
           {"ثبت تخصص اصلی"}
         </Button>{" "}
-        <Button variant="outline-danger" onClick={() => setShowRemoveModal(true)}>
+        <Button
+          variant="outline-danger"
+          onClick={() => setShowRemoveModal(true)}
+        >
           {"حذف تخصص اصلی"}
         </Button>
       </div>
@@ -56,9 +65,7 @@ const MainSpeciality = ({ id, name }) => {
   );
   useEffect(() => {
     if (error) {
-      toast.error(error && error.message, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
+      ShowError(error);
     }
     setSpecialityList(data);
   }, [error, data]);
@@ -80,7 +87,7 @@ const MainSpeciality = ({ id, name }) => {
       <Table striped bordered responsive hover>
         <thead>
           <tr>
-            <th width='40%'>نام تخصص</th>
+            <th width="40%">نام تخصص</th>
             <th>عملیات</th>
           </tr>
         </thead>
@@ -118,11 +125,11 @@ function removeSpecialty(id) {
         toast.success("حذف تخصص با موفقیت انجام شد.", {
           position: toast.POSITION.BOTTOM_RIGHT,
         });
-        window.location.reload(true)
+        window.location.reload(true);
       }
     })
     .catch((error) => {
-      toast.error(error, { position: toast.POSITION.BOTTOM_RIGHT });
+      ShowError(error);
     });
 }
 export default SpecialityManagmentPanel;

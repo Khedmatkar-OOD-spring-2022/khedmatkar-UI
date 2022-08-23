@@ -3,19 +3,20 @@ import { Button, Modal, Row, Table } from "react-bootstrap";
 
 import { StyleSheet } from "aphrodite";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import urls from "../common/urls";
 import { useFetch } from "../utils/useFetch";
+import { ShowError } from "./errors";
 
 const NotificationPanel = ({}) => {
   const [notifs, setNotifs] = useState();
-  const { data, error, loading } = useFetch(urls.common.getAnnouncments(), "GET");
+  const { data, error, loading } = useFetch(
+    urls.common.getAnnouncments(),
+    "GET"
+  );
   const navigate = useNavigate();
   useEffect(() => {
     if (error) {
-      toast.error(error && error.message, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
+      ShowError(error);
     }
     if (typeof data == "string") {
       localStorage.removeItem("user");
@@ -40,7 +41,7 @@ const NotificationPanel = ({}) => {
           </thead>
           <tbody>
             {notifs &&
-              notifs.map((notif,i) => (
+              notifs.map((notif, i) => (
                 <tr key={i}>
                   <td> {notif.subject} </td>
                   <td> {notif.message} </td>
@@ -58,7 +59,7 @@ const NotificationPanel = ({}) => {
   );
 };
 
-function DescriptionModal({description}) {
+function DescriptionModal({ description }) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -67,11 +68,10 @@ function DescriptionModal({description}) {
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
-      {"مشاهده توضیحات"}
+        {"مشاهده توضیحات"}
       </Button>
 
       <Modal show={show} onHide={handleClose}>
-
         <Modal.Body>{description}</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>

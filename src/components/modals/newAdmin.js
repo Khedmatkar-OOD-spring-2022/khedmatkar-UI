@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useRef, useState } from "react";
 import { Modal, Form, Button, Row, Col } from "react-bootstrap";
 import { toast } from "react-toastify";
+import { ShowError } from "../../common/errors";
 import urls from "../../common/urls";
 
 const AddAdmin = ({ show, setShow, permissions }) => {
@@ -126,9 +127,7 @@ function makeNewAdmin(firstName, lastName, email, permissions) {
     
     })
     .catch((error) => {
-      toast.error(error && error.message, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
+      ShowError(error)
     });
 }
 export default AddAdmin;

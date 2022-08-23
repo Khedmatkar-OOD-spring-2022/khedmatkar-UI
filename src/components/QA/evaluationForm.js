@@ -13,6 +13,7 @@ import { toast } from "react-toastify";
 import StarRatingComponent from "react-star-rating-component";
 
 import urls from "../../common/urls";
+import { ShowError } from "../../common/errors";
 
 export const EvaluationForm = ({ type, questions }) => {
   function getQuestionByType(content, id) {
@@ -259,9 +260,7 @@ function createQuestion(content) {
       }
     })
     .catch((error) => {
-      toast.error(error && error.message, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
+      ShowError(error)
     });
 }
 function deleteQuestion(id) {
@@ -278,8 +277,6 @@ function deleteQuestion(id) {
       }
     })
     .catch((error) => {
-      toast.error(error && error.message, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
+      ShowError(error)
     });
 }

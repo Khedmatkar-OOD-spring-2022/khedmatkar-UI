@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Badge, Button, Row, Table } from "react-bootstrap";
 import { toast } from "react-toastify";
+import { ShowError } from "../../common/errors";
 import urls from "../../common/urls";
 import { useFetch } from "../../utils/useFetch";
 import AddSpecialty from "../modals/addSpecialty";
@@ -12,9 +13,7 @@ const SpecialityList = ({}) => {
   const { data, error, loading } = useFetch(urls.certificate.get(), "GET");
   useEffect(() => {
     if (error) {
-      toast.error(error && error.message, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
+      ShowError(error)
     }
     setSpecialtyList(data);
   }, [error, data]);
@@ -112,9 +111,7 @@ function removeSpecialty(id) {
       }
     })
     .catch((error) => {
-      toast.error(error && error.message, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
+      ShowError(error)
     });
 }
 function addSpecialty(id, file) {
@@ -133,9 +130,7 @@ function addSpecialty(id, file) {
       }
     })
     .catch((error) => {
-      toast.error(error && error.message, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
+      ShowError(error)
     });
 }
 export default SpecialityList;

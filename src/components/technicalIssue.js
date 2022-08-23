@@ -8,6 +8,7 @@ import { useFetch } from "../utils/useFetch";
 import { useNavigate } from "react-router-dom";
 import { TechnicalissueAnswer, TechnicalissueCreate } from "./modals/technicalissue";
 import axios from "axios";
+import { ShowError } from "../common/errors";
 
 const TechnicalIssuePanel = ({ isAdmin }) => {
   const [technicalIssues, setTechnicalIssues] = useState([]);
@@ -16,9 +17,7 @@ const TechnicalIssuePanel = ({ isAdmin }) => {
   const navigate = useNavigate();
   useEffect(() => {
     if (error) {
-      toast.error(error && error.message, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
+      ShowError(error)
     }
     if (typeof data == "string") {
       localStorage.removeItem("user");
@@ -94,9 +93,7 @@ function closeTechnicalIssue(id) {
       }
     })
     .catch((error) => {
-      toast.error(error && error.message, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
+      ShowError(error)
     });
 }
 function getStatusMessage(status) {

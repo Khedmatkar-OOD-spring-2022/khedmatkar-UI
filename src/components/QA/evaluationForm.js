@@ -226,7 +226,9 @@ export const EvaluationCreateQuestion = ({ userType }) => {
                   choice2: choice2.current.value,
                 },
                 multipleChoiceContent: {
-                  isSingleSelection: !isSingleSelection.current.checked,
+                  isSingleSelection:
+                    isSingleSelection.current &&
+                    !isSingleSelection.current.checked,
                   choices: multipleChoice,
                 },
               },

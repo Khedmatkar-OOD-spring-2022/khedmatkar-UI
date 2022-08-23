@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import urls from "../../common/urls";
 import { getRequestStatusMessage } from "../../utils/statuses";
 import { useFetch } from "../../utils/useFetch";
+import EvaluationAnswers from "../QA/evalutionAnswers";
 
 const UserTable = ({ isAdmin, setDetailsId }) => {
   const navigate = useNavigate();
@@ -57,15 +58,7 @@ const UserTable = ({ isAdmin, setDetailsId }) => {
                     <td>{getRequestStatusMessage(req.status)}</td>
                     <td>
                       {isAdmin ? (
-                        <Button
-                          onClick={() => {
-                            setDetailsId(req.id);
-                            navigate("/dashboard/request-details");
-                          }}
-                          variant="secondary"
-                        >
-                          مشاهده ارزیابی
-                        </Button>
+                        <EvaluationAnswers id={req.id} name={"مشاهده ارزیابی"} />
                       ) : (
                         <Button
                           onClick={() => {

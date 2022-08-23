@@ -44,6 +44,7 @@ const urls = {
     createQuestion: () => `${API_BASE_URL}/api/evaluation/questions/`,
     deleteQuestion: (id) => `${API_BASE_URL}/api/evaluation/questions/${id}/`,
     getQuestions: () => `${API_BASE_URL}/api/evaluation/questions/`,
+    getQuestionById: (id) => `${API_BASE_URL}/api/evaluation/questions/${id}/`,
     getAnswers: (id) => `${API_BASE_URL}/api/evaluation/answers/serviceRequest/${id}/`,
   },
   chat: {

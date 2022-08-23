@@ -32,7 +32,6 @@ const UserActions = ({ user, isAdmin }) => {
         <Dropdown.Item
           onClick={() => {
             logout();
-            navigate("/");
           }}
           style={{ color: "red" }}
         >

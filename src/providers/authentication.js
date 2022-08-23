@@ -26,6 +26,7 @@ export function logout() {
   localStorage.removeItem("permissions");
   axios.post(urls.auth.logout(), {}, { withCredentials: true }).then((res) => {
     if (res.status === 200) {
+      window.location.reload();
       if (res.headers["content-type"] === "text/html;charset=UTF-8") {
         return res;
       }

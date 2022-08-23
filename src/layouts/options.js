@@ -134,7 +134,7 @@ export const SpecialistSidebar = [
 ];
 
 export function getSideBarWithPermission(per) {
-  if (!per) {
+  if (!per && !per.permissions) {
     return [];
   }
   const permissions = per.permissions;

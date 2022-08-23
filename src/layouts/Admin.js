@@ -11,7 +11,7 @@ import {
   getSideBarWithPermission,
   SuperAdminSidebar,
 } from "./options";
-import { useAuth } from "../providers/authentication";
+import { logout, useAuth } from "../providers/authentication";
 import axios from "axios";
 import urls from "../common/urls";
 
@@ -26,14 +26,15 @@ const AdminLayout = ({ children, noNavbar = false }) => {
       .then((res) => {
         if (res.status === 200) {
           if (res.headers["content-type"] === "text/html;charset=UTF-8") {
-            localStorage.removeItem("permissions");
+            logout();
+          } else {
+            setPermissions(res.data);
+            localStorage.setItem("permissions", JSON.stringify(res.data));
           }
-          setPermissions(res.data);
-          localStorage.setItem("permissions", JSON.stringify(res.data));
         }
       });
   }
-  if (!isLoggedIn) {  
+  if (!isLoggedIn) {
     return <Navigate to="/" />;
   } else if (user.type !== "ADMIN") {
     return <Navigate to="/dashboard" />;

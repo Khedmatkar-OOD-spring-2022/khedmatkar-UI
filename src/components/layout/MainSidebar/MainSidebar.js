@@ -42,26 +42,27 @@ const MainSidebar = ({
           <h3>خدمتکار</h3>
         </div>
         <Nav>
-          {sidebarItems.map((prop, key) => {
-            if (!prop.redirect)
-              return (
-                <li
-                  className={
-                    prop.upgrade
-                      ? "active active-pro"
-                      : activeRoute(prop.layout + prop.path)
-                  }
-                  key={key}
-                >
-                  <NavLink to={prop.to} className="nav-link inline-flex">
-                    <h5>
-                      {prop.htmlBefore} {prop.title}
-                    </h5>
-                  </NavLink>
-                </li>
-              );
-            return null;
-          })}
+          {sidebarItems &&
+            sidebarItems.map((prop, key) => {
+              if (!prop.redirect)
+                return (
+                  <li
+                    className={
+                      prop.upgrade
+                        ? "active active-pro"
+                        : activeRoute(prop.layout + prop.path)
+                    }
+                    key={key}
+                  >
+                    <NavLink to={prop.to} className="nav-link inline-flex">
+                      <h5>
+                        {prop.htmlBefore} {prop.title}
+                      </h5>
+                    </NavLink>
+                  </li>
+                );
+              return null;
+            })}
         </Nav>
         <div>
           <Button

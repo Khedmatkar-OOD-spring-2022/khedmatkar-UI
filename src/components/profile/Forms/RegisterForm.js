@@ -44,7 +44,7 @@ const RegisterForm = ({ onRegister, onLogin }) => {
         .required("ایمیل واردنشده است"),
       password: string()
         .required("رمزعبور واردنشده است")
-        .min(4, "رمزعبور باید حداقل ۴ حرف باشد"),
+        .min(2, "رمزعبور باید حداقل ۲ حرف باشد"),
 
       confirmPassword: string()
         .required("تایید رمزعبور واردنشده است")

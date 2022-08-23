@@ -22,6 +22,12 @@ const routes = [
     component: Home,
   },
   {
+    path: "/index.html",
+    exact: true,
+    layout: DefaultLayout,
+    component: Home,
+  },
+  {
     path: "/aboutus",
     layout: DefaultLayout,
     component: AboutUs,
@@ -50,7 +56,8 @@ const routes = [
     path: "/dashboard/request-details/:id",
     layout: UserLayout,
     component: RequestDetails,
-  },  {
+  },
+  {
     path: "/dashboard/:section",
     layout: UserLayout,
     component: Dashboard,

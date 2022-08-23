@@ -31,7 +31,7 @@ const LoginForm = ({ onRegister, onLogin }) => {
         .required("لطفا ایمیل خود را وارد کنید"),
       password: string()
         .required("لطفا رمزعبور خود را وارد کنید")
-        .min(4, "رمزعبور باید بیشتر از ۴ حرف باشد"),
+        .min(2, "رمزعبور باید حداقل ۲ حرف باشد"),
     }),
     onSubmit: ({ email, password }, { setFieldError }) => {
       const details = {
@@ -55,16 +55,18 @@ const LoginForm = ({ onRegister, onLogin }) => {
         url: urls.auth.login(),
         withCredentials: true,
       };
-      axios(requestOptions).then((response) => {
-        if (response.status === 200) {
-          navigate("/dashboard");
-        }
-        console.log(response)
-      }).catch((error) => {
-        toast.error(error && error.message, {
-          position: toast.POSITION.BOTTOM_RIGHT,
+      axios(requestOptions)
+        .then((response) => {
+          if (response.status === 200) {
+            navigate("/dashboard");
+          }
+          console.log(response);
+        })
+        .catch((error) => {
+          toast.error(error && error.message, {
+            position: toast.POSITION.BOTTOM_RIGHT,
+          });
         });
-      });
     },
   });
 
@@ -103,7 +105,7 @@ const LoginForm = ({ onRegister, onLogin }) => {
         />
 
         <Button
-          onClick={() => navigate('/auth/register')}
+          onClick={() => navigate("/auth/register")}
           className="shadow-none mt-4 p-0"
           variant=""
         >

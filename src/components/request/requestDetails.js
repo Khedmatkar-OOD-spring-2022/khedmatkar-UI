@@ -15,6 +15,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getRequestStatusMessage } from "../../utils/statuses";
 import { useAuth } from "../../providers/authentication";
 import axios from "axios";
+import { EvaluationModal } from "../QA/evaluateModal";
 
 export default function RequestDetails() {
   const [user, _] = useAuth();
@@ -74,8 +75,7 @@ export default function RequestDetails() {
                     id={params.id}
                   />
                 </Row>
-              ) : null}
-              {details.candidateSpecialist ? (
+              ) : details.candidateSpecialist ? (
                 <Row className={css(styles.groupServicePanel)}>
                   <h4 dir="rtl">متخصصان کاندید برای انجام کار</h4>
 
@@ -204,16 +204,9 @@ function SpecialistInfoCard({
             </Button>
           </>
         );
-      case "EVALUATION":
-        return (
-          <>
-            <Button className="card_btn" variant="primary" onClick={() => {}}>
-              ارزیابی
-            </Button>{" "}
-          </>
-        );
       case "DONE":
-        return <></>;
+        return <>{id && parseInt(id) && <EvaluationModal name={"ارزیابی متخصص"} id={id} />}</>;
+
       default:
         break;
     }
@@ -237,7 +230,6 @@ function SpecialistInfoCard({
           <Badge bg="dark">
             <h5>{getRequestStatusMessage(status)}</h5>
           </Badge>
-          {"\n"}
         </div>
         <p className="card_description">
           <Card.Text>{description}</Card.Text>

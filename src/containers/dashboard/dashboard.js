@@ -6,6 +6,7 @@ import Maps from "../../common/maps";
 import NotificationPanel from "../../common/notification";
 import ProfilePanel from "../../components/profile/Panel/Panel";
 import SpecialityList from "../../components/profile/specialityList";
+import Evaluation from "../../components/QA/evaluation";
 import RequestDetails from "../../components/request/requestDetails";
 import SuggestedRequests from "../../components/request/serviceSuggestedRequests";
 import ServiceRequest from "../../components/request/servicRequest";
@@ -19,7 +20,6 @@ const Dashboard = () => {
   const params = useParams();
   const [detailsId, setDetailsId] = useState();
   function GetCustomerSection({ section }) {
-    console.log(section);
     switch (section) {
       case "notification":
         return <NotificationPanel />;
@@ -35,6 +35,8 @@ const Dashboard = () => {
         return <TechnicalIssuePanel />;
       case "location":
         return <Maps />;
+      case "evaluation":
+        return <Evaluation type="customer" />;
       default:
         return <></>;
     }
@@ -51,6 +53,8 @@ const Dashboard = () => {
         return <ProfilePanel />;
       case "technicalissues":
         return <TechnicalIssuePanel />;
+      case "evaluation":
+        return <Evaluation type="specialist" />;
       default:
         return <></>;
     }

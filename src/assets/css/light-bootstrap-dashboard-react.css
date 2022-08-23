@@ -227,8 +227,8 @@ body > .navbar-collapse {
   background-position: center center; }
   .sidebar .sidebar-wrapper,
   body > .navbar-collapse .sidebar-wrapper {
-    position: relative;
-    max-height: calc(100vh - 75px);
+    position: fixed;
+    /* max-height: calc(100vh - 75px); */
     min-height: 100%;
     overflow: auto;
     width: 260px;
@@ -734,7 +734,7 @@ body > .navbar-collapse {
   padding-bottom: 5px;
   border-top: none !important;
   border-bottom: none;
-  text-align: left !important; }
+  text-align: right !important; }
 
 .table .td-actions .btn {
   opacity: 0.36;
@@ -1394,15 +1394,14 @@ Copyright (c) 2015 Daniel Eden
     border-bottom: none !important; }
   .card .card-category,
   .card label {
-    font-size: 14px;
+    font-size: 20px;
     font-weight: 400;
-    color: #9A9A9A;
     margin-bottom: 0px; }
     .card .card-category i,
     .card label i {
-      font-size: 16px; }
+      font-size: 32px; }
   .card label {
-    font-size: 12px;
+    font-size: 20px;
     margin-bottom: 5px;
     text-transform: uppercase; }
   .card .card-title {

@@ -16,9 +16,11 @@ const MainNavbar = ({ user, isAdmin = false }) => {
   const expand = "md";
 
   return (
-    <Navbar key={expand} bg="light" expand={expand} className="mb-3" dir="rtl">
+    <Navbar key={expand} bg="light" expand={expand} dir="rtl">
       <Navbar.Brand href="/">
-        <FiPackage />
+      <div className="logo-img">
+              <img src={require('./../../../assets/logo.png')} alt="..." width={'40px'}/>
+            </div>
         {"سامانه خدمتکار"}
       </Navbar.Brand>
       <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
@@ -35,7 +37,7 @@ const MainNavbar = ({ user, isAdmin = false }) => {
         </Offcanvas.Header>
         <Offcanvas.Body>
           <Nav className="justify-content-between flex-grow-1 pe-3">
-            <Nav.Item style={{ paddingRight: "8%" }}>
+            <Nav.Item style={{ paddingRight: "10%" }}>
               {user && user.type === "CUSTOMER" ? <SearchButton /> : null}{" "}
             </Nav.Item>
 

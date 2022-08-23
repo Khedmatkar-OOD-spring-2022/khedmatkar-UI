@@ -9,7 +9,7 @@ class Home extends React.Component {
         <Row>
           <Welcome />
         </Row>
-        <Row className="d-flex justify-content-center">
+        {/* <Row className="d-flex justify-content-center">
           <CardGroup
             style={{ width: "70%", justifyContent: "space-between" }}
             dir="rtl"
@@ -60,7 +60,7 @@ class Home extends React.Component {
               </Card.Body>
             </Card>
           </CardGroup>
-        </Row>
+        </Row> */}
       </React.Fragment>
     );
   }

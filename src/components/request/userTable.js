@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import urls from "../../common/urls";
 import { getRequestStatusMessage } from "../../utils/statuses";
 import { useFetch } from "../../utils/useFetch";
+import EvaluationAnswers from "../QA/evalutionAnswers";
 
 const UserTable = ({ isAdmin, setDetailsId }) => {
   const navigate = useNavigate();
@@ -38,10 +39,11 @@ const UserTable = ({ isAdmin, setDetailsId }) => {
           <Table striped bordered responsive hover>
             <thead>
               <tr>
+                <th style={{ width: "10%" }}>شماره درخواست</th>
                 <th>خدمت مورد نظر</th>
                 <th>ادرس</th>
                 <th>تاریخ ثبت</th>
-                {isAdmin ? <th> وضعیت</th> : null}
+                <th> وضعیت</th>
                 <th>عملیات</th>
               </tr>
             </thead>
@@ -49,14 +51,15 @@ const UserTable = ({ isAdmin, setDetailsId }) => {
               {userList &&
                 userList.map((req) => (
                   <tr key={req.id}>
+                    <td> {req.id} </td>
                     <td> {req.specialty.name} </td>
                     <td> {req.address} </td>
-                    <td dir="ltr"> {req.creation.slice(0, 10)} </td>
-                    {isAdmin ? (
-                      <td>{getRequestStatusMessage(req.status)}</td>
-                    ) : null}
+                    <td dir="rtl"> {req.creation.slice(0, 10)} </td>
+                    <td>{getRequestStatusMessage(req.status)}</td>
                     <td>
-                      {isAdmin ? null : (
+                      {isAdmin ? (
+                        <EvaluationAnswers id={req.id} name={"مشاهده ارزیابی"} />
+                      ) : (
                         <Button
                           onClick={() => {
                             setDetailsId(req.id);

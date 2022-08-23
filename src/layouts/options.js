@@ -1,39 +1,47 @@
 import React from "react";
+import { AiFillBug, AiFillNotification, AiOutlineTool } from "react-icons/ai";
+import { BsFillPatchCheckFill, BsListCheck } from "react-icons/bs";
+import { FaFileUpload } from "react-icons/fa";
+import { FiArchive, FiMap } from "react-icons/fi";
+import { IoListCircleSharp, IoSettingsSharp } from "react-icons/io5";
+import { MdCreateNewFolder } from "react-icons/md";
 import {
-  FiAlertCircle,
-  FiArchive,
-  FiEdit,
-  FiMap,
-  FiMessageCircle,
-  FiPenTool,
-  FiTablet,
-} from "react-icons/fi";
+  RiSurveyFill,
+  RiFeedbackFill,
+  RiUser2Fill,
+  RiSurveyLine,
+} from "react-icons/ri";
 
 export const CustomerSidebar = [
   {
     title: "ثبت درخواست خدمت",
     to: "/dashboard/make-request",
-    htmlBefore: <FiEdit />,
+    htmlBefore: (
+      <MdCreateNewFolder size={"1.4em"} style={{ marginLeft: "5px" }} />
+    ),
   },
   {
     title: "فهرست درخواست خدمت ها",
-    htmlBefore: <FiTablet />,
+    htmlBefore: (
+      <IoListCircleSharp size={"1.4em"} style={{ marginLeft: "5px" }} />
+    ),
     to: "/dashboard/request-list",
   },
-  {
-    title: "فهرست آدرس ها",
-    htmlBefore: <FiMap />,
-    to: "/dashboard/location",
-  },
-
+  // {
+  //   title: "فهرست آدرس ها",
+  //   htmlBefore: <FiMap size={"1.4em"} style={{ marginLeft: "5px" }} />,
+  //   to: "/dashboard/location",
+  // },
   {
     title: "گزارش مشکل فنی",
-    htmlBefore: <FiArchive />,
+    htmlBefore: <FiArchive size={"1.4em"} style={{ marginLeft: "5px" }} />,
     to: "/dashboard/technicalissues",
   },
   {
     title: "اعلانات",
-    htmlBefore: <FiAlertCircle />,
+    htmlBefore: (
+      <AiFillNotification size={"1.4em"} style={{ marginLeft: "5px" }} />
+    ),
     to: "/dashboard/notification",
   },
 ];
@@ -41,66 +49,124 @@ export const CustomerSidebar = [
 export const SuperAdminSidebar = [
   {
     title: "فهرست مدیران سامانه",
-    htmlBefore: <FiPenTool />,
+    htmlBefore: <RiUser2Fill size={"1.4em"} style={{ marginLeft: "5px" }} />,
     to: "/admin/list",
   },
   {
     title: "فهرست درخواست خدمت ها",
-    htmlBefore: <FiTablet />,
+    htmlBefore: (
+      <IoListCircleSharp size={"1.4em"} style={{ marginLeft: "5px" }} />
+    ),
     to: "/admin/request-list",
   },
   {
     title: "مدیریت تخصص های سامانه",
-    htmlBefore: <FiArchive />,
+    htmlBefore: <AiOutlineTool size={"1.4em"} style={{ marginLeft: "5px" }} />,
     to: "/admin/speciality-managment",
   },
   {
     title: "بررسی مدارک متخصصان",
-    htmlBefore: <FiArchive />,
+    htmlBefore: (
+      <BsFillPatchCheckFill size={"1.4em"} style={{ marginLeft: "5px" }} />
+    ),
     to: "/admin/speciality-approve",
   },
   {
+    title: "مدیریت ارزیابی ",
+    htmlBefore: <RiSurveyFill size={"1.4em"} style={{ marginLeft: "5px" }} />,
+    to: "/admin/evaluation",
+  },
+  {
     title: "مشکلات فنی",
-    htmlBefore: <FiArchive />,
+    htmlBefore: <AiFillBug size={"1.4em"} style={{ marginLeft: "5px" }} />,
     to: "/admin/technicalissues",
   },
   {
     title: "تنظیمات سامانه",
-    htmlBefore: <FiArchive />,
+    htmlBefore: (
+      <IoSettingsSharp size={"1.4em"} style={{ marginLeft: "5px" }} />
+    ),
     to: "/admin/system-settings",
   },
   {
     title: "پیشنهادات و انتقادات",
-    htmlBefore: <FiArchive />,
+    htmlBefore: <RiFeedbackFill size={"1.4em"} style={{ marginLeft: "5px" }} />,
     to: "/admin/feedbacks",
+  },
+  {
+    title: "اعلانات",
+    htmlBefore: (
+      <AiFillNotification size={"1.4em"} style={{ marginLeft: "5px" }} />
+    ),
+    to: "/admin/notification",
+  },
+  {
+    title: "فهرست ارزیابی ",
+    htmlBefore: <BsListCheck size={"1.4em"} style={{ marginLeft: "5px" }} />,
+    to: "/admin/evaluation-list",
   },
 ];
 export const SpecialistSidebar = [
   {
     title: "فهرست درخواست خدمت ها",
-    htmlBefore: <FiTablet />,
+    htmlBefore: (
+      <IoListCircleSharp size={"1.4em"} style={{ marginLeft: "5px" }} />
+    ),
     to: "/dashboard/request-list",
   },
   {
     title: "بارگذاری مدارک",
-    htmlBefore: <FiArchive />,
+    htmlBefore: <FaFileUpload size={"1.4em"} style={{ marginLeft: "5px" }} />,
     to: "/dashboard/addSpecialty",
   },
-
-  // {
-  //   title: "فهرست درخواست خدمت ها",
-  //   htmlBefore: <FiTablet />,
-  //   to: "/dashboard/request-list",
-  // },
-
   {
     title: "گزارش مشکل فنی",
-    htmlBefore: <FiArchive />,
+    htmlBefore: <AiFillBug size={"1.4em"} style={{ marginLeft: "5px" }} />,
     to: "/dashboard/technicalissues",
   },
   {
     title: "اعلانات",
-    htmlBefore: <FiAlertCircle />,
+    htmlBefore: (
+      <AiFillNotification size={"1.4em"} style={{ marginLeft: "5px" }} />
+    ),
     to: "/dashboard/notification",
   },
 ];
+
+export function getSideBarWithPermission(per) {
+  if (!per) {
+    return [];
+  }
+  const permissions = per.permissions;
+  const adminSideBar = [];
+  if (contains(permissions, "ROOT")) adminSideBar.push(SuperAdminSidebar[0]);
+
+  if (contains(permissions, "SERVICE_W"))
+    adminSideBar.push(SuperAdminSidebar[1]);
+
+  if (contains(permissions, "SPECIALTY_W"))
+    adminSideBar.push(SuperAdminSidebar[2]);
+  if (contains(permissions, "VALIDATE_CERTIFICATE_W"))
+    adminSideBar.push(SuperAdminSidebar[3]);
+  // if (contains(permissions, "QUESTIONNAIRE_RW"))
+  //   adminSideBar.push(SuperAdminSidebar[9]);
+  if (contains(permissions, "QUESTIONNAIRE_RW"))
+    adminSideBar.push(SuperAdminSidebar[4]);
+  if (contains(permissions, "TECHNICAL_ISSUE_RW"))
+    adminSideBar.push(SuperAdminSidebar[5]);
+  if (contains(permissions, "FEEDBACK_RW"))
+    adminSideBar.push(SuperAdminSidebar[7]);
+  if (contains(permissions, "ROOT")) adminSideBar.push(SuperAdminSidebar[6]);
+
+  adminSideBar.push(SuperAdminSidebar[8]);
+  return adminSideBar;
+}
+function contains(a, obj) {
+  var i = a.length;
+  while (i--) {
+    if (a[i] === obj) {
+      return true;
+    }
+  }
+  return false;
+}

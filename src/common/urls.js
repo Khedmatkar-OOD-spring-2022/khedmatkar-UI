@@ -13,7 +13,7 @@ const urls = {
     sendFeedback: () => `${API_BASE_URL}/api/feedbacks/`,
     getAnnouncments: () => `${API_BASE_URL}/api/announcements/`,
     updatePassword: () => `${API_BASE_URL}/api/profile/changePassword`,
-    updateUserInfo: () => `${API_BASE_URL}/api/profile`,
+    updateUserInfo: () => `${API_BASE_URL}/api/profile/`,
     search: () => `${API_BASE_URL}/api/specialists/search`,
   },
   technicalIssue: {
@@ -26,6 +26,9 @@ const urls = {
     servicRequest: () => `${API_BASE_URL}/api/serviceRequests/`,
     servicRequestById: (id) => `${API_BASE_URL}/api/serviceRequests/${id}`,
     cancel: (id) => `${API_BASE_URL}/api/serviceRequests/${id}/customer/cancel`,
+    getQuestionnaire: (id) =>
+      `${API_BASE_URL}/api/serviceRequests/${id}/questionnaire`,
+    evaluate: (id) => `${API_BASE_URL}/api/serviceRequests/${id}/evaluate`,
     specialistAccept: (id) =>
       `${API_BASE_URL}/api/serviceRequests/${id}/specialist/accept`,
     specialistReject: (id) =>
@@ -36,6 +39,13 @@ const urls = {
       `${API_BASE_URL}/api/serviceRequests/${id}/customer/accept`,
     customerReject: (id) =>
       `${API_BASE_URL}/api/serviceRequests/${id}/customer/reject`,
+  },
+  evaluation: {
+    createQuestion: () => `${API_BASE_URL}/api/evaluation/questions/`,
+    deleteQuestion: (id) => `${API_BASE_URL}/api/evaluation/questions/${id}/`,
+    getQuestions: () => `${API_BASE_URL}/api/evaluation/questions/`,
+    getQuestionById: (id) => `${API_BASE_URL}/api/evaluation/questions/${id}/`,
+    getAnswers: (id) => `${API_BASE_URL}/api/evaluation/answers/serviceRequest/${id}/`,
   },
   chat: {
     getByServicRequest: (id) =>
@@ -58,7 +68,7 @@ const urls = {
     remove: (value) => `${API_BASE_URL}/api/certificates/${value}`,
   },
   admin: {
-    changeConfig: () => `${API_BASE_URL}/api/config/`,
+    changeConfig: () => `${API_BASE_URL}/api/configs`,
     new: () => `${API_BASE_URL}/api/admins/register`,
     update: () => `${API_BASE_URL}/api/admins/permission`,
     getPermissions: () => `${API_BASE_URL}/api/admins/permission`,

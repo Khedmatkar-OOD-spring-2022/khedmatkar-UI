@@ -20,7 +20,8 @@ const AddSpecialty = ({ show, setShow, action }) => {
   );
   useEffect(() => {
     if (error) {
-      ShowError(error)
+      ShowError(error);
+      return;
     }
     setSpecialityList(data);
     if (data && data.length > 0) {
@@ -40,6 +41,17 @@ const AddSpecialty = ({ show, setShow, action }) => {
             setSubSpecialties(res.data);
           }
         });
+    } else if (choosedSpecialty) {
+      const id = choosedSpecialty;
+      axios
+        .get(urls.speciality.getChildren(id), {
+          withCredentials: true,
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            setSubSpecialties(res.data);
+          }
+        });
     }
   }, [choosedSpecialty]);
   return (
@@ -49,7 +61,7 @@ const AddSpecialty = ({ show, setShow, action }) => {
         onHide={() => setShow(false)}
         dir="rtl"
         aria-labelledby="contained-modal-title-vcenter"
-        style={{fontFamily:'B-Nazanin'}}
+        style={{ fontFamily: "B-Nazanin" }}
         centered
       >
         <Modal.Header>

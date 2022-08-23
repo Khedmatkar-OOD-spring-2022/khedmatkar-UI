@@ -18,36 +18,18 @@ export default function SearchPanel({ specialists }) {
   const [, isLoggedIn] = useAuth();
   const searchInputRef = useRef("");
   const navigate = useNavigate();
+  if (specialists.length === 0) {
+    return (
+      <div style={{ right: "20%", position: "absolute", width: "80%" }}>
+        <h2 style={{ padding: "10px", textAlign: "end" }}>
+          {"نتیجه ای یافت نشد"}
+        </h2>
+      </div>
+    );
+  }
   return (
     <div style={{ right: "20%", position: "absolute", width: "80%" }}>
       <h2 style={{ padding: "10px", textAlign: "end" }}>{"نتیجه جست‌وجو"}</h2>
-      {/* <Row>
-        <Container style={{ width: "30%" }}>
-          <Form style={{ display: "flex" }} dir={"rtl"}>
-            <FormControl
-              type="search"
-              placeholder="به چه خدمتی نیاز دارید؟"
-              aria-label="Search"
-              style={{ fontSize: "26px" }}
-              ref={searchInputRef}
-            />
-            <Button
-              variant="outline-success"
-              onClick={() => {
-                console.log(searchInputRef);
-                if (isLoggedIn) {
-                  navigate("/dashboard/search/" + searchInputRef.current.value);
-                } else {
-                  navigate("/search/" + searchInputRef.current.value);
-                }
-              }}
-              style={{ fontSize: "26px" }}
-            >
-              جست‌وجو
-            </Button>
-          </Form>
-        </Container>
-      </Row> */}
       <br />
       <Row className={css(styles.groupServicePanel)}>
         {specialists &&
@@ -88,8 +70,10 @@ export const SearchButton = () => {
           onClick={() => {
             if (isLoggedIn) {
               navigate("/dashboard/search/" + searchInputRef.current.value);
+              window.location.reload();
             } else {
               navigate("/search/" + searchInputRef.current.value);
+              window.location.reload();
             }
           }}
         >
@@ -142,10 +126,12 @@ function SpecialistCard({ firstName, lastName, email, id, specialty }) {
             ))}
           </div>
           <br />
-          <ServiceReqWithSpecificSpecialist
-            specialistId={id}
-            specialty={specialty}
-          />
+          {specialty && specialty.length >0 ? (
+            <ServiceReqWithSpecificSpecialist
+              specialistId={id}
+              specialty={specialty}
+            />
+          ) : null}
         </Card.Body>
       </div>
     </Card>

@@ -1,7 +1,5 @@
 import React from "react";
-import {
-  FiPackage,
-} from "react-icons/fi";
+import { FiPackage } from "react-icons/fi";
 import {
   Nav,
   Navbar,
@@ -13,8 +11,10 @@ import {
 } from "react-bootstrap";
 import { React_Base_URL } from "./urls";
 import { SearchButton } from "../components/SearchPanel";
+import { useNavigate } from "react-router-dom";
 const MainNavigation = ({ activePane }) => {
   const expand = "md";
+  const navigate = useNavigate();
   return (
     <>
       <Navbar key={expand} bg="light" expand={expand} className="mb-3">
@@ -37,15 +37,13 @@ const MainNavigation = ({ activePane }) => {
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav className="justify-content-start flex-grow-1 pe-3">
-                <Nav.Link href={`${React_Base_URL}/`}>خانه</Nav.Link>
-                <Nav.Link href={`${React_Base_URL}/aboutus`}>
+                <Nav.Link onClick={() => navigate("/")}>خانه</Nav.Link>
+                <Nav.Link onClick={() => navigate("/aboutus")}>
                   درباره ما
                 </Nav.Link>
-                <Nav.Link href={`${React_Base_URL}/login`}>
-                   {'ورود'}
-                </Nav.Link>
+                <Nav.Link onClick={() => navigate("/login")}>{"ورود"}</Nav.Link>
                 <Nav.Item>
-                <SearchButton />
+                  <SearchButton />
                 </Nav.Item>
               </Nav>
             </Offcanvas.Body>

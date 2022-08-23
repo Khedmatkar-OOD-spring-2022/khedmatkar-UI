@@ -28,17 +28,19 @@ const UserLayout = ({ children, noNavbar = false }) => {
           sidebarItems={
             user.type === "CUSTOMER" ? CustomerSidebar : SpecialistSidebar
           }
+          color={color}
+          image={hasImage ? image : null}
         />
         {children}
       </Row>
-      {/* <FixedPlugin
+      <FixedPlugin
         hasImage={hasImage}
         setHasImage={() => setHasImage(!hasImage)}
         color={color}
         setColor={(color) => setColor(color)}
         image={image}
         setImage={(image) => setImage(image)}
-      /> */}
+      />
       <ToastContainer />
     </Container>
   );

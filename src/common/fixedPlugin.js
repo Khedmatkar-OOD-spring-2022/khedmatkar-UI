@@ -2,10 +2,10 @@ import React, { Component } from "react";
 
 import { Dropdown, Badge, Button, Form } from "react-bootstrap";
 
-import sideBarImage1 from "./../assets/img/welcome3.jpg";
-import sideBarImage2 from "./../assets/img/welcome3.jpg";
+import sideBarImage1 from "./../assets/img/welcome1.png";
+import sideBarImage2 from "./../assets/zz.jpg";
 import sideBarImage3 from "./../assets/img/welcome3.jpg";
-import sideBarImage4 from "./../assets/img/welcome3.jpg";
+import sideBarImage4 from "./../assets/shape.jpg";
 
 function FixedPlugin({
   hasImage,
@@ -32,12 +32,11 @@ function FixedPlugin({
               type="switch"
               id="custom-switch-1-image"
               checked={hasImage}
-              onChange={setHasImage}
+              onClick={() => setHasImage(!hasImage)}
             />
           </li>
           <li className="adjustments-line mt-3">
-            <p>رنگ‌بندی
-            </p>
+            <p>رنگ‌بندی</p>
             <div className="pull-right">
               <Badge
                 variant="secondary"
@@ -121,7 +120,6 @@ function FixedPlugin({
               <img alt="..." src={sideBarImage4}></img>
             </a>
           </li>
-
         </Dropdown.Menu>
       </Dropdown>
     </div>

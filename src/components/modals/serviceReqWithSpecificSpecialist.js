@@ -7,6 +7,7 @@ import { ShowError } from "../../common/errors";
 import urls from "../../common/urls";
 
 const ServiceReqWithSpecificSpecialist = ({ specialistId, specialty }) => {
+  console.log(specialty);
   const [show, setShow] = useState(false);
   const [date, onChangeDate] = useState(new Date());
   const [mainSpecialty, setMainSpecialty] = useState(
@@ -131,7 +132,7 @@ function submitRequest(
       }
     })
     .catch((error) => {
-      ShowError(error)
+      ShowError(error);
     });
 }
 export default ServiceReqWithSpecificSpecialist;

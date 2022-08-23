@@ -35,7 +35,9 @@ const Search = () => {
           <IoArrowBack />
         </Button>
       </div>
-      {specialists && <SearchPanel specialists={specialists} />}
+      {specialists &&  
+        <SearchPanel specialists={specialists} />
+    }
     </React.Fragment>
   );
 };

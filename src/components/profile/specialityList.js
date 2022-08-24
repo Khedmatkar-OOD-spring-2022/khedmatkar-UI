@@ -58,7 +58,7 @@ const SpecialityList = ({}) => {
                         <h5>
                           <Button
                             style={{ marginLeft: "1em" }}
-                            onClick={() => removeSpecialty(req.specialtyId)}
+                            onClick={() => removeSpecialty(req.id)}
                             variant="outline-danger"
                           >
                             حذف
@@ -69,7 +69,7 @@ const SpecialityList = ({}) => {
                           <h5>
                             <Button
                               style={{ marginLeft: "1em" }}
-                              onClick={() => removeSpecialty(req.specialtyId)}
+                              onClick={() => removeSpecialty(req.id)}
                               variant="outline-danger"
                             >
                               لغو

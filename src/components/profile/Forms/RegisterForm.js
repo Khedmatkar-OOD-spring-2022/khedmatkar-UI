@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import urls from "../../../common/urls";
 import { ShowError } from "../../../common/errors";
+import axios from "axios";
 
 // import utils
 
@@ -53,21 +54,18 @@ const RegisterForm = ({ onRegister, onLogin }) => {
     }),
     onSubmit: (values, { setFieldError }) => {
       values.type = typeOfUser.current.checked ? "specialist" : "customer";
-      const requestOptions = {
-        method: "POST",
-        headers: {
+      axios
+        .post(urls.auth.register(), values, {
           "Content-Type": "application/json",
-        },
-        body: JSON.stringify(values),
-      };
-      console.log(requestOptions.body);
-      fetch(urls.auth.register(), requestOptions).then((response) => {
-        if (response.status === 200) {
-          navigate("/login");
-        }
-      }).catch((error) => {
-        ShowError(error)
-      });
+        })
+        .then((response) => {
+          if (response.status === 200) {
+            navigate("/login");
+          }
+        })
+        .catch((error) => {
+          ShowError(error);
+        });
     },
   });
 
@@ -127,6 +125,7 @@ const RegisterForm = ({ onRegister, onLogin }) => {
             id={`specialist`}
           />
           <Form.Check
+            defaultChecked
             inline
             label="مشتری"
             name="type"

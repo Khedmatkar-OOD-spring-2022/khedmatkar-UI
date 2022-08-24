@@ -7,6 +7,7 @@ import urls from "../../common/urls";
 import { useFetch } from "../../utils/useFetch";
 export const EvaluationModal = ({ name, id }) => {
   const [show, setShow] = useState(false);
+  const [evalError, setError] = useState(false);
   const [questionnaire, setQuestionnaire] = useState();
   //   const [answers, setAnswer] = useState([]);
   const answers = useRef([]);
@@ -16,9 +17,7 @@ export const EvaluationModal = ({ name, id }) => {
   );
   useEffect(() => {
     if (error) {
-      toast.error("شما قبلا ارزیابی کرده اید", {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
+      setError(true);
     }
     setQuestionnaire(data);
     if (data && data.length > 0) {
@@ -50,7 +49,10 @@ export const EvaluationModal = ({ name, id }) => {
 
         <Modal.Body>
           <Form>
-            {questionnaire &&
+            {evalError ? (
+              <h3>"شما قبلا ارزیابی کرده اید"</h3>
+            ) : (
+              questionnaire &&
               questionnaire.map((q, index) => {
                 return (
                   <Form.Group>
@@ -65,7 +67,8 @@ export const EvaluationModal = ({ name, id }) => {
                     <hr />
                   </Form.Group>
                 );
-              })}
+              })
+            )}
           </Form>
         </Modal.Body>
 

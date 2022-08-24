@@ -42,9 +42,6 @@ const MainNavigation = ({ activePane }) => {
                   درباره ما
                 </Nav.Link>
                 <Nav.Link onClick={() => navigate("/login")}>{"ورود"}</Nav.Link>
-                <Nav.Item>
-                  <SearchButton />
-                </Nav.Item>
               </Nav>
             </Offcanvas.Body>
           </Navbar.Offcanvas>
